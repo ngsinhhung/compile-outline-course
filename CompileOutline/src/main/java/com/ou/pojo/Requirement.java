@@ -11,16 +11,13 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @Entity
-@Table(name = "rating")
-public class Rating {
+@Table(name = "requirements")
+public class Requirement {
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
 
     @Column(name = "type", length = 45)
     private String type;
-
-    @Column(name = "method", length = 45)
-    private String method;
 
 }

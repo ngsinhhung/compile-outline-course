@@ -8,17 +8,18 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "subject")
-public class Subject {
+@Table(name = "objectives")
+public class Objective {
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "subject_name", length = 50)
-    private String subjectName;
+    @Lob
+    @Column(name = "description")
+    private String description;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "Faculty_id", nullable = false)
-    private Faculty faculty;
+    @JoinColumn(name = "Specification_id", nullable = false)
+    private Specification specification;
 
 }

@@ -1,7 +1,12 @@
 package com.ou.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "specification_rating")
 public class SpecificationRating {
@@ -20,37 +25,5 @@ public class SpecificationRating {
 
     @Column(name = "percent")
     private Integer percent;
-
-    public SpecificationRatingId getId() {
-        return id;
-    }
-
-    public void setId(SpecificationRatingId id) {
-        this.id = id;
-    }
-
-    public Specification getSpecification() {
-        return specification;
-    }
-
-    public void setSpecification(Specification specification) {
-        this.specification = specification;
-    }
-
-    public Rating getRating() {
-        return rating;
-    }
-
-    public void setRating(Rating rating) {
-        this.rating = rating;
-    }
-
-    public Integer getPercent() {
-        return percent;
-    }
-
-    public void setPercent(Integer percent) {
-        this.percent = percent;
-    }
 
 }
