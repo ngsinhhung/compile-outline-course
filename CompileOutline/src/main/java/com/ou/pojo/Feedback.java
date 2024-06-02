@@ -1,11 +1,17 @@
 package com.ou.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "feedback")
 public class Feedback {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -21,36 +27,8 @@ public class Feedback {
     @JoinColumn(name = "Student_User_id", nullable = false)
     private Student studentUser;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Specification getSpecification() {
-        return specification;
-    }
-
-    public void setSpecification(Specification specification) {
-        this.specification = specification;
-    }
-
-    public Student getStudentUser() {
-        return studentUser;
-    }
-
-    public void setStudentUser(Student studentUser) {
-        this.studentUser = studentUser;
-    }
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "parent_feedback_id", nullable = false)
+    private Feedback parentFeedback;
 
 }
