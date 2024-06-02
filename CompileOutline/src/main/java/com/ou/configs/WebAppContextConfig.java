@@ -3,6 +3,7 @@ package com.ou.configs;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -14,8 +15,11 @@ import java.util.List;
 
 @Configuration
 @EnableWebMvc
+@EnableTransactionManagement
 @ComponentScan(basePackages = {
         "com.ou.controllers",
+        "com.ou.repositories",
+        "com.ou.services"
 })
 public class WebAppContextConfig implements WebMvcConfigurer {
     @Override
