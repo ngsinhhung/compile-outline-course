@@ -1,40 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Outlines</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-<header class="bg-primary text-white shadow-md">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center py-3">
-            <div class="d-flex align-items-center">
-                <a href="/CompileOutline" class="h4 text-white mb-0">
-                    Admin Dashboard
-                </a>
-                <nav class="ml-4 d-none d-sm-flex">
-                    <a href="/CompileOutline/admin/manage-outlines" class="nav-link text-white">Quản lý đề cương</a>
-                    <a href="/CompileOutline/admin/manage-accounts" class="nav-link text-white">Quản lý tài khoản sinh viên</a>
-                    <a href="/CompileOutline/admin/manage-courses" class="nav-link text-white">Quản lý các môn học</a>
-                </nav>
-            </div>
-            <div class="d-flex align-items-center">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="userMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="https://www.svgrepo.com/show/382095/female-avatar-girl-face-woman-user-4.svg" alt="" class="rounded-circle" style="height: 30px;">
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenuButton">
-                        <a class="dropdown-item" href="#">Thông tin cá nhân</a>
-                        <a class="dropdown-item" href="#">Đăng xuất</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
 
 <main class="container mt-4">
     <div class="bg-white p-4 rounded-lg shadow-sm">
@@ -87,9 +51,7 @@
     </div>
 </main>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <script>
     // Search function
     function searchOutlines() {
@@ -121,5 +83,3 @@
         }
     }
 </script>
-</body>
-</html>
