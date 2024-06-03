@@ -15,7 +15,10 @@ public class Rating {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "name", length = 45)
-    private String name;
+    @Column(name = "type", length = 45)
+    private String type;
+
+    @Column(name = "method", length = 45)
+    private String method;
 
 }
