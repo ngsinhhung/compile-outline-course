@@ -2,133 +2,144 @@
   Created by IntelliJ IDEA.
   User: ACER
   Date: 6/3/2024
-  Time: 1:40 PM
+  Time: 11:24 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-<header class="bg-blue-600 text-white shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <div class="flex-shrink-0 flex items-center">
-                    <a href="/CompileOutline" class="text-xl font-bold">
-                        Admin Dashboard
-                    </a>
-                </div>
-                <nav class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-                    <a href="/CompileOutline/admin/manage-outlines" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 hover:text-gray-200">
-                        Quản lý đề cương
-                    </a>
-                    <a href="/CompileOutline/admin/manage-accounts" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 hover:text-gray-200">
-                        Quảng lý tài khoản sinh viên
-                    </a>
-                    <a href="/CompileOutline/admin/manage-courses" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 hover:text-gray-200">
-                        Quản lý các môn học
-                    </a>
-                </nav>
-            </div>
-            <div class="flex items-center">
-                <div class="relative">
-                    <button type="button" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                        <span class="sr-only">Open user menu</span>
-                        <img class="h-8 w-8 rounded-full" src="https://www.svgrepo.com/show/382095/female-avatar-girl-face-woman-user-4.svg" alt="">
-                    </button>
-                    <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" style="display:none;">
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Thông tin cá nhân</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Đăng xuất</a>
-                    </div>
+<body class="bg-light">
+<header class="bg-primary text-white shadow-sm">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center py-3">
+            <a href="/CompileOutline" class="text-white h4 mb-0">Admin Dashboard</a>
+            <nav>
+                <a href="/CompileOutline/admin/manage-outlines" class="text-white ml-3">Quản lý đề cương</a>
+                <a href="/CompileOutline/admin/manage-accounts" class="text-white ml-3">Quảng lý tài khoản sinh viên</a>
+                <a href="/CompileOutline/admin/manage-courses" class="text-white ml-3">Quản lý các môn học</a>
+                <a href="/CompileOutline/admin/assignment-teacher" class="text-white ml-3">Phân công biên soạn</a>
+            </nav>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="userMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="https://www.svgrepo.com/show/382095/female-avatar-girl-face-woman-user-4.svg" class="rounded-circle" alt="User Avatar" width="30" height="30">
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenuButton">
+                    <a class="dropdown-item" href="#">Thông tin cá nhân</a>
+                    <a class="dropdown-item" href="#">Đăng xuất</a>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<div class="container mx-auto mt-8">
-    <div class="mb-8">
-        <h2 class="text-xl font-semibold mb-2">Danh sách môn học chưa có đề cương</h2>
-        <p class="mb-2">Danh sách đề cương tổng cộng : 4</p>
-        <table class="table-auto w-full">
-            <thead>
-            <tr>
-                <th class="px-4 py-2 border">STT</th>
-                <th class="px-4 py-2 border">Mã môn</th>
-                <th class="px-4 py-2 border">Tên môn</th>
-                <th class="px-4 py-2 border">Khoa</th>
-                <th class="px-4 py-2 border">Giảng viên biên soạn</th>
-                <th class="px-4 py-2 border">Thao Tác</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Dữ liệu môn học chưa có đề cương sẽ được thêm từ backend -->
-            <tr>
-                <td class="border px-4 py-2">1</td>
-                <td class="border px-4 py-2">CSE101</td>
-                <td class="border px-4 py-2">Introduction to Computer Science</td>
-                <td class="border px-4 py-2">Computer Science</td>
-                <td class="border px-4 py-2">
-                    <select class="bg-white shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        <option>Giảng viên A</option>
-                        <option>Giảng viên B</option>
-                        <option>Giảng viên C</option>
-                    </select>
-                </td>
-                <td class="border px-4 py-2">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Lưu</button>
-                </td>
-                
-            </tr>
-            <tr>
-                <td class="border px-4 py-2">2</td>
-                <td class="border px-4 py-2">MATH201</td>
-                <td class="border px-4 py-2">Calculus</td>
-                <td class="border px-4 py-2">Mathematics</td>
-                <td class="border px-4 py-2">
-                    <select class="bg-white shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        <option>Giảng viên A</option>
-                        <option>Giảng viên B</option>
-                        <option>Giảng viên C</option>
-                    </select>
-                </td>
-                <td class="border px-4 py-2">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Lưu</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="border px-4 py-2">3</td>
-                <td class="border px-4 py-2">ENG101</td>
-                <td class="border px-4 py-2">English Composition</td>
-                <td class="border px-4 py-2">English</td>
-                <td class="border px-4 py-2">
-                    <select class="bg-white shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        <option>Giảng viên A</option>
-                        <option>Giảng viên B</option>
-                        <option>Giảng viên C</option>
-                    </select>
-                </td>
-                <td class="border px-4 py-2">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Lưu</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+<div class="py-4">
+    <div class="container">
+        <div class="mt-4">
+            <h2 class="h4">Danh sách môn học chưa có đề cương</h2>
+            <p>Danh sách đề cương tổng cộng : 4</p>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Mã môn</th>
+                    <th scope="col">Tên môn</th>
+                    <th scope="col">Khoa</th>
+                    <th scope="col">Giảng viên biên soạn</th>
+                    <th scope="col">Thao Tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Dữ liệu môn học chưa có đề cương sẽ được thêm từ backend -->
+                <tr>
+                    <td>1</td>
+                    <td>CSE101</td>
+                    <td>Introduction to Computer Science</td>
+                    <td>Computer Science</td>
+                    <td>
+                        <select class="form-control">
+                            <option>Giảng viên A</option>
+                            <option>Giảng viên B</option>
+                            <option>Giảng viên C</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary">Lưu</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>MATH201</td>
+                    <td>Calculus</td>
+                    <td>Mathematics</td>
+                    <td>
+                        <select class="form-control">
+                            <option>Giảng viên A</option>
+                            <option>Giảng viên B</option>
+                            <option>Giảng viên C</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary">Lưu</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>ENG101</td>
+                    <td>English Composition</td>
+                    <td>English</td>
+                    <td>
+                        <select class="form-control">
+                            <option>Giảng viên A</option>
+                            <option>Giảng viên B</option>
+                            <option>Giảng viên C</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary">Lưu</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- Pagination -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
-    
 </div>
-<div class="flex justify-center">
-    <nav class="inline-flex">
-        <a href="#" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4">1</a>
-        <a href="#" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4">2</a>
-        <a href="#" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4">3</a>
-        <a href="#" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-r">Next</a>
-    </nav>
-</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Toggle user menu
+    $('#userMenuButton').on('click', function () {
+        $(this).next('.dropdown-menu').toggle();
+    });
+
+    // Close user menu when clicking outside
+    $(window).on('click', function (e) {
+        if (!$(e.target).closest('#userMenuButton').length) {
+            $('.dropdown-menu').hide();
+        }
+    });
+</script>
 </body>
 </html>
