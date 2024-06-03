@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.Instant;
 
 @Getter
 @Setter
@@ -25,12 +24,5 @@ public class Specification {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "Subject_id", nullable = false)
     private Subject subject;
-
-    @Column(name = "createdAt")
-    private Instant createdAt;
-
-    @Lob
-    @Column(name = "description")
-    private String description;
 
 }
