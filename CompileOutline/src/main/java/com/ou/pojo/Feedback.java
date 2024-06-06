@@ -15,7 +15,7 @@ public class Feedback {
     private Integer id;
 
     @Lob
-    @Column(name = "content")
+    @Column(name = "content", nullable = false)
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -26,8 +26,8 @@ public class Feedback {
     @JoinColumn(name = "Student_User_id", nullable = false)
     private Student studentUser;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "parent_feedback_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_feedback_id")
     private Feedback parentFeedback;
 
 }
