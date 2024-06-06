@@ -13,20 +13,28 @@ document.getElementById("addStudentAccount").addEventListener("click", function(
 });
 
 document.addEventListener('click', function(event) {
-    if (event.target.matches('.fa-toggle-on')) {
+    if (event.target.classList.contains('fa-toggle-on')) {
         event.target.classList.remove('fa-toggle-on', 'text-success');
         event.target.classList.add('fa-toggle-off', 'text-secondary');
         event.target.title = "Activate";
         alert('Account deactivated!');
-        event.target.parentElement.previousElementSibling.innerHTML = '<span class="badge badge-danger">Inactive</span>';
-    } else if (event.target.matches('.fa-toggle-off')) {
+        let badge = event.target.closest('tr').querySelector('.badge');
+        badge.textContent = 'Inactive';
+        badge.classList.remove('bg-success', 'text-white');
+        badge.classList.add('bg-danger', 'text-white');
+    } else if (event.target.classList.contains('fa-toggle-off')) {
         event.target.classList.remove('fa-toggle-off', 'text-secondary');
         event.target.classList.add('fa-toggle-on', 'text-success');
         event.target.title = "Deactivate";
         alert('Account activated!');
-        event.target.parentElement.previousElementSibling.innerHTML = '<span class="badge badge-success">Active</span>';
+        let badge = event.target.closest('tr').querySelector('.badge');
+        badge.textContent = 'Active';
+        badge.classList.remove('bg-danger', 'text-black');
+        badge.classList.add('bg-success', 'text-white');
     }
 });
+
+
 
 
 document.querySelectorAll('.fa-trash-alt').forEach(item => {

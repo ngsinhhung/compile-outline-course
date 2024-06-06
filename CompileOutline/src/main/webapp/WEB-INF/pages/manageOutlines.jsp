@@ -3,8 +3,8 @@
 <main class="container mt-4">
     <div class="bg-white p-4 rounded-lg shadow-sm">
         <h1 class="h4 mb-4">Quản lý đề cương</h1>
-        <div class="d-flex mb-4">
-            <select class="custom-select w-25 mr-2" id="searchFilter">
+        <div class="d-flex gap-2 mb-4" style="gap:2px">
+            <select class="custom-select w-25 mr-2 rounded" id="searchFilter">
                 <option value="all">Tất cả</option>
                 <option value="lecturer">Giảng viên</option>
                 <option value="status">Tình trạng</option>
