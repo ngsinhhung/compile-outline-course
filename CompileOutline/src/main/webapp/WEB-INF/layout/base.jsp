@@ -15,6 +15,32 @@
         <tiles:insertAttribute name="title"/>
     </title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        *{
+            font-size: 17px;
+        }
+        .nav-tabs .nav-link {
+            color: #007bff;
+            border: none;
+            border-bottom: 3px solid transparent;
+        }
+        .nav-tabs .nav-link.active {
+            border-color: #007bff;
+            font-weight: bold;
+        }
+        .nav-tabs .nav-link:hover {
+            border-color: #007bff;
+        }
+
+        .action-icons i {
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .action-icons i:hover {
+            color: #007bff;
+        }
+    </style>
 </head>
 <body>
     <tiles:insertAttribute name="header"/>
@@ -23,20 +49,20 @@
     </section>
     <tiles:insertAttribute name="footer"/>
 </body>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-    // Toggle user menu
     $('#userMenuButton').on('click', function () {
         $(this).next('.dropdown-menu').toggle();
     });
 
-    // Close user menu when clicking outside
     $(window).on('click', function (e) {
         if (!$(e.target).closest('#userMenuButton').length) {
             $('.dropdown-menu').hide();
         }
     });
+    
 </script>
 </html>

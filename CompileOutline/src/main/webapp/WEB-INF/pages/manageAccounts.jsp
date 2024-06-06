@@ -6,43 +6,117 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <div class="container mt-4">
-    <h1 class="h3 mb-4">Quản lý tài khoản sinh viên</h1>
-    
-    <div class="mb-4">
-        <h2 class="h5">Danh sách tài khoản sinh viên</h2>
-        <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                    <img class="rounded-circle mr-2" src="https://randomuser.me/api/portraits/men/1.jpg" alt="Student Avatar" style="height: 40px;">
-                    <span class="font-weight-bold">Nguyễn Văn A</span>
-                </div>
-                <div>
-                    <button class="btn btn-primary btn-sm mr-2">Sửa</button>
-                    <button class="btn btn-danger btn-sm">Xóa</button>
-                </div>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                    <img class="rounded-circle mr-2" src="https://randomuser.me/api/portraits/women/2.jpg" alt="Student Avatar" style="height: 40px;">
-                    <span class="font-weight-bold">Trần Thị B</span>
-                </div>
-                <div>
-                    <button class="btn btn-primary btn-sm mr-2">Sửa</button>
-                    <button class="btn btn-danger btn-sm">Xóa</button>
-                </div>
-            </li>
-        </ul>
+    <h1 class="h3 mb-4">Quản lý tài khoản</h1>
+    <ul class="nav nav-tabs" id="accountTabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="students-tab" data-toggle="tab" href="#students" role="tab" aria-controls="students" aria-selected="true">Tài khoản sinh viên</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="teachers-tab" data-toggle="tab" href="#teachers" role="tab" aria-controls="teachers" aria-selected="false">Tài khoản giảng viên</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="accountTabsContent">
+        <!-- Tab Sinh Viên -->
+        <div class="tab-pane fade show active" id="students" role="tabpanel" aria-labelledby="students-tab">
+            <div class="mt-4">
+                <h2 class="h5">Danh sách tài khoản sinh viên</h2>
+                <button type="button" class="btn btn-primary mb-3" id="addStudentAccount">Thêm tài khoản sinh viên</button>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>john@example.com</td>
+                        <td>
+                            <span class="badge badge-success">Active</span>
+                        </td>
+                        <td class="action-icons">
+                            <i class="fas fa-toggle-on text-success" title="Deactivate"></i>
+                            <i class="fas fa-trash-alt text-danger" title="Delete"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Jane Doe</td>
+                        <td>jane@example.com</td>
+                        <td>
+                            <span class="badge badge-danger ui-state-active" >Inactive</span>
+                        </td>
+                        <td class="action-icons">
+                            <i class="fas fa-toggle-off text-secondary" title="Activate"></i>
+                            <i class="fas fa-trash-alt text-danger" title="Delete"></i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="tab-pane fade" id="teachers" role="tabpanel" aria-labelledby="teachers-tab">
+            <div class="mt-4">
+                <h2 class="h5">Danh sách tài khoản giảng viên</h2>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>David Smith</td>
+                        <td>david@example.com</td>
+                        <td>
+                            <span class="badge badge-success">Active</span>
+                        </td>
+                        <td class="action-icons">
+                            <i class="fas fa-toggle-on text-success" title="Deactivate"></i>
+                            <i class="fas fa-trash-alt text-danger" title="Delete"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Emily Johnson</td>
+                        <td>emily@example.com</td>
+                        <td>
+                            <span class="badge badge-warning">Inactive</span>
+                        </td>
+                        <td class="action-icons">
+                            <i class="fas fa-toggle-off text-secondary" title="Activate"></i>
+                            <i class="fas fa-trash-alt text-danger" title="Delete"></i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="tab-pane fade" id="teacher" role="tabpanel" aria-labelledby="teachers-tab">
+            <div class="mt-4">
+                <h2 class="h5">Danh sách tài khoản giảng viên</h2>
+                <table class="table">
+                </table>
+            </div>
+        </div>
     </div>
-    
-    <button class="btn btn-primary" onclick="openModal()">Tạo tài khoản sinh viên</button>
 </div>
 
-<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade" id="studentAccountModal" tabindex="-1" role="dialog" aria-labelledby="studentAccountModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tạo tài khoản sinh viên</h5>
+                <h5 class="modal-title" id="studentAccountModalLabel">Thêm tài khoản sinh viên</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -50,40 +124,33 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="avatar">Avatar:</label>
-                        <input type="file" class="form-control" id="avatar" name="avatar">
+                        <label for="avatar">Avatar</label>
+                        <input type="file" class="form-control-file" id="avatar">
                     </div>
                     <div class="form-group">
-                        <label for="firstName">Họ:</label>
-                        <input type="text" class="form-control" id="firstName" name="firstName">
+                        <label for="firstName">First Name</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="First Name">
                     </div>
                     <div class="form-group">
-                        <label for="lastName">Tên:</label>
-                        <input type="text" class="form-control" id="lastName" name="lastName">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Last Name">
                     </div>
                     <div class="form-group">
-                        <label for="username">Tên Tài Khoản:</label>
-                        <input type="text" class="form-control" id="username" name="username">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Email">
                     </div>
                     <div class="form-group">
-                        <label for="password">Mật khẩu:</label>
-                        <input type="password" class="form-control" id="password" name="password">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" placeholder="Username">
                     </div>
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-primary">Tạo tài khoản</button>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password">
                     </div>
+                    <button type="submit" class="btn btn-primary">Tạo</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    function openModal() {
-        $('#myModal').modal('show');
-    }
-
-    function closeModal() {
-        $('#myModal').modal('hide');
-    }
-</script>
+<script src="<c:url value="/resources/JS/manageAccount.js" />"></script>
