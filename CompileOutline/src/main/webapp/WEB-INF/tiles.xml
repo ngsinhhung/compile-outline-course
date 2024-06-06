@@ -33,4 +33,8 @@
         <put-attribute name="title" value="Trang chủ quản trị" />
         <put-attribute name="content" value="/WEB-INF/pages/manageCourses.jsp" />
     </definition>
+    <definition name="teacherHome" extends="baseLayout">
+        <put-attribute name="title" value="Home Page" />
+        <put-attribute name="content" value="/WEB-INF/pages/teacherHome.jsp" />
+    </definition>
 </tiles-definitions>
