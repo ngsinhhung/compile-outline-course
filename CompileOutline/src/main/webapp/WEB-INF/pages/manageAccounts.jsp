@@ -1,6 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<style>
+    .form-switch .form-check-input {
+        width: 2.5em;
+        height: 1.5em;
+    }
+    .form-switch .form-check-input:checked {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+</style>
+
 <div class="container mt-4">
     <h1 class="h3 mb-4">Quản lý tài khoản</h1>
     <ul class="nav nav-tabs" id="accountTabs" role="tablist">
@@ -107,28 +118,20 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="avatar">Avatar</label>
-                        <input type="file" class="form-control-file" id="avatar">
-                    </div>
-                    <div class="form-group">
-                        <label for="firstName">First Name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="First Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Last Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Email">
-                    </div>
-                    <div class="form-group">
                         <label for="username">Username</label>
                         <input type="text" class="form-control" id="username" placeholder="Username">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" placeholder="Password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Role</label>
+                        <input type="text" class="form-control" id="role" value="STUDENT" readonly>
+                    </div>
+                    <div class="form-check form-switch mb-3 d-flex align-items-center">
+                        <label class="form-check-label me-3" for="is_active">Is Active</label>
+                        <input class="form-check-input" type="checkbox" id="is_active">
                     </div>
                     <button type="submit" class="btn btn-primary">Tạo</button>
                 </form>
