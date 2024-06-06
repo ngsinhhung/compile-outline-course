@@ -1,14 +1,25 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<style>
+    .form-switch .form-check-input {
+        width: 2.5em;
+        height: 1.5em;
+    }
+    .form-switch .form-check-input:checked {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+</style>
+
 <div class="container mt-4">
     <h1 class="h3 mb-4">Quản lý tài khoản</h1>
     <ul class="nav nav-tabs" id="accountTabs" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="students-tab" data-toggle="tab" href="#students" role="tab" aria-controls="students" aria-selected="true">Tài khoản sinh viên</a>
+            <a class="nav-link active" id="students-tab" data-bs-toggle="tab" href="#students" role="tab" aria-controls="students" aria-selected="true">Tài khoản sinh viên</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="teachers-tab" data-toggle="tab" href="#teachers" role="tab" aria-controls="teachers" aria-selected="false">Tài khoản giảng viên</a>
+            <a class="nav-link" id="teachers-tab" data-bs-toggle="tab" href="#teachers" role="tab" aria-controls="teachers" aria-selected="false">Tài khoản giảng viên</a>
         </li>
     </ul>
     <div class="tab-content" id="accountTabsContent">
@@ -30,7 +41,7 @@
                         <td>John Doe</td>
                         <td>john@example.com</td>
                         <td>
-                            <span class="badge badge-success">Active</span>
+                            <span class="badge bg-success text-white">Active</span>
                         </td>
                         <td class="action-icons">
                             <i class="fas fa-toggle-on text-success" title="Deactivate"></i>
@@ -41,7 +52,7 @@
                         <td>Jane Doe</td>
                         <td>jane@example.com</td>
                         <td>
-                            <span class="badge badge-danger ui-state-active" >Inactive</span>
+                            <span class="badge bg-danger text-white">Inactive</span>
                         </td>
                         <td class="action-icons">
                             <i class="fas fa-toggle-off text-secondary" title="Activate"></i>
@@ -70,7 +81,7 @@
                         <td>David Smith</td>
                         <td>david@example.com</td>
                         <td>
-                            <span class="badge badge-success">Active</span>
+                            <span class="badge bg-success text-white">Active</span>
                         </td>
                         <td class="action-icons">
                             <i class="fas fa-toggle-on text-success" title="Deactivate"></i>
@@ -81,7 +92,7 @@
                         <td>Emily Johnson</td>
                         <td>emily@example.com</td>
                         <td>
-                            <span class="badge badge-warning">Inactive</span>
+                            <span class="badge bg-warning text-dark">Inactive</span>
                         </td>
                         <td class="action-icons">
                             <i class="fas fa-toggle-off text-secondary" title="Activate"></i>
@@ -100,35 +111,25 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="studentAccountModalLabel">Thêm tài khoản sinh viên</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="form-group">
-                        <label for="avatar">Avatar</label>
-                        <input type="file" class="form-control-file" id="avatar">
-                    </div>
-                    <div class="form-group">
-                        <label for="firstName">First Name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="First Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Last Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Email">
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Username</label>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
                         <input type="text" class="form-control" id="username" placeholder="Username">
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" placeholder="Password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Role</label>
+                        <input type="text" class="form-control" id="role" value="STUDENT" readonly>
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="is_active">
+                        <label class="form-check-label" for="is_active">Is Active</label>
                     </div>
                     <button type="submit" class="btn btn-primary">Tạo</button>
                 </form>
@@ -136,4 +137,5 @@
         </div>
     </div>
 </div>
+
 <script src="<c:url value="/resources/JS/manageAccount.js" />"></script>

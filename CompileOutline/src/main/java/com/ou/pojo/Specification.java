@@ -19,19 +19,15 @@ public class Specification {
     @Column(name = "credits", nullable = false)
     private Integer credits;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "Lecturer_User_id", nullable = false)
-    private Lecturer lecturerUser;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "Subject_id", nullable = false)
-    private Subject subject;
-
     @Column(name = "createdAt")
     private Instant createdAt;
 
     @Lob
     @Column(name = "description")
     private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "Assignments_id", nullable = false)
+    private Assignment assignments;
 
 }

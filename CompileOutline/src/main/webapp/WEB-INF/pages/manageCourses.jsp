@@ -4,7 +4,7 @@
     <h1 class="h3 mb-4">Quản lý môn học</h1>
     <!-- Form to add new course -->
     <form id="addCourseForm" class="mb-4">
-        <div class="form-row">
+        <div class="row mb-2">
             <div class="form-group col-md-6">
                 <label for="courseName">Tên môn học:</label>
                 <input type="text" class="form-control" id="courseName" name="courseName" required>
