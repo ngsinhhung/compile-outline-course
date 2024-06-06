@@ -29,4 +29,8 @@
         <put-attribute name="title" value="Trang chủ quản trị" />
         <put-attribute name="content" value="/WEB-INF/pages/assignmentTeachers.jsp" />
     </definition>
+    <definition name="manageCourses" extends="baseLayout">
+        <put-attribute name="title" value="Trang chủ quản trị" />
+        <put-attribute name="content" value="/WEB-INF/pages/manageCourses.jsp" />
+    </definition>
 </tiles-definitions>

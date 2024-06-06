@@ -14,43 +14,44 @@
             <button class="btn btn-primary" onclick="searchOutlines()">Search</button>
         </div>
         
-        <table class="table table-bordered">
-            <thead class="thead-light">
-            <tr>
-                <th>Id</th>
-                <th>Mã đề cương</th>
-                <th>Tên môn học</th>
-                <th>Tình trạng đề cương</th>
-                <th>Giảng viên biên soạn</th>
-                <th>Thao tác</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>1</td>
-                <td>DC001</td>
-                <td>Môn học 1</td>
-                <td>Đã nộp</td>
-                <td>Nguyễn Văn A</td>
-                <td>
-                    <button class="btn btn-danger btn-sm">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>DC002</td>
-                <td>Môn học 2</td>
-                <td>Chưa nộp</td>
-                <td>Trần Thị B</td>
-                <td>
-                    <button class="btn btn-danger btn-sm">Delete</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                <tr>
+                    <th>Id</th>
+                    <th>Mã đề cương</th>
+                    <th>Tên môn học</th>
+                    <th>Tình trạng đề cương</th>
+                    <th>Giảng viên biên soạn</th>
+                    <th>Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>DC001</td>
+                    <td>Môn học 1</td>
+                    <td>Đã nộp</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>DC002</td>
+                    <td>Môn học 2</td>
+                    <td>Chưa nộp</td>
+                    <td>Trần Thị B</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </main>
-
 
 <script>
     // Search function
