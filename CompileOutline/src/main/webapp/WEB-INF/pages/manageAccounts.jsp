@@ -1,13 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ACER
-  Date: 6/3/2024
-  Time: 1:19 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 
 <div class="container mt-4">
     <h1 class="h3 mb-4">Quản lý tài khoản</h1>
@@ -20,7 +12,6 @@
         </li>
     </ul>
     <div class="tab-content" id="accountTabsContent">
-        <!-- Tab Sinh Viên -->
         <div class="tab-pane fade show active" id="students" role="tabpanel" aria-labelledby="students-tab">
             <div class="mt-4">
                 <h2 class="h5">Danh sách tài khoản sinh viên</h2>
@@ -98,14 +89,6 @@
                         </td>
                     </tr>
                     </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <div class="tab-pane fade" id="teacher" role="tabpanel" aria-labelledby="teachers-tab">
-            <div class="mt-4">
-                <h2 class="h5">Danh sách tài khoản giảng viên</h2>
-                <table class="table">
                 </table>
             </div>
         </div>
