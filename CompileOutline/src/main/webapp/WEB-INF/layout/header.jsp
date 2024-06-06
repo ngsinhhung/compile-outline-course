@@ -16,16 +16,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-white"  href="/CompileOutline/admin/manage-outlines">Quản lý đề cương</a>
+                        <a class="nav-link text-white fs-5"  href="/CompileOutline/admin/manage-outlines">Quản lý đề cương</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white"  href="/CompileOutline/admin/manage-accounts">Quản lý tài khoản sinh viên</a>
+                        <a class="nav-link text-white fs-5"  href="/CompileOutline/admin/manage-accounts">Quản lý tài khoản</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white"  href="/CompileOutline/admin/manage-courses">Quản lý các môn học</a>
+                        <a class="nav-link text-white fs-5"  href="/CompileOutline/admin/manage-courses">Quản lý các môn học</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white"  href="/CompileOutline/admin/assignment-teacher">Phân công biên soạn</a>
+                        <a class="nav-link text-white fs-5"  href="/CompileOutline/admin/assignment-teacher">Phân công biên soạn</a>
                     </li>
                 </ul>
                 <div class="dropdown">
