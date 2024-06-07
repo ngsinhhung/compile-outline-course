@@ -15,7 +15,7 @@
                     <a class="nav-link text-white" href="/CompileOutline/admin/manage-accounts">Quản lý tài khoản</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/CompileOutline/admin/manage-courses">Quản lý các môn học</a>
+                    <a class="nav-link text-white" href="/CompileOutline/admin/manage-courses">Quản lý các môn học và khoa</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="/CompileOutline/admin/assignment-teacher">Phân công biên soạn</a>

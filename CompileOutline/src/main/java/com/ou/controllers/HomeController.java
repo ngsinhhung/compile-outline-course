@@ -34,6 +34,11 @@ public class HomeController {
         return "teacherHome";
     }
 
+    @RequestMapping("/teacher/chat")
+    public String chatPage() {
+        return "chatpage";
+    }
+
 
 
 }

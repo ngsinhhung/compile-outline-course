@@ -1,21 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<style>
-    .form-switch .form-check-input {
-        width: 2.5em;
-        height: 1.5em;
-    }
-    .form-switch .form-check-input:checked {
-        background-color: #0d6efd;
-        border-color: #0d6efd;
-    }
-</style>
+
 
 <div class="container mt-4">
     <h1 class="h3 mb-4">Quản lý tài khoản</h1>
     <ul class="nav nav-tabs" id="accountTabs" role="tablist">
-        <li class="nav-item">
+        <li class="nav-item ">
             <a class="nav-link active" id="students-tab" data-bs-toggle="tab" href="#students" role="tab" aria-controls="students" aria-selected="true">Tài khoản sinh viên</a>
         </li>
         <li class="nav-item">

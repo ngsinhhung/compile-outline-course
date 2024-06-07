@@ -34,9 +34,6 @@ document.addEventListener('click', function(event) {
     }
 });
 
-
-
-
 document.querySelectorAll('.fa-trash-alt').forEach(item => {
     item.addEventListener('click', function() {
         alert('Delete action clicked!');
