@@ -41,33 +41,17 @@
             color: #007bff;
         }
         
-        .chat-container {
-            height: 100vh;
-            border-radius: 0;
-            background-color: #ffffff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .chat-header {
-            background-color: #343a40;
-            color: white;
-            border-bottom: 1px solid #495057;
-        }
+        
         .chat-list {
-            height: calc(100vh - 130px);
+            height: calc(90vh - 130px);
             overflow-y: auto;
             border-right: 1px solid #dee2e6;
         }
         .chat-messages {
-            height: calc(100vh - 130px);
+            height: calc(90vh - 130px);
             overflow-y: auto;
         }
-        .message-incoming, .message-outgoing {
-            max-width: 75%;
-            padding: 10px 15px;
-            border-radius: 20px;
-            margin-bottom: 10px;
-            animation: fadeIn 0.5s;
-        }
+       
         .message-incoming {
             background-color: #e9ecef;
             color: #333;
@@ -82,27 +66,8 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        .chat-footer {
-            border-top: 1px solid #dee2e6;
-        }
-        .input-group > .form-control {
-            border-top-left-radius: 0.375rem;
-            border-bottom-left-radius: 0.375rem;
-        }
-        .input-group-text {
-            border-top-right-radius: 0.375rem;
-            border-bottom-right-radius: 0.375rem;
-        }
-        .input-group-text, .fas {
-            color: #007bff;
-        }
-        .btn-custom {
-            background-color: #007bff;
-            color: white;
-        }
-        .btn-custom:hover {
-            background-color: #0056b3;
-        }
+      
+    
     </style>
 </head>
 <body>
