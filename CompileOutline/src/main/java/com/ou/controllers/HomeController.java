@@ -38,6 +38,10 @@ public class HomeController {
     public String chatPage() {
         return "chatpage";
     }
+    @RequestMapping("/teacher/create-specification")
+    public String createSpecification() {
+        return "createSpecification";
+    }
 
 
 

@@ -40,5 +40,6 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/JS/**").addResourceLocations("/resources/JS/");
+        registry.addResourceHandler("/CSS/**").addResourceLocations("/resources/CSS/");
     }
 }
