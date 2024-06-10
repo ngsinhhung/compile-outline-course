@@ -45,4 +45,8 @@
         <put-attribute name="title" value="Home Page" />
         <put-attribute name="content" value="/WEB-INF/pages/createSpecification.jsp" />
     </definition>
+    <definition name="register" extends="baseLayout">
+        <put-attribute name="title" value="Home Page" />
+        <put-attribute name="content" value="/WEB-INF/pages/register.jsp" />
+    </definition>
 </tiles-definitions>

@@ -42,7 +42,10 @@ public class HomeController {
     public String createSpecification() {
         return "createSpecification";
     }
-
+    @RequestMapping("/teacher/register")
+    public String registerTeacher() {
+        return "register";
+    }
 
 
 }
