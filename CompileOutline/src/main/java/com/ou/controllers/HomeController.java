@@ -10,42 +10,40 @@ public class HomeController {
         return "admin";
     }
 
-    @RequestMapping("/admin/manage-outlines")
-    public String manageOutlines() {
-        return "manageOutlines";
-    }
 
-    @RequestMapping("/admin/manage-accounts")
-    public String manageAccounts() {
-        return "manageAccounts";
-    }
+//    @RequestMapping("/admin/manage-outlines")
+//    public String manageOutlines() {
+//        return "manageOutlines";
+//    }
+//
+//    @RequestMapping("/admin/manage-accounts")
+//    public String manageAccounts() {
+//        return "manageAccounts";
+//    }
+//
+//    @RequestMapping("/admin/manage-courses")
+//    public String manageCourses() {
+//        return "manageCourses";
+//    }
+//
+//    @RequestMapping("/admin/assignment-teacher")
+//    public String assignmentTeacher() {
+//        return "assignmentTeachers";
+//    }
+//    @RequestMapping("/teacher/home")
+//    public String teacherHome() {
+//        return "teacherHome";
+//    }
+//
+//    @RequestMapping("/teacher/chat")
+//    public String chatPage() {
+//        return "chatpage";
+//    }
+//    @RequestMapping("/teacher/create-specification")
+//    public String createSpecification() {
+//        return "createSpecification";
+//    }
 
-    @RequestMapping("/admin/manage-courses")
-    public String manageCourses() {
-        return "manageCourses";
-    }
-
-    @RequestMapping("/admin/assignment-teacher")
-    public String assignmentTeacher() {
-        return "assignmentTeachers";
-    }
-    @RequestMapping("/teacher/home")
-    public String teacherHome() {
-        return "teacherHome";
-    }
-
-    @RequestMapping("/teacher/chat")
-    public String chatPage() {
-        return "chatpage";
-    }
-    @RequestMapping("/teacher/create-specification")
-    public String createSpecification() {
-        return "createSpecification";
-    }
-    @RequestMapping("/teacher/register")
-    public String registerTeacher() {
-        return "register";
-    }
 
 
 }

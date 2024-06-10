@@ -7,91 +7,231 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         <tiles:insertAttribute name="title"/>
     </title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+          integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+          crossorigin="anonymous"/>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+    />
     <style>
         *{
-            font-size: 17px;
+            margin: 0;
+            padding: 0;
         }
-        .nav-tabs .nav-link {
-            color: #007bff;
-            border: none;
-            border-bottom: 3px solid transparent;
+        html ::-webkit-scrollbar {
+            width: 10px;
         }
-        .nav-tabs .nav-link.active {
-            border-color: #007bff;
-            font-weight: bold;
+        html ::-webkit-scrollbar-thumb {
+            border-radius: 4px;
+            background-color: rgba(22, 24, 35, 0.06);
         }
-        .nav-tabs .nav-link:hover {
-            border-color: #007bff;
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #343a40;
+            font-size: 1.1rem;
         }
 
-        .action-icons i {
-            cursor: pointer;
-            margin-right: 10px;
+        .sidebar {
+            background-color: #ffffff;
+            color: #343a40;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 1000;
         }
-        .action-icons i:hover {
+
+        .sidebar a {
+            color: #343a40;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .sidebar a:hover {
             color: #007bff;
         }
+
+        .sidebar .nav-link.active {
+            background-color: rgba(0, 123, 255, 0.1);
+            color: #007bff;
+        }
+
+        .sidebar .collapse .nav-link {
+            padding-left: 30px;
+        }
+
+        .sidebar .collapse.show .nav-link {
+            background-color: rgba(0, 123, 255, 0.2);
+            color: #007bff;
+        }
+
+        .content {
+            background-color: #ffffff;
+            padding: 30px;
+            height: 100vh;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            margin-left: 231px;
+        }
+        .sidebar-header{
+            display: none !important;
+        }
         
-        
-        .chat-list {
-            height: calc(90vh - 130px);
-            overflow-y: auto;
-            border-right: 1px solid #dee2e6;
+        @media (max-width: 767px) {
+            .sidebar {
+                width: 100%;
+                display: none;
+            }
+
+            .sidebar.active {
+                display: block;
+                width: 90%;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+
+            .sidebar-header {
+                display: block !important;
+            }
+            .name-app {
+                display: none;
+            }
+
+            .sidebar-header h4 {
+                display: block !important;;
+            }
+            .sidebar-header{
+                display: block !important;;
+            }
+            .name-app h5 {
+                display: block;
+            }
         }
-        .chat-messages {
-            height: calc(90vh - 130px);
-            overflow-y: auto;
-        }
-       
-        .message-incoming {
-            background-color: #e9ecef;
-            color: #333;
-            align-self: flex-start;
-        }
-        .message-outgoing {
-            background-color: #007bff;
-            color: white;
-            align-self: flex-end;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-      
     
+      
     </style>
 </head>
 <body>
-    <tiles:insertAttribute name="header"/>
-    <section>
-        <tiles:insertAttribute name="content"/>
-    </section>
-    <tiles:insertAttribute name="footer"/>
-</body>
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<tiles:insertAttribute name="header"/>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 sidebar">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
+                <div class="name-app">
+                    <h5 class="fw-bold fs-3">
+                        <i class="fas fa-book"></i>
+                        Quản lý đề cương
+                    </h5>
+                </div>
+                
+                <div class="sidebar-header  w-100 mb-3">
+                    <i class="fas fa-times close-icon" style="color: black" onclick="toggleSidebar()"></i>
+                </div>
+                <ul class="nav nav-pills " id="menu">
+                    <li class="nav-item w-100 my-1">
+                        <a href="#" class="nav-link align-middle px-0">
+                            <i class="fas fa-th-large"></i>
+                            <span class="ms-1 ">Quản lý đề cương</span>
+                        </a>
+                    </li>
+                    <li class="nav-item w-100 my-1">
+                        <a href="#" class="nav-link px-0 align-middle">
+                            <i class="fas fa-tasks"></i>
+                            <span class="ms-1 ">Phân công biên soạn</span>
+                        </a>
+                    </li>
+                    <li class="nav-item w-100 my-1">
+                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span class="ms-1 ">Quản lý đào tạo</span>
+                        </a>
+                        <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="#" class="nav-link p-2 mb-3">
+                                    <i class="fas fa-university"></i>
+                                    <span class="">Khoa</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link p-2 mb-3">
+                                    <i class="fas fa-book"></i>
+                                    <span class="">Môn học</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item w-100 my-1">
+                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fas fa-user"></i>
+                            <span class="ms-1 ">Quản lý tài khoản</span>
+                        </a>
+                        <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="#" class="nav-link p-2 mb-3">
+                                    <i class="fas fa-user-shield"></i>
+                                    <span class="">Tài khoản quản trị</span>
+                                </a>
+                            </li>
+                            <li class="w-100">
+                                <a href="#" class="nav-link p-2 mb-3">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    <span class="">Tài khoản giảng viên</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link p-2 mb-3">
+                                    <i class="fas fa-user-graduate"></i>
+                                    <span class="">Tài khoản sinh viên</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col content">
+            <tiles:insertAttribute name="content"/>
+        </div>
+    </div>
+</div>
+<tiles:insertAttribute name="footer"/>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+></script>
 <script>
-    $('#userMenuButton').on('click', function () {
-        $(this).next('.dropdown-menu').toggle();
-    });
+    function toggleSidebar() {
+        document.querySelector('.sidebar').classList.toggle('active');
+    }
 
-    $(window).on('click', function (e) {
-        if (!$(e.target).closest('#userMenuButton').length) {
-            $('.dropdown-menu').hide();
+    document.addEventListener("DOMContentLoaded", function () {
+        if (window.innerWidth <= 767) {
+            document.querySelector('.sidebar').classList.add('active');
         }
     });
-    
-    
 </script>
+</body>
 </html>
+

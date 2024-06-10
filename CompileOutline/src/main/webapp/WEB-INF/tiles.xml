@@ -11,42 +11,38 @@
     </definition>
     <definition name="admin" extends="baseLayout">
         <put-attribute name="title" value="Trang chủ quản trị" />
-        <put-attribute name="content" value="/WEB-INF/pages/admin.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/admin/admin.jsp" />
     </definition>
-    <definition name="manageOutlines" extends="baseLayout">
-        <put-attribute name="title" value="Trang chủ quản trị" />
-        <put-attribute name="content" value="/WEB-INF/pages/manageOutlines.jsp" />
-    </definition>
-    <definition name="manageAccounts" extends="baseLayout">
-        <put-attribute name="title" value="Trang chủ quản trị" />
-        <put-attribute name="content" value="/WEB-INF/pages/manageAccounts.jsp" />
-    </definition>
-    <definition name="manageCourses" extends="baseLayout">
-        <put-attribute name="title" value="Trang chủ quản trị" />
-        <put-attribute name="content" value="/WEB-INF/pages/manageCourses.jsp" />
-    </definition>
-    <definition name="assignmentTeachers" extends="baseLayout">
-        <put-attribute name="title" value="Trang chủ quản trị" />
-        <put-attribute name="content" value="/WEB-INF/pages/assignmentTeachers.jsp" />
-    </definition>
-    <definition name="manageCourses" extends="baseLayout">
-        <put-attribute name="title" value="Trang chủ quản trị" />
-        <put-attribute name="content" value="/WEB-INF/pages/manageCourses.jsp" />
-    </definition>
-    <definition name="teacherHome" extends="baseLayout">
-        <put-attribute name="title" value="Home Page" />
-        <put-attribute name="content" value="/WEB-INF/pages/teacherHome.jsp" />
-    </definition>
-    <definition name="chatpage" extends="baseLayout">
-        <put-attribute name="title" value="Home Page" />
-        <put-attribute name="content" value="/WEB-INF/pages/chatpage.jsp" />
-    </definition>
-    <definition name="createSpecification" extends="baseLayout">
-        <put-attribute name="title" value="Home Page" />
-        <put-attribute name="content" value="/WEB-INF/pages/createSpecification.jsp" />
-    </definition>
-    <definition name="register" extends="baseLayout">
-        <put-attribute name="title" value="Home Page" />
-        <put-attribute name="content" value="/WEB-INF/pages/register.jsp" />
-    </definition>
+<!--    <definition name="manageOutlines" extends="baseLayout">-->
+<!--        <put-attribute name="title" value="Trang chủ quản trị" />-->
+<!--        <put-attribute name="content" value="/WEB-INF/pages/manageOutlines.jsp" />-->
+<!--    </definition>-->
+<!--    <definition name="manageAccounts" extends="baseLayout">-->
+<!--        <put-attribute name="title" value="Trang chủ quản trị" />-->
+<!--        <put-attribute name="content" value="/WEB-INF/pages/manageAccounts.jsp" />-->
+<!--    </definition>-->
+<!--    <definition name="manageCourses" extends="baseLayout">-->
+<!--        <put-attribute name="title" value="Trang chủ quản trị" />-->
+<!--        <put-attribute name="content" value="/WEB-INF/pages/manageCourses.jsp" />-->
+<!--    </definition>-->
+<!--    <definition name="assignmentTeachers" extends="baseLayout">-->
+<!--        <put-attribute name="title" value="Trang chủ quản trị" />-->
+<!--        <put-attribute name="content" value="/WEB-INF/pages/assignmentTeachers.jsp" />-->
+<!--    </definition>-->
+<!--    <definition name="manageCourses" extends="baseLayout">-->
+<!--        <put-attribute name="title" value="Trang chủ quản trị" />-->
+<!--        <put-attribute name="content" value="/WEB-INF/pages/manageCourses.jsp" />-->
+<!--    </definition>-->
+<!--    <definition name="teacherHome" extends="baseLayout">-->
+<!--        <put-attribute name="title" value="Home Page" />-->
+<!--        <put-attribute name="content" value="/WEB-INF/pages/teacherHome.jsp" />-->
+<!--    </definition>-->
+<!--    <definition name="chatpage" extends="baseLayout">-->
+<!--        <put-attribute name="title" value="Home Page" />-->
+<!--        <put-attribute name="content" value="/WEB-INF/pages/chatpage.jsp" />-->
+<!--    </definition>-->
+<!--    <definition name="createSpecification" extends="baseLayout">-->
+<!--        <put-attribute name="title" value="Home Page" />-->
+<!--        <put-attribute name="content" value="/WEB-INF/pages/createSpecification.jsp" />-->
+<!--    </definition>-->
 </tiles-definitions>
