@@ -15,10 +15,10 @@
                 <button class="btn d-md-none">
                     <i class="fas fa-bars menu-icon fs-5"  style="color: black" onclick="toggleSidebar()"></i>
                 </button>
-                <div class="dropdown my-auto me-5">
+                <div class="dropdown my-auto me-5" style="background: linear-gradient(to right, #4e73df, #ffffff); padding: 5px;">
                     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle me-2">
-                        <span class="d-none d-sm-inline fw-bold " style="color: black">Ngô Trịnh Minh Tâm</span>
+                        <span class="d-none d-sm-inline fw-bolder " style="color: white">Ngô Trịnh Minh Tâm</span>
                     </a>
                     
                     <div class="dropdown-menu dropdown-menu-right p-2 rounded-sm" aria-labelledby="navbarDropdownMenuLink">

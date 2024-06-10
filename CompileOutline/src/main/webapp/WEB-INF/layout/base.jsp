@@ -104,6 +104,7 @@
 
             .sidebar.active {
                 display: block;
+                width: 90%;
             }
 
             .content {
@@ -144,8 +145,7 @@
                     </h5>
                 </div>
                 
-                <div class="sidebar-header d-flex align-items-center justify-content-between w-100 mb-3">
-                    <h4 class="my-0" style="color: black">Menu</h4>
+                <div class="sidebar-header  w-100 mb-3">
                     <i class="fas fa-times close-icon" style="color: black" onclick="toggleSidebar()"></i>
                 </div>
                 <ul class="nav nav-pills " id="menu">
