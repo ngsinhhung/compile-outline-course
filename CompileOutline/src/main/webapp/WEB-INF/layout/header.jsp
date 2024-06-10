@@ -6,22 +6,27 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<header class="bg-primary">
+
+<header class="bg-white" style="height: 60px">
     <div class="container-fluid pt-2 pb-2">
-        <div class="d-flex justify-content-between">
-            <a class="navbar-brand text-white" href="#">Quản lý học sinh</a>
-            <div class="dropdown my-auto me-5">
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                    <span class="d-none d-sm-inline mx-1">loser</span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                    <li><a class="dropdown-item" href="#">Thông tin hồ sơ</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
-                </ul>
+        <div class="d-flex justify-content-between align-items-center">
+            <a class="navbar-brand "  style="color: black" href="#">Quản lý học sinh</a>
+            <div class="d-flex align-items-center">
+                <button class="btn d-md-none">
+                    <i class="fas fa-bars menu-icon fs-5"  style="color: black" onclick="toggleSidebar()"></i>
+                </button>
+                <div class="dropdown my-auto me-5">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle me-2">
+                        <span class="d-none d-sm-inline fw-bold " style="color: black">Ngô Trịnh Minh Tâm</span>
+                    </a>
+                    
+                    <div class="dropdown-menu dropdown-menu-right p-2 rounded-sm" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Thông tin hồ sơ</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Đăng xuất</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
