@@ -24,86 +24,214 @@
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
             crossorigin="anonymous"
     />
-</head>
-<style>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html ::-webkit-scrollbar {
+            width: 10px;
+        }
+        html ::-webkit-scrollbar-thumb {
+            border-radius: 4px;
+            background-color: rgba(22, 24, 35, 0.06);
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #343a40;
+            font-size: 1.1rem;
+        }
 
-</style>
+        .sidebar {
+            background-color: #ffffff;
+            color: #343a40;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar a {
+            color: #343a40;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #007bff;
+        }
+
+        .sidebar .nav-link.active {
+            background-color: rgba(0, 123, 255, 0.1);
+            color: #007bff;
+        }
+
+        .sidebar .collapse .nav-link {
+            padding-left: 30px;
+        }
+
+        .sidebar .collapse.show .nav-link {
+            background-color: rgba(0, 123, 255, 0.2);
+            color: #007bff;
+        }
+
+        .content {
+            background-color: #ffffff;
+            padding: 30px;
+            height: 100vh;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            margin-left: 231px;
+        }
+        .sidebar-header{
+            display: none !important;
+        }
+        
+        @media (max-width: 767px) {
+            .sidebar {
+                width: 100%;
+                display: none;
+            }
+
+            .sidebar.active {
+                display: block;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+
+            .sidebar-header {
+                display: block !important;
+            }
+            .name-app {
+                display: none;
+            }
+
+            .sidebar-header h4 {
+                display: block !important;;
+            }
+            .sidebar-header{
+                display: block !important;;
+            }
+            .name-app h5 {
+                display: block;
+            }
+        }
+    
+      
+    </style>
+</head>
 <body>
 <tiles:insertAttribute name="header"/>
 <div class="container-fluid">
-    <div class="row flex-nowrap" style="color: #000;">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-            <div class="d-flex flex-column align-items-center text-decoration-none align-items-sm-start px-3 pt-2 min-vh-100">
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+    <div class="row">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 sidebar">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
+                <div class="name-app">
+                    <h5 class="fw-bold fs-3">
+                        <i class="fas fa-book"></i>
+                        Quản lý đề cương
+                    </h5>
+                </div>
+                
+                <div class="sidebar-header d-flex align-items-center justify-content-between w-100 mb-3">
+                    <h4 class="my-0" style="color: black">Menu</h4>
+                    <i class="fas fa-times close-icon" style="color: black" onclick="toggleSidebar()"></i>
+                </div>
+                <ul class="nav nav-pills " id="menu">
                     <li class="nav-item w-100 my-1">
                         <a href="#" class="nav-link align-middle px-0">
-                            <span class="ms-1 d-none d-sm-inline">Quản lý đề cương</span>
+                            <i class="fas fa-th-large"></i>
+                            <span class="ms-1 ">Quản lý đề cương</span>
                         </a>
                     </li>
                     <li class="nav-item w-100 my-1">
                         <a href="#" class="nav-link px-0 align-middle">
-                            <span class="ms-1 d-none d-sm-inline">Phân công biên soạn</span>
+                            <i class="fas fa-tasks"></i>
+                            <span class="ms-1 ">Phân công biên soạn</span>
                         </a>
                     </li>
                     <li class="nav-item w-100 my-1">
                         <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <span class="ms-1 d-none d-sm-inline">Quản lý đào đạo</span> </a>
+                            <i class="fas fa-graduation-cap"></i>
+                            <span class="ms-1 ">Quản lý đào tạo</span>
+                        </a>
                         <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="#" class="nav-link px-0 ms-3"> <span class="d-none d-sm-inline">Khoa</span></a>
+                                <a href="#" class="nav-link p-2 mb-3">
+                                    <i class="fas fa-university"></i>
+                                    <span class="">Khoa</span>
+                                </a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link px-0 ms-3"> <span class="d-none d-sm-inline">Môn học</span></a>
+                                <a href="#" class="nav-link p-2 mb-3">
+                                    <i class="fas fa-book"></i>
+                                    <span class="">Môn học</span>
+                                </a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item w-100 my-1">
-                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                            <span class="ms-1 d-none d-sm-inline">Quản lý tài khoản</span></a>
+                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fas fa-user"></i>
+                            <span class="ms-1 ">Quản lý tài khoản</span>
+                        </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="#" class="nav-link px-0 ms-3"> <span class="d-none d-sm-inline">Tài khoản quản trị</span></a>
+                                <a href="#" class="nav-link p-2 mb-3">
+                                    <i class="fas fa-user-shield"></i>
+                                    <span class="">Tài khoản quản trị</span>
+                                </a>
                             </li>
                             <li class="w-100">
-                                <a href="#" class="nav-link px-0 ms-3"> <span class="d-none d-sm-inline">Tài khoản giảng viên</span></a>
+                                <a href="#" class="nav-link p-2 mb-3">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    <span class="">Tài khoản giảng viên</span>
+                                </a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link px-0 ms-3"> <span class="d-none d-sm-inline">Tài khoản sinh viên</span></a>
+                                <a href="#" class="nav-link p-2 mb-3">
+                                    <i class="fas fa-user-graduate"></i>
+                                    <span class="">Tài khoản sinh viên</span>
+                                </a>
                             </li>
                         </ul>
                     </li>
-                    <%--                    <li class="nav-item w-100 my-1">--%>
-                    <%--                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">--%>
-                    <%--                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Products</span> </a>--%>
-                    <%--                        <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">--%>
-                    <%--                            <li class="w-100">--%>
-                    <%--                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 1</a>--%>
-                    <%--                            </li>--%>
-                    <%--                            <li>--%>
-                    <%--                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 2</a>--%>
-                    <%--                            </li>--%>
-                    <%--                            <li>--%>
-                    <%--                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 3</a>--%>
-                    <%--                            </li>--%>
-                    <%--                            <li>--%>
-                    <%--                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 4</a>--%>
-                    <%--                            </li>--%>
-                    <%--                        </ul>--%>
-                    <%--                    </li>--%>
-
                 </ul>
             </div>
         </div>
-        <div class="col py-3">
+        <div class="col content">
             <tiles:insertAttribute name="content"/>
         </div>
     </div>
 </div>
 <tiles:insertAttribute name="footer"/>
-</body>
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"
 ></script>
+<script>
+    function toggleSidebar() {
+        document.querySelector('.sidebar').classList.toggle('active');
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        if (window.innerWidth <= 767) {
+            document.querySelector('.sidebar').classList.add('active');
+        }
+    });
+</script>
+</body>
 </html>
+
