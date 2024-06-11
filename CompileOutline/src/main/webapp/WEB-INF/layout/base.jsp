@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,7 +91,7 @@
         .sidebar-header{
             display: none !important;
         }
-        
+
         @media (max-width: 767px) {
             .sidebar {
                 width: 100%;
@@ -127,8 +128,8 @@
                 display: block;
             }
         }
-    
-      
+
+
     </style>
 </head>
 <body>
@@ -166,13 +167,13 @@
                         </a>
                         <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="#" class="nav-link p-2 mb-3">
+                                <a href="<c:url value="/faculty/"/>" class="nav-link p-2 mb-3">
                                     <i class="fas fa-university"></i>
                                     <span class="">Khoa</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link p-2 mb-3">
+                                <a href="<c:url value="/subject/"/>" class="nav-link p-2 mb-3">
                                     <i class="fas fa-book"></i>
                                     <span class="">Môn học</span>
                                 </a>
@@ -205,6 +206,25 @@
                             </li>
                         </ul>
                     </li>
+                    <%--                    <li class="nav-item w-100 my-1">--%>
+                    <%--                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">--%>
+                    <%--                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Products</span> </a>--%>
+                    <%--                        <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">--%>
+                    <%--                            <li class="w-100">--%>
+                    <%--                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 1</a>--%>
+                    <%--                            </li>--%>
+                    <%--                            <li>--%>
+                    <%--                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 2</a>--%>
+                    <%--                            </li>--%>
+                    <%--                            <li>--%>
+                    <%--                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 3</a>--%>
+                    <%--                            </li>--%>
+                    <%--                            <li>--%>
+                    <%--                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 4</a>--%>
+                    <%--                            </li>--%>
+                    <%--                        </ul>--%>
+                    <%--                    </li>--%>
+
                 </ul>
             </div>
         </div>
@@ -214,6 +234,7 @@
     </div>
 </div>
 <tiles:insertAttribute name="footer"/>
+</body>
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -224,7 +245,7 @@
         document.querySelector('.sidebar').classList.toggle('active');
     }
 
-   
+
 </script>
 </body>
 </html>

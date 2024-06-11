@@ -1,8 +1,10 @@
 package com.ou.configs;
 
+import com.ou.formatters.FacultyFormatter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -36,6 +38,12 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 //
 //        return r;
 //    }
+
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new FacultyFormatter());
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
