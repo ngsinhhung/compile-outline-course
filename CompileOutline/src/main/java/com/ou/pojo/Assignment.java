@@ -10,17 +10,23 @@ import java.time.Instant;
 @Setter
 @Entity
 @Table(name = "assignments")
+@NamedQueries({
+        @NamedQuery(name = "Assignment.FindBySubject", query = "SELECT a FROM Assignment a WHERE a.subject = :subject"),
+        @NamedQuery(name = "Assignment.findAll", query = "select a from Assignment a")
+})
+
 public class Assignment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Lecturer_User_id", nullable = false)
     private Lecturer lecturerUser;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Subject_id", nullable = false)
     private Subject subject;
 

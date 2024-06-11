@@ -26,9 +26,9 @@ public class HomeController {
 //        return "manageCourses";
 //    }
 //
-//    @RequestMapping("/admin/assignment-teacher")
+//    @RequestMapping("/assignment")
 //    public String assignmentTeacher() {
-//        return "assignmentTeachers";
+//        return "assignment";
 //    }
 //    @RequestMapping("/teacher/home")
 //    public String teacherHome() {

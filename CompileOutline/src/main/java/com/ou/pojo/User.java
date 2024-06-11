@@ -27,4 +27,7 @@ public class User {
     @Column(name = "is_active")
     private Boolean isActive;
 
+    @OneToOne(mappedBy = "user")
+    private Profile profile;
+
 }

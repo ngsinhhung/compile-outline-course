@@ -29,6 +29,11 @@
         <put-attribute name="title" value="Quản trị khoa" />
         <put-attribute name="content" value="/WEB-INF/pages/admin/create_or_update_faculty.jsp" />
     </definition>
+    <definition name="assignemted" extends="baseLayout">
+        <put-attribute name="title" value="Quản trị khoa" />
+        <put-attribute name="content" value="/WEB-INF/pages/admin/editAssigment.jsp" />
+    </definition>
+
 <!--    <definition name="manageOutlines" extends="baseLayout">-->
 <!--        <put-attribute name="title" value="Trang chủ quản trị" />-->
 <!--        <put-attribute name="content" value="/WEB-INF/pages/manageOutlines.jsp" />-->
