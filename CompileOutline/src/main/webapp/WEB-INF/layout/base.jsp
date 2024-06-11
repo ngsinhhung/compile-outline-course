@@ -51,10 +51,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
             height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
+           
         }
 
         .sidebar a {
@@ -89,7 +86,6 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
-            margin-left: 231px;
         }
         .sidebar-header{
             display: none !important;
@@ -98,6 +94,10 @@
         @media (max-width: 767px) {
             .sidebar {
                 width: 100%;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 1000;
                 display: none;
             }
 

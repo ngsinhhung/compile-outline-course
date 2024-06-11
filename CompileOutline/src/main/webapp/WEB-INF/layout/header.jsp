@@ -10,7 +10,7 @@
 <header  style="height: 60px;background-color: rgb(15 23 42)">
     <div class="container-fluid pt-2 pb-2">
         <div class="d-flex justify-content-between align-items-center">
-            <a class="navbar-brand text-white "  style="color: black" href="#">Quản lý học sinh</a>
+            <a class="navbar-brand text-white "  style="color: black" href="#">Admin Dashboard</a>
             <div class="d-flex align-items-center">
                 <button class="btn d-md-none">
                     <i class="fas fa-bars menu-icon fs-5"  style="color: white" onclick="toggleSidebar()"></i>
