@@ -25,10 +25,10 @@
 <!--        <put-attribute name="title" value="Trang chủ quản trị" />-->
 <!--        <put-attribute name="content" value="/WEB-INF/pages/manageCourses.jsp" />-->
 <!--    </definition>-->
-<!--    <definition name="assignmentTeachers" extends="baseLayout">-->
-<!--        <put-attribute name="title" value="Trang chủ quản trị" />-->
-<!--        <put-attribute name="content" value="/WEB-INF/pages/assignmentTeachers.jsp" />-->
-<!--    </definition>-->
+    <definition name="assignment" extends="baseLayout">
+        <put-attribute name="title" value="Trang chủ quản trị" />
+        <put-attribute name="content" value="/WEB-INF/pages/admin/assignment.jsp" />
+    </definition>
 <!--    <definition name="manageCourses" extends="baseLayout">-->
 <!--        <put-attribute name="title" value="Trang chủ quản trị" />-->
 <!--        <put-attribute name="content" value="/WEB-INF/pages/manageCourses.jsp" />-->

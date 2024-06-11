@@ -37,10 +37,10 @@
             background-color: rgba(22, 24, 35, 0.06);
         }
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Roboto', sans-serif;
+            background-color: rgb(231 229 228);
             color: #343a40;
-            font-size: 1.1rem;
+            font-size: 16px;
         }
 
         .sidebar {
@@ -54,7 +54,6 @@
             position: fixed;
             top: 0;
             left: 0;
-            overflow-y: auto;
             z-index: 1000;
         }
 
@@ -139,12 +138,11 @@
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 sidebar">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
                 <div class="name-app">
-                    <h5 class="fw-bold fs-3">
+                    <h5 class="fw-bold" style="font-size: 23px">
                         <i class="fas fa-book"></i>
                         Quản lý đề cương
                     </h5>
                 </div>
-                
                 <div class="sidebar-header  w-100 mb-3">
                     <i class="fas fa-times close-icon" style="color: black" onclick="toggleSidebar()"></i>
                 </div>
@@ -226,11 +224,7 @@
         document.querySelector('.sidebar').classList.toggle('active');
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        if (window.innerWidth <= 767) {
-            document.querySelector('.sidebar').classList.add('active');
-        }
-    });
+   
 </script>
 </body>
 </html>

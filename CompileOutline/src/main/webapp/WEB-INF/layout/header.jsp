@@ -7,15 +7,15 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<header class="bg-white" style="height: 60px">
+<header  style="height: 60px;background-color: rgb(15 23 42)">
     <div class="container-fluid pt-2 pb-2">
         <div class="d-flex justify-content-between align-items-center">
-            <a class="navbar-brand "  style="color: black" href="#">Quản lý học sinh</a>
+            <a class="navbar-brand text-white "  style="color: black" href="#">Quản lý học sinh</a>
             <div class="d-flex align-items-center">
                 <button class="btn d-md-none">
-                    <i class="fas fa-bars menu-icon fs-5"  style="color: black" onclick="toggleSidebar()"></i>
+                    <i class="fas fa-bars menu-icon fs-5"  style="color: white" onclick="toggleSidebar()"></i>
                 </button>
-                <div class="dropdown my-auto me-5" style="background: linear-gradient(to right, #4e73df, #ffffff); padding: 5px;">
+                <div class="dropdown my-auto me-5" style=" padding: 5px;">
                     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle me-2">
                         <span class="d-none d-sm-inline fw-bolder " style="color: white">Ngô Trịnh Minh Tâm</span>
