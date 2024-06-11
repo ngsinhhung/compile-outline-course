@@ -32,6 +32,7 @@ public class SubjectController {
 
     @PostMapping("/create")
     public String createSubject(@ModelAttribute(value = "subject") Subject subject) {
+        System.out.println(subject.getFaculty().getId());
         this.subjectService.addOrUpdate(subject);
         return "redirect:/subject/";
     }

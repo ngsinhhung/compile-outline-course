@@ -26,7 +26,12 @@ public class SubjectRepositoryImpl implements SubjectRepository {
     @Override
     public void addOrUpdate(Subject subject) {
         Session s = this.factory.getObject().getCurrentSession();
-        s.saveOrUpdate(subject);
+        if(subject.getId() != null && subject.getId() > 0){
+            s.update(subject);
+        }
+        else {
+            s.save(subject);
+        }
     }
 
     @Override
