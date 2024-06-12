@@ -16,4 +16,6 @@ public interface AssignmentRepository {
      Assignment getAssignmentById(int id);
      void deletedAssigmentTeacher(int id);
 
+     List<Subject> findAllUnassignedSubjectsIncludingCurrent(int currentAssignmentId);
+
 }

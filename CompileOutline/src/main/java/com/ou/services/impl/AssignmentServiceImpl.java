@@ -29,6 +29,11 @@ public class AssignmentServiceImpl implements AssignmentServices {
     }
 
     @Override
+    public List<Subject> findAllUnassignedSubjectsIncludingCurrent(int currentAssignmentId) {
+        return this.assignmentRepository.findAllUnassignedSubjectsIncludingCurrent(currentAssignmentId);
+    }
+
+    @Override
     public void assigmentTeacher(Assignment assignment) {
         this.assignmentRepository.addorUpdate(assignment);
     }
