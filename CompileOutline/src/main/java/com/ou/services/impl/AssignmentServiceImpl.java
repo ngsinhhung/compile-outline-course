@@ -24,6 +24,11 @@ public class AssignmentServiceImpl implements AssignmentServices {
     }
 
     @Override
+    public List<Subject> getAllSubjectNoAssignemnt() {
+        return this.assignmentRepository.getAllSubjectNoAssignemnt();
+    }
+
+    @Override
     public void assigmentTeacher(Assignment assignment) {
         this.assignmentRepository.addorUpdate(assignment);
     }

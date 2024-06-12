@@ -12,7 +12,8 @@ import java.time.Instant;
 @Table(name = "assignments")
 @NamedQueries({
         @NamedQuery(name = "Assignment.FindBySubject", query = "SELECT a FROM Assignment a WHERE a.subject = :subject"),
-        @NamedQuery(name = "Assignment.findAll", query = "select a from Assignment a")
+        @NamedQuery(name = "Assignment.findAll", query = "select a from Assignment a"),
+        @NamedQuery(name = "Subject.findAllUnassigned", query = "SELECT s FROM Subject s WHERE s.id NOT IN (SELECT a.subject.id FROM Assignment a)")
 })
 
 public class Assignment {

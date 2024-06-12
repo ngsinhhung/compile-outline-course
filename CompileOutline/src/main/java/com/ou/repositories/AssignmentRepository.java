@@ -9,6 +9,7 @@ import java.util.List;
 public interface AssignmentRepository {
 
      List<Lecturer> getAllLecturer();
+     List<Subject> getAllSubjectNoAssignemnt();
      List<Assignment> getAllAssignment();
      boolean isCheckSubject(Subject subject);
      void addorUpdate(Assignment assignment);
