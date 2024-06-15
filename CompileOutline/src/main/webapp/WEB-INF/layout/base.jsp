@@ -193,7 +193,7 @@
                                 </a>
                             </li>
                             <li class="w-100">
-                                <a href="#" class="nav-link p-2 mb-3">
+                                <a href="<c:url value="/users/lecturer" />" class="nav-link p-2 mb-3">
                                     <i class="fas fa-chalkboard-teacher"></i>
                                     <span class="">Tài khoản giảng viên</span>
                                 </a>

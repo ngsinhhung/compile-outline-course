@@ -24,10 +24,6 @@ public class Assignment {
     @JoinColumn(name = "Subject_id", nullable = false)
     private Subject subject;
 
-    @Lob
-    @Column(name = "content")
-    private String content;
-
     @Column(name = "assignment_date")
     private Instant assignmentDate;
 

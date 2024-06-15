@@ -9,14 +9,22 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "lecturer")
+@NamedQueries({
+        @NamedQuery(name = "Lecturer.findAll", query = "select l from Lecturer l"),
+        @NamedQuery(name = "Lecturer.findById", query = "select l from Lecturer l where l.id = :id")
+})
 public class Lecturer {
     @Id
     @Column(name = "User_id", nullable = false)
     private Integer id;
 
     @MapsId
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "User_id", nullable = false)
     private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "Faculty_id", nullable = false)
+    private Faculty faculty;
 
 }

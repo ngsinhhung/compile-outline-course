@@ -1,6 +1,8 @@
 package com.ou.repositories.impl;
 
 import com.ou.pojo.Faculty;
+import com.ou.pojo.Lecturer;
+import com.ou.pojo.Student;
 import com.ou.repositories.FacultyRepository;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,24 @@ public class FacultyRepositoryImpl implements FacultyRepository {
     public Faculty getFacultyById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
         return s.get(Faculty.class, id);
+    }
+
+    @Override
+    public Faculty getFacultyOfLecturerId(int lecturerId) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createNamedQuery("Lecturer.findById");
+        q.setParameter("id", lecturerId);
+        Lecturer l = (Lecturer) q.getSingleResult();
+        return l.getFaculty();
+    }
+
+    @Override
+    public Faculty getFacultyOfStudentId(int studentId) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createNamedQuery("Student.findById");
+        q.setParameter("id", studentId);
+        Student student = (Student) q.getSingleResult();
+        return student.getFaculty();
     }
 
     @Override
