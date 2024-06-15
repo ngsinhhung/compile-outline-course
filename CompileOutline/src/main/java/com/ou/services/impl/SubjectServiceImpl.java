@@ -1,6 +1,5 @@
 package com.ou.services.impl;
 
-import com.ou.pojo.Faculty;
 import com.ou.pojo.Subject;
 import com.ou.repositories.SubjectRepository;
 import com.ou.services.SubjectService;

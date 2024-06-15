@@ -12,7 +12,6 @@
     <h2 class="h4 my-auto">Quản lý môn học</h2>
     <a type="button" href="<c:url value="/subject/create"/>"  class="btn btn-primary h-75" >Thêm môn học</a>
 </div>
-<!-- Table to display course list -->
 <table id="courseTable" class="table">
     <thead>
     <tr>

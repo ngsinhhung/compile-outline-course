@@ -1,7 +1,6 @@
 package com.ou.controllers;
 
 import com.ou.pojo.Faculty;
-import com.ou.repositories.FacultyRepository;
 import com.ou.services.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

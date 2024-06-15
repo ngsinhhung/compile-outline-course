@@ -1,6 +1,5 @@
 package com.ou.services;
 
-import com.ou.pojo.Faculty;
 import com.ou.pojo.Subject;
 
 import java.util.List;

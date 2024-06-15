@@ -1,6 +1,6 @@
 package com.ou.services.impl;
 
-import com.ou.pojo.Assignment;
+import com.ou.pojo.Assignments;
 import com.ou.pojo.Lecturer;
 import com.ou.pojo.Subject;
 import com.ou.repositories.AssignmentRepository;
@@ -19,7 +19,7 @@ public class AssignmentServiceImpl implements AssignmentServices {
     }
 
     @Override
-    public List<Assignment> getAllAssignment() {
+    public List<Assignments> getAllAssignment() {
         return this.assignmentRepository.getAllAssignment();
     }
 
@@ -34,7 +34,12 @@ public class AssignmentServiceImpl implements AssignmentServices {
     }
 
     @Override
-    public void assigmentTeacher(Assignment assignment) {
+    public List<Lecturer> getLecturersByFacultyId(int facultyId) {
+        return this.assignmentRepository.getLecturersByFacultyId(facultyId);
+    }
+
+    @Override
+    public void assigmentTeacher(Assignments assignment) {
         this.assignmentRepository.addorUpdate(assignment);
     }
 
@@ -44,7 +49,7 @@ public class AssignmentServiceImpl implements AssignmentServices {
     }
 
     @Override
-    public Assignment getAssignmentById(int id) {
+    public Assignments getAssignmentById(int id) {
         return this.assignmentRepository.getAssignmentById(id);
     }
 

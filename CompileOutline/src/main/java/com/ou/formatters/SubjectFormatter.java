@@ -1,6 +1,5 @@
 package com.ou.formatters;
 
-import com.ou.pojo.Lecturer;
 import com.ou.pojo.Subject;
 import org.springframework.format.Formatter;
 

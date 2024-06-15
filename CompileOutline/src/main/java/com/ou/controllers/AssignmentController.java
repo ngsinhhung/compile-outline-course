@@ -1,7 +1,7 @@
 package com.ou.controllers;
 
-
-import com.ou.pojo.Assignment;
+import com.ou.pojo.Assignments;
+import com.ou.pojo.Lecturer;
 import com.ou.services.AssignmentServices;
 import com.ou.services.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +11,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
-@ControllerAdvice
 @RequestMapping("/assignment")
 public class AssignmentController {
 
@@ -26,16 +26,14 @@ public class AssignmentController {
     @ModelAttribute
     public void getSubject(Model model) {
         model.addAttribute("subjects", this.assignmentServices.getAllSubjectNoAssignemnt());
-
-        model.addAttribute("lecturers", this.assignmentServices.getAllLecturer());
-        model.addAttribute("assignment", new Assignment());
+        model.addAttribute("assignment", new Assignments());
     }
 
+
     @PostMapping("/add")
-    public String addAssignement( Model model,
-            @ModelAttribute(value = "assigment") @Valid Assignment assignment,
-            BindingResult rs
-    ) {
+    public String addAssignment(Model model,
+                                @ModelAttribute(value = "assignment") @Valid Assignments assignment,
+                                BindingResult rs) {
         if (!rs.hasErrors()) {
             try {
                 this.assignmentServices.assigmentTeacher(assignment);
@@ -47,19 +45,16 @@ public class AssignmentController {
         return "assignment";
     }
 
-
-
-    @GetMapping("/{assigmentId}/updated")
-    public String updateAssignment(Model model ,@PathVariable("assigmentId") int id){
-        model.addAttribute("assignments",this.assignmentServices.getAssignmentById(id));
-        model.addAttribute("allSubject",this.assignmentServices.findAllUnassignedSubjectsIncludingCurrent(id));
+    @GetMapping("/{assignmentId}/update")
+    public String updateAssignment(Model model, @PathVariable("assignmentId") int id) {
+        model.addAttribute("assignments", this.assignmentServices.getAssignmentById(id));
+        model.addAttribute("allSubject", this.assignmentServices.findAllUnassignedSubjectsIncludingCurrent(id));
         return "assignemted";
     }
 
-
     @GetMapping("/")
-    public String List(Model model) {
-        model.addAttribute("assignments",this.assignmentServices.getAllAssignment());
+    public String list(Model model) {
+        model.addAttribute("assignments", this.assignmentServices.getAllAssignment());
         return "assignment";
     }
 }

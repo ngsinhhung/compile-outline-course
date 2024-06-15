@@ -6,14 +6,17 @@
     <form:hidden path="id"/>
     <div class="mb-3">
         <label for="subjectSelect" class="form-label">Chọn Môn Học:</label>
-        <form:select path="subject" class="form-select" id="subjectSelect" name="subjectId">
+        <c:url value="/api/getLecturersByFaculty/" var="urlload">
+            <c:param name="facultyId" value="${facultyId}" />
+        </c:url>
+        <form:select path="subject" class="form-select" id="subjectSelect" name="subjectId" onchange="loadLecturers('${urlload}')">
             <c:forEach var="subject" items="${allSubject}">
                 <c:choose>
-                    <c:when test="${subject == assignment.subject.id}">
-                        <option value="${subject.id}" selected label="${subject.subjectName} - ${subject.faculty.facultyName}"></option>
+                    <c:when test="${subject.id == assignments.subject.id}">
+                        <option value="${subject.id}"  data-faculty-id="${subject.faculty.id}">${subject.subjectName} - ${subject.faculty.facultyName}</option>
                     </c:when>
                     <c:otherwise>
-                        <option value="${subject.id}" label="${subject.subjectName} - ${subject.faculty.facultyName}"></option>
+                        <option value="${subject.id}"  data-faculty-id="${subject.faculty.id}" >${subject.subjectName} - ${subject.faculty.facultyName}</option>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -30,4 +33,59 @@
     </div>
     <button type="submit" class="btn btn-primary">Lưu Thay Đổi</button>
 </form:form>
+<script>
+   document.addEventListener('DOMContentLoaded',function (){
+       const subjectSelect = document.getElementById('subjectSelect');
+       const facultyId = subjectSelect.options[subjectSelect.selectedIndex].getAttribute('data-faculty-id');
+       console.log(facultyId)
+       fetch('${urlload}'+ facultyId) .then(response => response.json()).then(data => {
+           let lecturerSelect = document.getElementById('lecturerSelect');
+           lecturerSelect.innerHTML = "";
 
+           const lecturers = data.map(lecturer => ({
+               fullname: lecturer[0],
+               id: lecturer[1]
+           }));
+
+           // Populate options
+           lecturers.forEach(lecturer => {
+               let option = document.createElement('option');
+               option.value = lecturer.id;
+               option.textContent = lecturer.fullname;
+               lecturerSelect.appendChild(option);
+               console.log(option)
+           });
+       }
+       )
+       
+       
+   })
+    
+    function loadLecturers(urlLoad) {
+        const subjectSelect = document.getElementById('subjectSelect');
+        const facultyId = subjectSelect.options[subjectSelect.selectedIndex].getAttribute('data-faculty-id');
+        console.log(facultyId)
+        console.log("Selected Faculty ID:", facultyId);
+        fetch(urlLoad + facultyId)
+            .then(response => response.json())
+            .then(data => {
+                let lecturerSelect = document.getElementById('lecturerSelect');
+                lecturerSelect.innerHTML = "";
+
+                const lecturers = data.map(lecturer => ({
+                    fullname: lecturer[0],
+                    id: lecturer[1]
+                }));
+
+                // Populate options
+                lecturers.forEach(lecturer => {
+                    let option = document.createElement('option');
+                    option.value = lecturer.id;
+                    option.textContent = lecturer.fullname;
+                    lecturerSelect.appendChild(option);
+                    console.log(option)
+                });
+            })
+            .catch(error => console.error('Error loading lecturers:', error));
+    }
+</script>
