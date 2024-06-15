@@ -28,6 +28,7 @@ public class User {
     private Boolean isActive;
 
     @OneToOne(mappedBy = "user")
+
     private Profile profile;
 
 }

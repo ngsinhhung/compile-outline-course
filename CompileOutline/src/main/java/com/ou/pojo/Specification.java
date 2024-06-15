@@ -28,6 +28,6 @@ public class Specification {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "Assignments_id", nullable = false)
-    private Assignment assignments;
+    private Assignments assignments;
 
 }

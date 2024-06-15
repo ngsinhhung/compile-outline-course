@@ -5,18 +5,31 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+@Entity
 @Getter
 @Setter
-@Entity
 @Table(name = "student")
 public class Student {
     @Id
-    @Column(name = "User_id", nullable = false)
-    private Integer id;
+    @Column(name = "User_id")
+    private Integer userId;
 
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "User_id", nullable = false)
-    private User user;
+    @Column(name = "Faculty_id")
+    private Integer facultyId;
 
+    public Integer getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getFacultyId() {
+        return this.facultyId;
+    }
+
+    public void setFacultyId(Integer facultyId) {
+        this.facultyId = facultyId;
+    }
 }
