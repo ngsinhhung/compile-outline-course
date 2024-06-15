@@ -41,7 +41,7 @@ public class AssignmentRepositoryImp implements AssignmentRepository {
     @Override
     public List<Lecturer> getLecturersByFacultyId(int facultyId) {
         Session session = factoryBean.getObject().getCurrentSession();
-        Query query = session.createNamedQuery("Lecturer.FindByFaculity");
+        Query query = session.createNamedQuery("Lecturer.findByFaculty");
         query.setParameter("facultyId", facultyId);
         return query.getResultList();
     }

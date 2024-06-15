@@ -1,7 +1,6 @@
 package com.ou.controllers;
 
 import com.ou.pojo.Assignments;
-import com.ou.pojo.Lecturer;
 import com.ou.services.AssignmentServices;
 import com.ou.services.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/assignment")
