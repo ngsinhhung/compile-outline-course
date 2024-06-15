@@ -28,7 +28,7 @@ public class ApiAssignmentController {
         System.out.println("Faculty ID: " + facultyId);
 
         List<Lecturer> lecturers = this.assignmentServices.getLecturersByFacultyId(facultyId);
-
+        System.out.println(lecturers);
         return ResponseEntity.ok().body(lecturers);
     }
 }
