@@ -15,9 +15,10 @@
     <thead>
     <tr>
         <th scope="col">Ảnh đại điên</th>
+        <th scope="col">Username</th>
         <th scope="col">Họ và Tên</th>
-        <th scope="col">Email</th>
         <th scope="col">Khoa</th>
+        <th scope="col">Email</th>
         <th scope="col">Số điện thoại</th>
         <th scope="col">Trạng thái</th>
         <th scope="col"></th>
@@ -29,11 +30,10 @@
             <td>
                 <img class="img-thumbnail img-fluid h-auto rounded-circle" style="width: 50px" src="${l.user.profile.avatar}"  alt="Profile Picture">
             </td>
+            <td>${l.user.username}</td>
             <td>${l.user.profile.fullname}</td>
+            <td>${l.faculty.facultyName}</td>
             <td>${l.user.profile.email}</td>
-            <td>
-                ${l.faculty.facultyName}
-            </td>
             <td>${l.user.profile.phone}</td>
             <td>
                 <c:choose>

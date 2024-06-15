@@ -24,7 +24,7 @@ public class Student {
     @JoinColumn(name = "User_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Faculty_id", nullable = false)
     private Faculty faculty;
 

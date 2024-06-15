@@ -1,14 +1,8 @@
 package com.ou.services.impl;
 
 import com.ou.dto.ProfileDto;
-import com.ou.pojo.Faculty;
-import com.ou.pojo.Lecturer;
-import com.ou.pojo.Profile;
-import com.ou.pojo.User;
-import com.ou.repositories.FacultyRepository;
-import com.ou.repositories.LecturerRepository;
-import com.ou.repositories.ProfileRepository;
-import com.ou.repositories.UserRepository;
+import com.ou.pojo.*;
+import com.ou.repositories.*;
 import com.ou.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +17,8 @@ public class UserServiceImpl implements UserService {
     private FacultyRepository facultyRepository;
     @Autowired
     private LecturerRepository lecturerRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
     @Override
     public ProfileDto getProfileUserById(int id) {
@@ -50,9 +46,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addOrUpdateProfileDto(ProfileDto profileDto) {
         Faculty f = this.facultyRepository.getFacultyById(profileDto.getFacultyId());
-        Lecturer l = this.lecturerRepository.getLecturerById(profileDto.getId());
-        l.setFaculty(f);
-        this.lecturerRepository.addOrUpdateLecturer(l);
+        if(profileDto.getRole().equals("LECTURER")){
+            Lecturer l = this.lecturerRepository.getLecturerById(profileDto.getId());
+            l.setFaculty(f);
+            this.lecturerRepository.addOrUpdateLecturer(l);
+        } else if (profileDto.getRole().equals("STUDENT")) {
+            Student s = this.studentRepository.getStudentById(profileDto.getId());
+            s.setFaculty(f);
+            this.studentRepository.addOrUpdateStudent(s);
+        }
         User u = this.userRepository.getUserById(profileDto.getId());
         u.setUsername(profileDto.getUsername());
         u.setIsActive(profileDto.getIsActive());

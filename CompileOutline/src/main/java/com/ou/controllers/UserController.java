@@ -2,7 +2,7 @@ package com.ou.controllers;
 
 import com.ou.dto.ProfileDto;
 import com.ou.services.LecturerService;
-import com.ou.services.ProfileService;
+import com.ou.services.StudentService;
 import com.ou.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +16,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private LecturerService lecturerService;
+    @Autowired
+    private StudentService studentService;
 
     @GetMapping("/admin")
     public String admin() {
@@ -31,7 +33,12 @@ public class UserController {
     @PostMapping("/")
     public String updateProfile(@ModelAttribute("profileDto") ProfileDto profileDto) {
         this.userService.addOrUpdateProfileDto(profileDto);
-        return "redirect:/users/lecturer";
+        if (profileDto.getRole().equals("LECTURER")){
+            return "redirect:/users/lecturer";
+        }
+        else{
+            return "redirect:/users/student";
+        }
     }
 
     @GetMapping("/{userID}")
@@ -41,7 +48,8 @@ public class UserController {
     }
 
     @GetMapping("/student")
-    public String student() {
+    public String student(Model model) {
+        model.addAttribute("students", this.studentService.getAllStudent());
         return "student_account";
     }
 }

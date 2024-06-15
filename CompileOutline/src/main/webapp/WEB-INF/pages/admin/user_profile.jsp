@@ -19,7 +19,7 @@
                     <div class="card-header">Ảnh hồ sơ</div>
                     <div class="card-body text-center">
                         <!-- Profile picture image-->
-                        <img class="img-account-profile rounded-circle mb-2" src="${profileDto.avatar}" alt="">
+                        <img class="img-account-profile rounded-circle mb-2 h-auto" style="width: 300px" src="${profileDto.avatar}" alt="">
                         <!-- Profile picture upload button-->
                         <button class="btn btn-primary" type="button">Chỉnh sửa ảnh</button>
                     </div>
@@ -56,7 +56,7 @@
                         <!-- Form Group (role)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="showRole">Vai trò</label>
-                            <form:input path="role" class="form-control" id="showRole" disabled="true" type="text"/>
+                            <form:input path="role" value="${profileDto.role}" class="form-control" id="showRole" readonly="true" type="text"/>
                         </div>
                         <!-- Form Group (is active)-->
                         <div class="mb-3">

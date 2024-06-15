@@ -22,4 +22,16 @@ public class StudentRepositoryImpl implements StudentRepository {
         Query q = s.createNamedQuery("Student.findAll");
         return q.getResultList();
     }
+
+    @Override
+    public Student getStudentById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(Student.class, id);
+    }
+
+    @Override
+    public void addOrUpdateStudent(Student student) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.saveOrUpdate(student);
+    }
 }
