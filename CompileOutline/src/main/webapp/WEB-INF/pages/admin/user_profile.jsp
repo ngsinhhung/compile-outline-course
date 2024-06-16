@@ -10,7 +10,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="container-xl px-4 mt-4">
     <c:url value="/users/" var="action"/>
-    <form:form method="post" modelAttribute="profileDto" action="${action}">
+    <form:form method="post" modelAttribute="profileDto" action="${action}" enctype="multipart/form-data">
         <form:hidden path="id"/>
         <div class="row">
             <div class="col-xl-4">
@@ -21,7 +21,8 @@
                         <!-- Profile picture image-->
                         <img class="img-account-profile rounded-circle mb-2 h-auto" style="width: 300px" src="${profileDto.avatar}" alt="">
                         <!-- Profile picture upload button-->
-                        <button class="btn btn-primary" type="button">Chỉnh sửa ảnh</button>
+                        <form:input path="file" type="file" class="form-control"/>
+<%--                        <button class="btn btn-primary" type="button">Chỉnh sửa ảnh</button>--%>
                     </div>
                 </div>
             </div>

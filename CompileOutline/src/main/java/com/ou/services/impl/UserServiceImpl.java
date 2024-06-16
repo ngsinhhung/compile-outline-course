@@ -1,11 +1,16 @@
 package com.ou.services.impl;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.ou.dto.ProfileDto;
 import com.ou.pojo.*;
 import com.ou.repositories.*;
 import com.ou.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -19,6 +24,9 @@ public class UserServiceImpl implements UserService {
     private LecturerRepository lecturerRepository;
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private Cloudinary cloudinary;
 
     @Override
     public ProfileDto getProfileUserById(int id) {
@@ -63,6 +71,14 @@ public class UserServiceImpl implements UserService {
         p.setFullname(profileDto.getFullname());
         p.setEmail(profileDto.getEmail());
         p.setPhone(profileDto.getPhone());
+        if(!profileDto.getFile().isEmpty()){
+            try {
+                Map rs = this.cloudinary.uploader().upload(profileDto.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+                p.setAvatar(rs.get("secure_url").toString());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         this.profileRepository.addOrUpdateProfile(p);
     }
 }

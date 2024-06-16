@@ -7,7 +7,10 @@ import com.ou.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/users")
@@ -31,14 +34,22 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public String updateProfile(@ModelAttribute("profileDto") ProfileDto profileDto) {
-        this.userService.addOrUpdateProfileDto(profileDto);
-        if (profileDto.getRole().equals("LECTURER")){
-            return "redirect:/users/lecturer";
+    public String updateProfile(@ModelAttribute("profileDto") @Valid ProfileDto profileDto, BindingResult rs) {
+        if(!rs.hasErrors()) {
+            try {
+                this.userService.addOrUpdateProfileDto(profileDto);
+                if (profileDto.getRole().equals("LECTURER")){
+                    return "redirect:/users/lecturer";
+                }
+                else{
+                    return "redirect:/users/student";
+                }
+            }
+            catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }
-        else{
-            return "redirect:/users/student";
-        }
+        return String.format("redirect:/users/%d", profileDto.getId());
     }
 
     @GetMapping("/{userID}")

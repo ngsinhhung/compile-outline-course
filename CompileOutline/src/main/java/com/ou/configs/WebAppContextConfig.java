@@ -1,11 +1,14 @@
 package com.ou.configs;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.ou.formatters.FacultyFormatter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -29,7 +32,8 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
-//    @Bean
+
+    //    @Bean
 //    public InternalResourceViewResolver internalResourceViewResolver() {
 //        InternalResourceViewResolver r = new InternalResourceViewResolver();
 //        r.setViewClass(JstlView.class);
@@ -38,7 +42,13 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 //
 //        return r;
 //    }
-
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver resolver
+                = new CommonsMultipartResolver();
+        resolver.setDefaultEncoding("UTF-8");
+        return resolver;
+    }
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
@@ -49,5 +59,16 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/JS/**").addResourceLocations("/resources/JS/");
         registry.addResourceHandler("/CSS/**").addResourceLocations("/resources/CSS/");
+    }
+
+    @Bean
+    public Cloudinary cloudinary() {
+        Cloudinary cloudinary
+                = new Cloudinary(ObjectUtils.asMap(
+                "cloud_name", "dmdljcwau",
+                "api_key", "751729637915529",
+                "api_secret", "-9greGmb76IjiPCDjePMEPuuz1I",
+                "secure", true));
+        return cloudinary;
     }
 }

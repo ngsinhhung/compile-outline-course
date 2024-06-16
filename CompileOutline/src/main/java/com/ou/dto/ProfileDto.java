@@ -4,6 +4,7 @@ import com.ou.pojo.Profile;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -24,4 +25,5 @@ public class ProfileDto implements Serializable {
     private String role;
     private Boolean isActive;
     private Integer facultyId;
+    private MultipartFile file;
 }
