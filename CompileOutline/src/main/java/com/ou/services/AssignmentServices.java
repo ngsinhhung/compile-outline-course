@@ -10,6 +10,7 @@ public interface AssignmentServices {
      List<Lecturer> getAllLecturer();
      List<Subject> getAllSubjectNoAssignemnt();
      List<Assignments> getAllAssignment();
+     List<Assignments> getAssignmentByTeacherId(int lectureId);
      void assigmentTeacher(Assignments assignment);
      boolean isCheckSubject(Subject subject);
      Assignments getAssignmentById(int id);

@@ -47,6 +47,14 @@ public class AssignmentRepositoryImp implements AssignmentRepository {
     }
 
     @Override
+    public List<Assignments> getAssignmentByTeacherId(int lectureId) {
+        Session session = factoryBean.getObject().getCurrentSession();
+        Query query = session.createNamedQuery("Assignment.FindByTeacherId",Assignments.class);
+        query.setParameter("lectureId", lectureId);
+        return query.getResultList();
+    }
+
+    @Override
     public List<Subject> findAllUnassignedSubjectsIncludingCurrent(int currentAssignmentId) {
         Session session = factoryBean.getObject().getCurrentSession();
         Assignments currentAssignment = session.get(Assignments.class, currentAssignmentId);

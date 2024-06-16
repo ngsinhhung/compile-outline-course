@@ -25,112 +25,8 @@
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
             crossorigin="anonymous"
     />
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        html ::-webkit-scrollbar {
-            width: 10px;
-        }
-        html ::-webkit-scrollbar-thumb {
-            border-radius: 4px;
-            background-color: rgba(22, 24, 35, 0.06);
-        }
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: rgb(231 229 228);
-            color: #343a40;
-            font-size: 16px;
-        }
-
-        .sidebar {
-            background-color: #ffffff;
-            color: #343a40;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-            height: 100vh;
-           
-        }
-
-        .sidebar a {
-            color: #343a40;
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s;
-        }
-
-        .sidebar a:hover {
-            color: #007bff;
-        }
-
-        .sidebar .nav-link.active {
-            background-color: rgba(0, 123, 255, 0.1);
-            color: #007bff;
-        }
-
-        .sidebar .collapse .nav-link {
-            padding-left: 30px;
-        }
-
-        .sidebar .collapse.show .nav-link {
-            background-color: rgba(0, 123, 255, 0.2);
-            color: #007bff;
-        }
-
-        .content {
-            background-color: #ffffff;
-            padding: 30px;
-            height: 100vh;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-        }
-        .sidebar-header{
-            display: none !important;
-        }
-
-        @media (max-width: 767px) {
-            .sidebar {
-                width: 100%;
-                position: fixed;
-                top: 0;
-                left: 0;
-                z-index: 1000;
-                display: none;
-            }
-
-            .sidebar.active {
-                display: block;
-                width: 90%;
-            }
-
-            .content {
-                margin-left: 0;
-            }
-
-            .sidebar-header {
-                display: block !important;
-            }
-            .name-app {
-                display: none;
-            }
-
-            .sidebar-header h4 {
-                display: block !important;;
-            }
-            .sidebar-header{
-                display: block !important;;
-            }
-            .name-app h5 {
-                display: block;
-            }
-        }
-
-
-    </style>
+    <%--  --------  css --------  --%>
+    <link rel="stylesheet" href="<c:url value="/resources/CSS/app.css"/> "/>
 </head>
 <body>
 <tiles:insertAttribute name="header"/>
@@ -155,7 +51,7 @@
                         </a>
                     </li>
                     <li class="nav-item w-100 my-1">
-                        <a href="<c:url value="/assignment/" />"class="nav-link px-0 align-middle">
+                        <a href="<c:url value="/assignment/" />" class="nav-link px-0 align-middle">
                             <i class="fas fa-tasks"></i>
                             <span class="ms-1 ">Phân công biên soạn</span>
                         </a>

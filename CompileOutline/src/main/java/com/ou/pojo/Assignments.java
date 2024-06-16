@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
         @NamedQuery(name = "Assignment.FindBySubject", query = "SELECT a FROM Assignments a WHERE a.subject.id = :subject"),
         @NamedQuery(name = "Assignment.findAll", query = "select a from Assignments a"),
         @NamedQuery(name = "Subject.findAllUnassigned", query = "SELECT s FROM Subject s WHERE s.id NOT IN (SELECT a.subject.id FROM Assignments a)"),
-        @NamedQuery(name = "Subject.findAllUnassignedIncludingCurrent", query = "SELECT s FROM Subject s WHERE s.id NOT IN (SELECT a.subject.id FROM Assignments a) OR s.id = :currentSubjectId")
+        @NamedQuery(name = "Subject.findAllUnassignedIncludingCurrent", query = "SELECT s FROM Subject s WHERE s.id NOT IN (SELECT a.subject.id FROM Assignments a) OR s.id = :currentSubjectId"),
+        @NamedQuery(name = "Assignment.FindByTeacherId",query = "SELECT a FROM Assignments a WHERE a.lecturerUser.id = :lectureId")
 })
 
 public class Assignments {

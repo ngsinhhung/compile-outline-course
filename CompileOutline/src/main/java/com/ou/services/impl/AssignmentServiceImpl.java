@@ -39,6 +39,11 @@ public class AssignmentServiceImpl implements AssignmentServices {
     }
 
     @Override
+    public List<Assignments> getAssignmentByTeacherId(int lectureId) {
+        return this.assignmentRepository.getAssignmentByTeacherId(lectureId);
+    }
+
+    @Override
     public void assigmentTeacher(Assignments assignment) {
         this.assignmentRepository.addorUpdate(assignment);
     }

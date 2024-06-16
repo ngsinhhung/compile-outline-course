@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @NamedQueries({
         @NamedQuery(name = "Lecturer.findAll", query = "select l from Lecturer l"),
-            @NamedQuery(name = "Lecturer.findByFaculty", query = "SELECT l.user.profile.fullname , l.id FROM Lecturer l WHERE l.facultyId = :facultyId")
+        @NamedQuery(name = "Lecturer.findByFaculty", query = "SELECT l.user.profile.fullname , l.id FROM Lecturer l WHERE l.facultyId = :facultyId")
 })
 @Table(name = "lecturer")
 public class Lecturer {

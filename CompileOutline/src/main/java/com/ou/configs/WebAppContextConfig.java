@@ -1,8 +1,6 @@
 package com.ou.configs;
 
-import com.ou.formatters.FacultyFormatter;
-import com.ou.formatters.LecturerFormatter;
-import com.ou.formatters.SubjectFormatter;
+import com.ou.formatters.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -47,6 +45,8 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addFormatter(new FacultyFormatter());
         registry.addFormatter(new LecturerFormatter());
         registry.addFormatter(new SubjectFormatter());
+        registry.addFormatter(new SpecificationFormatter());
+        registry.addFormatter(new AssignmentFormatter());
 
     }
 

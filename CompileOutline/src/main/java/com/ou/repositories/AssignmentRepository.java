@@ -13,6 +13,7 @@ public interface AssignmentRepository {
      List<Lecturer> getLecturersByFacultyId(int facultyId);
      List<Subject> getAllSubjectNoAssignemnt();
      List<Assignments> getAllAssignment();
+     List<Assignments> getAssignmentByTeacherId(int lectureId);
      boolean isCheckSubject(Subject subject);
      void addorUpdate(Assignments assignment);
      Assignments getAssignmentById(int id);

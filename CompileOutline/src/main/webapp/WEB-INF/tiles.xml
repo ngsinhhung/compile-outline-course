@@ -54,16 +54,16 @@
 <!--        <put-attribute name="title" value="Trang chủ quản trị" />-->
 <!--        <put-attribute name="content" value="/WEB-INF/pages/manageCourses.jsp" />-->
 <!--    </definition>-->
-<!--    <definition name="teacherHome" extends="baseLayout">-->
-<!--        <put-attribute name="title" value="Home Page" />-->
-<!--        <put-attribute name="content" value="/WEB-INF/pages/teacherHome.jsp" />-->
-<!--    </definition>-->
+    <definition name="teacherHome" extends="baseLayout">
+        <put-attribute name="title" value="Home Page" />
+        <put-attribute name="content" value="/WEB-INF/pages/teacher/teacherHome.jsp" />
+    </definition>
 <!--    <definition name="chatpage" extends="baseLayout">-->
 <!--        <put-attribute name="title" value="Home Page" />-->
 <!--        <put-attribute name="content" value="/WEB-INF/pages/chatpage.jsp" />-->
 <!--    </definition>-->
-<!--    <definition name="createSpecification" extends="baseLayout">-->
-<!--        <put-attribute name="title" value="Home Page" />-->
-<!--        <put-attribute name="content" value="/WEB-INF/pages/createSpecification.jsp" />-->
-<!--    </definition>-->
+    <definition name="createSpecification" extends="baseLayout">
+        <put-attribute name="title" value="Home Page" />
+        <put-attribute name="content" value="/WEB-INF/pages/teacher/createSpecification.jsp" />
+    </definition>
 </tiles-definitions>
