@@ -28,6 +28,11 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
+    public Faculty getFacultyOfLecturer(int lecturerId) {
+        return this.facultyRepository.getFacultyOfStudentId(lecturerId);
+    }
+
+    @Override
     public void deleteFaculty(int id) {
         this.facultyRepository.deleteFaculty(id);
     }

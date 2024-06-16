@@ -1,10 +1,7 @@
 package com.ou.repositories.impl;
 
-import com.ou.dto.ProfileDto;
-import com.ou.pojo.Lecturer;
 import com.ou.pojo.Profile;
-import com.ou.pojo.User;
-import com.ou.repositories.UserRepository;
+import com.ou.repositories.ProfileRepository;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -15,18 +12,19 @@ import javax.persistence.Query;
 
 @Repository
 @Transactional
-public class UserRepositoryImpl implements UserRepository {
+public class ProfileRepositoryImpl implements ProfileRepository {
     @Autowired
     private LocalSessionFactoryBean factory;
+
     @Override
-    public User getUserById(int id) {
+    public void addOrUpdateProfile(Profile profile) {
         Session s = this.factory.getObject().getCurrentSession();
-        return s.get(User.class, id);
+        s.saveOrUpdate(profile);
     }
 
     @Override
-    public void addOrUpdateUser(User user) {
+    public Profile getProfileById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
-        s.saveOrUpdate(user);
+        return s.get(Profile.class, id);
     }
 }

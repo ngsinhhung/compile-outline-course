@@ -6,13 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compile OutLine</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
+<%--<head>--%>
+<%--    <meta charset="UTF-8">--%>
+<%--    <meta name="viewport" content="width=device-width, initial-scale=1.0">--%>
+<%--    <title>Compile OutLine</title>--%>
+<%--    <script src="https://cdn.tailwindcss.com"></script>--%>
+<%--</head>--%>
+<%--<body>--%>
 <div class="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -118,5 +118,5 @@
 <%--        }--%>
 <%--    });--%>
 <%--</script>--%>
-</body>
-</html>
+<%--</body>--%>
+<%--</html>--%>

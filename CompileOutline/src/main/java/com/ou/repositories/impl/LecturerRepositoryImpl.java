@@ -1,7 +1,7 @@
 package com.ou.repositories.impl;
 
-import com.ou.pojo.Subject;
-import com.ou.repositories.SubjectRepository;
+import com.ou.pojo.Lecturer;
+import com.ou.repositories.LecturerRepository;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -13,36 +13,25 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class SubjectRepositoryImpl implements SubjectRepository {
+public class LecturerRepositoryImpl implements LecturerRepository {
     @Autowired
     private LocalSessionFactoryBean factory;
     @Override
-    public List<Subject> getSubjects() {
+    public List<Lecturer> getAllLecturer() {
         Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createNamedQuery("Subject.findAll");
+        Query q = s.createNamedQuery("Lecturer.findAll");
         return q.getResultList();
     }
 
     @Override
-    public void addOrUpdate(Subject subject) {
+    public void addOrUpdateLecturer(Lecturer lecturer) {
         Session s = this.factory.getObject().getCurrentSession();
-        if(subject.getId() != null && subject.getId() > 0){
-            s.update(subject);
-        }
-        else {
-            s.save(subject);
-        }
+        s.saveOrUpdate(lecturer);
     }
 
     @Override
-    public Subject getSubjectById(int id) {
+    public Lecturer getLecturerById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
-        return s.get(Subject.class, id);
-    }
-
-    @Override
-    public void deleteSubject(int id) {
-        Session s = this.factory.getObject().getCurrentSession();
-        s.delete(this.getSubjectById(id));
+        return s.get(Lecturer.class, id);
     }
 }

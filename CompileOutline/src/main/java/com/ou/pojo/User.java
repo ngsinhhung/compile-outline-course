@@ -9,6 +9,11 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "user")
+@NamedQueries({
+        @NamedQuery(name = "User.findById", query = "select u from User u where u.id = :id"),
+        @NamedQuery(name = "User.findByUsername", query = "select u from User u where u.username = :username"),
+        @NamedQuery(name = "User.findByIsActive", query = "select u from User u where u.isActive = :isActive")
+})
 public class User {
     @Id
     @Column(name = "id", nullable = false)
@@ -28,7 +33,5 @@ public class User {
     private Boolean isActive;
 
     @OneToOne(mappedBy = "user")
-
     private Profile profile;
-
 }

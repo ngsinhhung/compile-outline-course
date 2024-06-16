@@ -82,20 +82,20 @@
                             <span class="ms-1 ">Quản lý tài khoản</span>
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+<%--                            <li class="w-100">--%>
+<%--                                <a href="#" class="nav-link p-2 mb-3">--%>
+<%--                                    <i class="fas fa-user-shield"></i>--%>
+<%--                                    <span class="">Tài khoản quản trị</span>--%>
+<%--                                </a>--%>
+<%--                            </li>--%>
                             <li class="w-100">
-                                <a href="#" class="nav-link p-2 mb-3">
-                                    <i class="fas fa-user-shield"></i>
-                                    <span class="">Tài khoản quản trị</span>
-                                </a>
-                            </li>
-                            <li class="w-100">
-                                <a href="#" class="nav-link p-2 mb-3">
+                                <a href="<c:url value="/users/lecturer" />" class="nav-link p-2 mb-3">
                                     <i class="fas fa-chalkboard-teacher"></i>
                                     <span class="">Tài khoản giảng viên</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link p-2 mb-3">
+                                <a href="<c:url value="/users/student" />" class="nav-link p-2 mb-3">
                                     <i class="fas fa-user-graduate"></i>
                                     <span class="">Tài khoản sinh viên</span>
                                 </a>
@@ -121,8 +121,6 @@
     function toggleSidebar() {
         document.querySelector('.sidebar').classList.toggle('active');
     }
-
-
 </script>
 </body>
 </html>

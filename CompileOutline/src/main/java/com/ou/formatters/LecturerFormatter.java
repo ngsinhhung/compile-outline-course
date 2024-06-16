@@ -11,12 +11,12 @@ public class LecturerFormatter implements Formatter<Lecturer> {
     @Override
     public Lecturer parse(String id, Locale locale) throws ParseException {
         Lecturer lecturer = new Lecturer();
-        lecturer.setUserId(Integer.parseInt(id));
+        lecturer.setId(Integer.parseInt(id));
         return lecturer;
     }
 
     @Override
     public String print(Lecturer lecturer, Locale locale) {
-        return String.valueOf(lecturer.getUserId());
+        return String.valueOf(lecturer.getId());
     }
 }
