@@ -4,97 +4,98 @@
 
 <tiles-definitions>
     <definition name="baseLayout" template="/WEB-INF/layout/base.jsp">
-        <put-attribute name="title" value="" />
-        <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
-        <put-attribute name="sidebar" value="" />
-        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
-        <put-attribute name="content" value="" />
+        <put-attribute name="title" value=""/>
+        <put-attribute name="header" value="/WEB-INF/layout/header.jsp"/>
+        <put-attribute name="sidebar" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp"/>
+        <put-attribute name="content" value=""/>
     </definition>
     <definition name="home" extends="baseLayout">
-        <put-attribute name="title" value="Trang chủ quản trị" />
+        <put-attribute name="title" value="Trang chủ quản trị"/>
         <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
-        <put-attribute name="content" value="/WEB-INF/pages/admin/admin.jsp" />
+
+        <put-attribute name="content" value="/WEB-INF/pages/admin/admin.jsp"/>
     </definition>
     <definition name="subjects" extends="baseLayout">
-        <put-attribute name="title" value="Quản trị môn học" />
+        <put-attribute name="title" value="Quản trị môn học"/>
         <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
-        <put-attribute name="content" value="/WEB-INF/pages/admin/subject.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/admin/subject.jsp"/>
     </definition>
     <definition name="subject" extends="baseLayout">
-        <put-attribute name="title" value="Quản trị môn học" />
+        <put-attribute name="title" value="Quản trị môn học"/>
         <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
-        <put-attribute name="content" value="/WEB-INF/pages/admin/create_or_update_subject.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/admin/create_or_update_subject.jsp"/>
     </definition>
     <definition name="faculties" extends="baseLayout">
-        <put-attribute name="title" value="Quản trị khoa" />
+        <put-attribute name="title" value="Quản trị khoa"/>
         <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
-        <put-attribute name="content" value="/WEB-INF/pages/admin/faculty.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/admin/faculty.jsp"/>
     </definition>
     <definition name="faculty" extends="baseLayout">
-        <put-attribute name="title" value="Quản trị khoa" />
+        <put-attribute name="title" value="Quản trị khoa"/>
         <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
-        <put-attribute name="content" value="/WEB-INF/pages/admin/create_or_update_faculty.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/admin/create_or_update_faculty.jsp"/>
     </definition>
     <definition name="admin_account" extends="baseLayout">
-        <put-attribute name="title" value="Quản trị tài khoản" />
+        <put-attribute name="title" value="Quản trị tài khoản"/>
         <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
-        <put-attribute name="content" value="/WEB-INF/pages/admin/account_admin.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/admin/account_admin.jsp"/>
     </definition>
     <definition name="lecturer_account" extends="baseLayout">
-        <put-attribute name="title" value="Quản trị tài khoản" />
+        <put-attribute name="title" value="Quản trị tài khoản"/>
         <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
-        <put-attribute name="content" value="/WEB-INF/pages/admin/account_lecturer.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/admin/account_lecturer.jsp"/>
     </definition>
     <definition name="student_account" extends="baseLayout">
-        <put-attribute name="title" value="Quản trị tài khoản" />
+        <put-attribute name="title" value="Quản trị tài khoản"/>
         <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
-        <put-attribute name="content" value="/WEB-INF/pages/admin/account_student.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/admin/account_student.jsp"/>
     </definition>
     <definition name="user_profile" extends="baseLayout">
-        <put-attribute name="title" value="Hồ sơ cá nhân" />
+        <put-attribute name="title" value="Hồ sơ cá nhân"/>
         <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
-        <put-attribute name="content" value="/WEB-INF/pages/admin/user_profile.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/admin/user_profile.jsp"/>
     </definition>
 
     <definition name="assignemted" extends="baseLayout">
-        <put-attribute name="title" value="Quản trị khoa" />
+        <put-attribute name="title" value="Quản trị khoa"/>
         <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
-        <put-attribute name="content" value="/WEB-INF/pages/admin/editAssigment.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/admin/editAssigment.jsp"/>
     </definition>
 
-<!--    <definition name="manageOutlines" extends="baseLayout">-->
-<!--        <put-attribute name="title" value="Trang chủ quản trị" />-->
-<!--        <put-attribute name="content" value="/WEB-INF/pages/manageOutlines.jsp" />-->
-<!--    </definition>-->
-<!--    <definition name="manageAccounts" extends="baseLayout">-->
-<!--        <put-attribute name="title" value="Trang chủ quản trị" />-->
-<!--        <put-attribute name="content" value="/WEB-INF/pages/manageAccounts.jsp" />-->
-<!--    </definition>-->
-<!--    <definition name="manageCourses" extends="baseLayout">-->
-<!--        <put-attribute name="title" value="Trang chủ quản trị" />-->
-<!--        <put-attribute name="content" value="/WEB-INF/pages/manageCourses.jsp" />-->
-<!--    </definition>-->
+    <!--    <definition name="manageOutlines" extends="baseLayout">-->
+    <!--        <put-attribute name="title" value="Trang chủ quản trị" />-->
+    <!--        <put-attribute name="content" value="/WEB-INF/pages/manageOutlines.jsp" />-->
+    <!--    </definition>-->
+    <!--    <definition name="manageAccounts" extends="baseLayout">-->
+    <!--        <put-attribute name="title" value="Trang chủ quản trị" />-->
+    <!--        <put-attribute name="content" value="/WEB-INF/pages/manageAccounts.jsp" />-->
+    <!--    </definition>-->
+    <!--    <definition name="manageCourses" extends="baseLayout">-->
+    <!--        <put-attribute name="title" value="Trang chủ quản trị" />-->
+    <!--        <put-attribute name="content" value="/WEB-INF/pages/manageCourses.jsp" />-->
+    <!--    </definition>-->
     <definition name="assignment" extends="baseLayout">
-        <put-attribute name="title" value="Trang chủ quản trị" />
+        <put-attribute name="title" value="Trang chủ quản trị"/>
         <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
-        <put-attribute name="content" value="/WEB-INF/pages/admin/assignment.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/admin/assignment.jsp"/>
 
     </definition>
     <definition name="register" extends="baseLayout">
-        <put-attribute name="title" value="Trang chủ quản trị" />
-        <put-attribute name="content" value="/WEB-INF/pages/lecturer/register.jsp" />
+        <put-attribute name="title" value="Trang chủ quản trị"/>
+        <put-attribute name="content" value="/WEB-INF/pages/lecturer/register.jsp"/>
     </definition>
     <definition name="teacherHome" extends="baseLayout">
-        <put-attribute name="title" value="Home Page" />
+        <put-attribute name="title" value="Home Page"/>
         <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
-        <put-attribute name="content" value="/WEB-INF/pages/lecturer/teacherHome.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/lecturer/teacherHome.jsp"/>
     </definition>
     <definition name="login" extends="baseLayout">
-        <put-attribute name="title" value="Home Page" />
-        <put-attribute name="content" value="/WEB-INF/pages/login.jsp" />
+        <put-attribute name="title" value="Home Page"/>
+        <put-attribute name="content" value="/WEB-INF/pages/login.jsp"/>
     </definition>
     <definition name="createSpecification" extends="baseLayout">
-        <put-attribute name="title" value="Home Page" />
-        <put-attribute name="content" value="/WEB-INF/pages/lecturer/createSpecification.jsp" />
+        <put-attribute name="title" value="Home Page"/>
+        <put-attribute name="content" value="/WEB-INF/pages/lecturer/createSpecification.jsp"/>
     </definition>
 </tiles-definitions>

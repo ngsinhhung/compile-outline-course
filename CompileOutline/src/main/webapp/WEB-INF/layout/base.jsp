@@ -39,17 +39,20 @@
     .content {
         background-color: #ffffff;
         padding: 30px;
+        flex-direction: column;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         transition: all 0.3s;
-        margin-left: 232px;
-        min-height:calc(100vh - 65px);
+        min-height: calc(100vh - 65px);
+        width: 100%;
     }
 </style>
 <body>
 <tiles:insertAttribute name="header"/>
-<tiles:insertAttribute name="sidebar"/>
-<main class="content">
-    <tiles:insertAttribute name="content"/>
+<main class=" d-flex" style="gap:2px ;   min-height: calc(100vh - 65px);">
+    <tiles:insertAttribute name="sidebar"/>
+   <div class="content">
+       <tiles:insertAttribute name="content"/>
+   </div>
 </main>
 <tiles:insertAttribute name="footer"/>
 </body>

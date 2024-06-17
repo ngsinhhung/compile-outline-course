@@ -6,12 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<style>
-    .content {
-    
-    }
-</style>
-<div class="container  d-flex flex-column justify-content-center py-4" style="margin-left: 0 !important;">
+
+<div class=" d-flex flex-column justify-content-center py-4" style="margin-left: 0 !important;">
     <div class="mx-auto w-100" style="max-width: 400px;">
         <h2 class="mt-4 text-center fw-bold text-dark">
             Tạo Tài Khoản Giảng Viên
