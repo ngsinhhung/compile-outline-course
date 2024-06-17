@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div class="container">
+<div class="" style="min-height:calc(100vh - 65px);">
     <div class="d-flex align-items-center mb-4">
         <img src="https://png.pngtree.com/png-vector/20221023/ourmid/pngtree-paper-publish-document-media-vector-png-image_34370374.png" style="height: 50px;" alt="icon-specification">
         <p class="fs-5 fw-bold ms-3 mb-0">Biên soạn đề cương chi tiết</p>

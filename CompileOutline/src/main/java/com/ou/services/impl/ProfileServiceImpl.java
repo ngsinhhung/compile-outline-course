@@ -12,8 +12,8 @@ public class ProfileServiceImpl implements ProfileService {
     private ProfileRepository profileRepository;
 
     @Override
-    public void addOrUpdateProfile(Profile profile) {
-        this.profileRepository.addOrUpdateProfile(profile);
+    public void updateProfile(Profile profile) {
+        this.profileRepository.updateProfile(profile);
     }
 
     @Override

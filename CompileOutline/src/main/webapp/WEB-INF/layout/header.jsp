@@ -8,7 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<header  style="height: 60px;background-color: rgb(15 23 42)">
+<header  style="height: 65px;background-color: rgb(15 23 42)">
     <div class="container-fluid pt-2 pb-2">
         <div class="d-flex justify-content-between align-items-center">
             <a class="navbar-brand text-white "  style="color: black" href="<c:url value="/" /> ">Admin Dashboard</a>

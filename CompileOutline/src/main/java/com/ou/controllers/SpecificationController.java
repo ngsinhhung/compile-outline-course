@@ -22,7 +22,7 @@ public class SpecificationController {
 
     @GetMapping("/")
     public String specificationList (Model model) {
-        model.addAttribute("assigment",this.assignmentServices.getAssignmentByTeacherId(2));
+        model.addAttribute("assigment",this.assignmentServices.getAssignmentByTeacherId(3));
         return "teacherHome";
     }
 

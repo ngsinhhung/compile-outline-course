@@ -7,8 +7,12 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="d-flex justify-content-between mt-4 mb-4">
     <h1 class="h3">Quản lý tài khoản sinh viên</h1>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createStudentAccount">
+        Tạo tài khoản sinh viên
+    </button>
 </div>
 
 <table class="table">
@@ -57,5 +61,53 @@
     </tbody>
 </table>
 
+<div class="modal" id="createStudentAccount">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
 
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Đăng kí tài khoản sinh viên</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <c:url value="/users/student" var="action"/>
+                <form:form method="post" modelAttribute="studentDto" action="${action}">
+                    <div class="form-floating mb-3 mt-3">
+                        <form:input path="username" type="text" class="form-control" id="username"/>
+                        <label for="username">Username</label>
+                    </div>
+
+                    <div class="form-floating mb-3 mt-3">
+                        <form:input path="email" type="email" class="form-control" id="email"/>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="form-floating mb-3 mt-3">
+                        <form:select path="faculty" class="form-select" id="faculty">
+                            <option hidden="hidden" disabled selected>Chọn khoa</option>
+                            <c:forEach items="${faculties}" var="f">
+                                <option value="${f.id}">${f.facultyName}</option>
+                            </c:forEach>
+                        </form:select>
+                    </div>
+
+                    <div class="form-floating mt-3 mb-3">
+                        <form:input path="password" type="password" class="form-control" id="password"/>
+                        <label for="password">Mật khẩu</label>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form:form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<script>
+
+</script>
 <script src="<c:url value="/resources/JS/manageAccount.js" />"></script>

@@ -24,9 +24,9 @@ public class LecturerRepositoryImpl implements LecturerRepository {
     }
 
     @Override
-    public void addOrUpdateLecturer(Lecturer lecturer) {
+    public void updateLecturer(Lecturer lecturer) {
         Session s = this.factory.getObject().getCurrentSession();
-        s.saveOrUpdate(lecturer);
+        s.update(lecturer);
     }
 
     @Override

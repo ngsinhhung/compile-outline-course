@@ -4,6 +4,7 @@ import com.ou.dto.ProfileDto;
 import com.ou.pojo.Profile;
 
 public interface ProfileRepository {
-    void addOrUpdateProfile(Profile profile);
+    void updateProfile(Profile profile);
+    void addProfile(Profile profile);
     Profile getProfileById(int id);
 }

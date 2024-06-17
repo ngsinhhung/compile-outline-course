@@ -28,88 +28,29 @@
     <%--  --------  css --------  --%>
     <link rel="stylesheet" href="<c:url value="/resources/CSS/app.css"/> "/>
 </head>
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #ffffff;
+        color: #343a40;
+        font-size: 16px;
+    }
+
+    .content {
+        background-color: #ffffff;
+        padding: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s;
+        margin-left: 232px;
+        min-height:calc(100vh - 65px);
+    }
+</style>
 <body>
 <tiles:insertAttribute name="header"/>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 sidebar">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
-                <div class="name-app">
-                    <h5 class="fw-bold" style="font-size: 23px">
-                        <i class="fas fa-book"></i>
-                        Quản lý đề cương
-                    </h5>
-                </div>
-                <div class="sidebar-header  w-100 mb-3">
-                    <i class="fas fa-times close-icon" style="color: black" onclick="toggleSidebar()"></i>
-                </div>
-                <ul class="nav nav-pills " id="menu">
-                    <li class="nav-item w-100 my-1">
-                        <a href="#" class="nav-link align-middle px-0">
-                            <i class="fas fa-th-large"></i>
-                            <span class="ms-1 ">Quản lý đề cương</span>
-                        </a>
-                    </li>
-                    <li class="nav-item w-100 my-1">
-                        <a href="<c:url value="/assignment/" />" class="nav-link px-0 align-middle">
-                            <i class="fas fa-tasks"></i>
-                            <span class="ms-1 ">Phân công biên soạn</span>
-                        </a>
-                    </li>
-                    <li class="nav-item w-100 my-1">
-                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fas fa-graduation-cap"></i>
-                            <span class="ms-1 ">Quản lý đào tạo</span>
-                        </a>
-                        <ul class="collapse  nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="<c:url value="/faculty/"/>" class="nav-link p-2 mb-3">
-                                    <i class="fas fa-university"></i>
-                                    <span class="">Khoa</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="<c:url value="/subject/"/>" class="nav-link p-2 mb-3">
-                                    <i class="fas fa-book"></i>
-                                    <span class="">Môn học</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item w-100 my-1">
-                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fas fa-user"></i>
-                            <span class="ms-1 ">Quản lý tài khoản</span>
-                        </a>
-                        <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-<%--                            <li class="w-100">--%>
-<%--                                <a href="#" class="nav-link p-2 mb-3">--%>
-<%--                                    <i class="fas fa-user-shield"></i>--%>
-<%--                                    <span class="">Tài khoản quản trị</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
-                            <li class="w-100">
-                                <a href="<c:url value="/users/lecturer" />" class="nav-link p-2 mb-3">
-                                    <i class="fas fa-chalkboard-teacher"></i>
-                                    <span class="">Tài khoản giảng viên</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="<c:url value="/users/student" />" class="nav-link p-2 mb-3">
-                                    <i class="fas fa-user-graduate"></i>
-                                    <span class="">Tài khoản sinh viên</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="col content">
-            <tiles:insertAttribute name="content"/>
-        </div>
-    </div>
-</div>
+<tiles:insertAttribute name="sidebar"/>
+<main class="content">
+    <tiles:insertAttribute name="content"/>
+</main>
 <tiles:insertAttribute name="footer"/>
 </body>
 <script
