@@ -4,10 +4,7 @@
 
 <div class="py-4">
     <div class="container">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAssignmentModal">
-            Thêm Phân Công
-        </button>
-        
+
         <div class="modal fade" id="addAssignmentModal" tabindex="-1" aria-labelledby="addAssignmentModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -48,7 +45,12 @@
         </div>
         
         <div class="mt-4">
-            <h2 class="h4">Danh Sách Phân Công</h2>
+            <div class="d-flex justify-content-between">
+                <h2 class="h4">Danh Sách Phân Công</h2>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAssignmentModal">
+                    Thêm Phân Công
+                </button>
+                </div>
             <table class="table">
                 <thead>
                 <tr>

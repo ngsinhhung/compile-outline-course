@@ -17,9 +17,15 @@ public class ProfileRepositoryImpl implements ProfileRepository {
     private LocalSessionFactoryBean factory;
 
     @Override
-    public void addOrUpdateProfile(Profile profile) {
+    public void updateProfile(Profile profile) {
         Session s = this.factory.getObject().getCurrentSession();
-        s.saveOrUpdate(profile);
+        s.update(profile);
+    }
+
+    @Override
+    public void addProfile(Profile profile) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.save(profile);
     }
 
     @Override

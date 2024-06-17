@@ -30,8 +30,14 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public void addOrUpdateStudent(Student student) {
+    public void updateStudent(Student student) {
         Session s = this.factory.getObject().getCurrentSession();
-        s.saveOrUpdate(student);
+        s.update(student);
+    }
+
+    @Override
+    public void addStudent(Student student) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.save(student);
     }
 }

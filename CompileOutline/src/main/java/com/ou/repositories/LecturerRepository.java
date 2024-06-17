@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface LecturerRepository {
     List<Lecturer> getAllLecturer();
-    void addOrUpdateLecturer(Lecturer lecturer);
+    void updateLecturer(Lecturer lecturer);
     Lecturer getLecturerById(int id);
 }

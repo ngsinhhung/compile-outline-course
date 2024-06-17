@@ -1,7 +1,5 @@
 package com.ou.configs;
 
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 import com.ou.formatters.FacultyFormatter;
 import com.ou.formatters.*;
 import org.springframework.context.annotation.Bean;
@@ -67,14 +65,4 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/CSS/**").addResourceLocations("/resources/CSS/");
     }
 
-    @Bean
-    public Cloudinary cloudinary() {
-        Cloudinary cloudinary
-                = new Cloudinary(ObjectUtils.asMap(
-                "cloud_name", "dmdljcwau",
-                "api_key", "751729637915529",
-                "api_secret", "-9greGmb76IjiPCDjePMEPuuz1I",
-                "secure", true));
-        return cloudinary;
-    }
 }

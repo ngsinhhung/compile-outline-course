@@ -2,11 +2,13 @@ package com.ou.services.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.ou.dto.NewStudentDto;
 import com.ou.dto.ProfileDto;
 import com.ou.pojo.*;
 import com.ou.repositories.*;
 import com.ou.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -27,6 +29,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private Cloudinary cloudinary;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public ProfileDto getProfileUserById(int id) {
@@ -52,16 +57,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addOrUpdateProfileDto(ProfileDto profileDto) {
+    public void updateProfileDto(ProfileDto profileDto) {
         Faculty f = this.facultyRepository.getFacultyById(profileDto.getFacultyId());
         if(profileDto.getRole().equals("LECTURER")){
             Lecturer l = this.lecturerRepository.getLecturerById(profileDto.getId());
             l.setFaculty(f);
-            this.lecturerRepository.addOrUpdateLecturer(l);
+            this.lecturerRepository.updateLecturer(l);
         } else if (profileDto.getRole().equals("STUDENT")) {
             Student s = this.studentRepository.getStudentById(profileDto.getId());
             s.setFaculty(f);
-            this.studentRepository.addOrUpdateStudent(s);
+            this.studentRepository.updateStudent(s);
         }
         User u = this.userRepository.getUserById(profileDto.getId());
         u.setUsername(profileDto.getUsername());
@@ -79,6 +84,31 @@ public class UserServiceImpl implements UserService {
                 throw new RuntimeException(e);
             }
         }
-        this.profileRepository.addOrUpdateProfile(p);
+        this.profileRepository.updateProfile(p);
+    }
+
+    @Override
+    public void addNewStudent(NewStudentDto newStudentDto) {
+        User u = new User();
+        u.setUsername(newStudentDto.getUsername());
+        String pwd = newStudentDto.getPassword();
+        u.setPassword(this.passwordEncoder.encode(pwd).toString());
+        u.setRole("STUDENT");
+        u.setIsActive(true);
+        this.userRepository.addOrUpdateUser(u);
+
+        User u1 = this.userRepository.getUserByUsername(newStudentDto.getUsername());
+
+        Student s = new Student();
+        s.setId(u1.getId());
+        s.setUser(u1);
+        s.setFaculty(newStudentDto.getFaculty());
+        this.studentRepository.addStudent(s);
+
+        Profile p = new Profile();
+        p.setId(u1.getId());
+        p.setEmail(newStudentDto.getEmail());
+        p.setUser(u1);
+        this.profileRepository.addProfile(p);
     }
 }

@@ -20,13 +20,13 @@ public class Profile {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "fullname", nullable = false, length = 45)
+    @Column(name = "fullname", length = 45)
     private String fullname;
 
     @Column(name = "email", nullable = false, length = 45)
     private String email;
 
-    @Column(name = "avatar", nullable = false, length = 100)
+    @Column(name = "avatar", length = 100)
     private String avatar;
 
     @Column(name = "date_joined")

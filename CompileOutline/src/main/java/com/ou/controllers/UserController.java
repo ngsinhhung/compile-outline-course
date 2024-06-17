@@ -1,5 +1,6 @@
 package com.ou.controllers;
 
+import com.ou.dto.NewStudentDto;
 import com.ou.dto.ProfileDto;
 import com.ou.services.LecturerService;
 import com.ou.services.StudentService;
@@ -37,7 +38,7 @@ public class UserController {
     public String updateProfile(@ModelAttribute("profileDto") @Valid ProfileDto profileDto, BindingResult rs) {
         if(!rs.hasErrors()) {
             try {
-                this.userService.addOrUpdateProfileDto(profileDto);
+                this.userService.updateProfileDto(profileDto);
                 if (profileDto.getRole().equals("LECTURER")){
                     return "redirect:/users/lecturer";
                 }
@@ -61,6 +62,17 @@ public class UserController {
     @GetMapping("/student")
     public String student(Model model) {
         model.addAttribute("students", this.studentService.getAllStudent());
+        model.addAttribute("studentDto", new NewStudentDto());
         return "student_account";
+    }
+
+    @PostMapping("/student")
+    public String newStudent(@ModelAttribute(value = "studentDto") NewStudentDto student) {
+        System.out.println(student.getUsername());
+        System.out.println(student.getEmail());
+        System.out.println(student.getPassword());
+        System.out.println(student.getFaculty());
+        this.userService.addNewStudent(student);
+        return "redirect:/users/student";
     }
 }
