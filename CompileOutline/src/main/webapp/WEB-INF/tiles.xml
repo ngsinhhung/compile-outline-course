@@ -87,7 +87,6 @@
     </definition>
     <definition name="teacherHome" extends="baseLayout">
         <put-attribute name="title" value="Home Page"/>
-        <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
         <put-attribute name="content" value="/WEB-INF/pages/lecturer/teacherHome.jsp"/>
     </definition>
     <definition name="login" extends="baseLayout">
