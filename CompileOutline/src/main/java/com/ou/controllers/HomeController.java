@@ -16,15 +16,15 @@ public class HomeController {
 //        return "manageOutlines";
 //    }
 //
-//    @RequestMapping("/admin/manage-accounts")
-//    public String manageAccounts() {
-//        return "manageAccounts";
-//    }
+    @RequestMapping("/admin/manage-accounts")
+    public String manageAccounts() {
+        return "register";
+    }
 //
-//    @RequestMapping("/admin/manage-courses")
-//    public String manageCourses() {
-//        return "manageCourses";
-//    }
+    @RequestMapping("/admin/login")
+    public String manageCourses() {
+        return "login";
+    }
 //
 //    @RequestMapping("/assignment")
 //    public String assignmentTeacher() {

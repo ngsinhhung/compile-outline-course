@@ -6,69 +6,64 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<head>--%>
-<%--    <meta charset="UTF-8">--%>
-<%--    <meta name="viewport" content="width=device-width, initial-scale=1.0">--%>
-<%--    <title>Compile OutLine</title>--%>
-<%--    <script src="https://cdn.tailwindcss.com"></script>--%>
-<%--</head>--%>
-<%--<body>--%>
-<div class="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Tạo Tài Khoản
+<style>
+    .content {
+    
+    }
+</style>
+<div class="container  d-flex flex-column justify-content-center py-4" style="margin-left: 0 !important;">
+    <div class="mx-auto w-100" style="max-width: 400px;">
+        <h2 class="mt-4 text-center fw-bold text-dark">
+            Tạo Tài Khoản Giảng Viên
         </h2>
     </div>
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="bg-white py-4 px-4 shadow sm:rounded-lg sm:px-10">
+    <div class="mt-4 mx-auto w-100" style="max-width: 400px;">
+        <div class="bg-white p-4 shadow rounded">
             <form id="registerForm" class="space-y-2" method="post" enctype="multipart/form-data">
-                <div>
-                    <label for="avatar" class="block text-center text-lg font-medium text-gray-700">
+                <div class="mb-3 text-center">
+                    <label for="avatar" class="form-label d-block">
                         Avatar
                     </label>
-                    <div class="mt-1 flex items-center justify-center">
-                        <img id="avatarPreview" src= "https://cdn-icons-png.flaticon.com/512/6596/6596121.png" class="h-20 w-20 rounded-full object-cover cursor-pointer" />
-                        <input id="avatar" name="avatar" type="file" class="hidden" />
+                    <div class="d-flex justify-content-center">
+                        <img id="avatarPreview" src="https://cdn-icons-png.flaticon.com/512/6596/6596121.png" class="rounded-circle" style="height: 80px; width: 80px; object-fit: cover; cursor: pointer;" onclick="document.getElementById('avatar').click();" />
+                        <input id="avatar" name="avatar" type="file" class="form-control d-none" onchange="previewAvatar();" />
                     </div>
-                    <div id="avatarError" class="text-red-500 text-center text-sm mt-1"></div>
+                    <div id="avatarError" class="text-danger text-center mt-1"></div>
                 </div>
-                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                    <div>
-                        <label for="firstName" class="block text-sm font-medium text-gray-700">Họ</label>
-                        <input type="text" id="firstName" name="firstName" placeholder="Nhập vào Họ" class="mt-1  p-2  block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                        <div id="firstNameError" class="text-red-500 text-sm mt-1"></div>
-                    </div>
-                    <div>
-                        <label for="lastName" class="block text-sm font-medium text-gray-700">Tên</label>
-                        <input type="text" id="lastName" name="lastName" placeholder="Nhập vào tên" class="mb-2 p-2  block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                        <div id="lastNameError" class="text-red-500 text-sm mt-1"></div>
-                    </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Nhập vào tên đăng nhập" class="form-control" />
+                    <div id="usernameError" class="text-danger mt-1"></div>
                 </div>
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Nhập vào email" class="mt-1 p-2  block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                    <div id="emailError" class="text-red-500 text-sm mt-1"></div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Nhập vào email" class="form-control" />
+                    <div id="emailError" class="text-danger mt-1"></div>
                 </div>
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">Mật Khẩu</label>
-                    <input type="password" id="password" name="password" placeholder="Nhập vào mật khẩu" class="mt-1 block p-2 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                    <div id="passwordError" class="text-red-500 text-sm mt-1"></div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mật Khẩu</label>
+                    <input type="password" id="password" name="password" placeholder="Nhập vào mật khẩu" class="form-control" />
+                    <div id="passwordError" class="text-danger mt-1"></div>
                 </div>
-                <div>
-                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Nhập Lại Mật khẩu</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Nhập lại mật khẩu" class="mt-1 p-2  block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                    <div id="confirmPasswordError" class="text-red-500 text-sm mt-1"></div>
+                <div class="mb-3">
+                    <label for="faculty" class="form-label">Khoa</label>
+                    <select id="faculty" name="faculty" class="form-select">
+                        <option value="" selected disabled>Chọn khoa</option>
+                        <option value="1">Khoa Công nghệ thông tin</option>
+                        <option value="2">Khoa Kinh tế</option>
+                    </select>
+                    <div id="facultyError" class="text-danger mt-1"></div>
                 </div>
                 <div>
-                    <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <button type="submit" class="btn btn-primary w-100">
                         Đăng kí
                     </button>
                 </div>
             </form>
-            <div class="mt-6">
-                <p class="mt-2 gap-2 text-center text-sm text-gray-600 max-w">
-                    Bạn đã có tài khoản ?
-                    <a  class="font-medium ml-2 text-blue-600 hover:text-blue-500">
+            <div class="mt-4 text-center">
+                <p class="text-muted">
+                    Bạn đã có tài khoản?
+                    <a href="#" class="text-primary fw-bold">
                         Đăng nhập
                     </a>
                 </p>
@@ -76,47 +71,19 @@
         </div>
     </div>
 </div>
-<%--<script>--%>
-<%--    // JavaScript for form handling and validation--%>
-<%--    const form = document.getElementById('registerForm');--%>
-<%--    const avatarInput = document.getElementById('avatar');--%>
-<%--    const avatarPreview = document.getElementById('avatarPreview');--%>
-<%--    const fields = ['firstName', 'lastName', 'email', 'password', 'confirmPassword'];--%>
 
-<%--    avatarInput.addEventListener('change', (event) => {--%>
-<%--        const file = event.target.files[0];--%>
-<%--        const reader = new FileReader();--%>
-<%--        reader.onloadend = () => {--%>
-<%--            avatarPreview.src = reader.result;--%>
-<%--        };--%>
-<%--        if (file) {--%>
-<%--            reader.readAsDataURL(file);--%>
-<%--        }--%>
-<%--    });--%>
+<script>
+    function previewAvatar() {
+        const avatarInput = document.getElementById('avatar');
+        const avatarPreview = document.getElementById('avatarPreview');
 
-<%--    form.addEventListener('submit', (event) => {--%>
-<%--        event.preventDefault();--%>
-<%--        const errors = {};--%>
-
-<%--        fields.forEach((field) => {--%>
-<%--            const input = document.getElementById(field);--%>
-<%--            const errorDiv = document.getElementById(`${field}Error`);--%>
-<%--            if (!input.value) {--%>
-<%--                errors[field] = 'Required';--%>
-<%--            } else {--%>
-<%--                errorDiv.textContent = '';--%>
-<%--            }--%>
-<%--        });--%>
-
-<%--        if (Object.keys(errors).length > 0) {--%>
-<%--            Object.keys(errors).forEach((field) => {--%>
-<%--                const errorDiv = document.getElementById(`${field}Error`);--%>
-<%--                errorDiv.textContent = errors[field];--%>
-<%--            });--%>
-<%--        } else {--%>
-<%--            alert('Form submitted successfully');--%>
-<%--        }--%>
-<%--    });--%>
-<%--</script>--%>
-<%--</body>--%>
-<%--</html>--%>
+        const file = avatarInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                avatarPreview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
