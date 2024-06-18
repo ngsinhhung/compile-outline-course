@@ -2,6 +2,7 @@ package com.ou.controllers;
 
 import com.ou.dto.ProfileDto;
 import com.ou.pojo.Admin;
+import com.ou.pojo.Profile;
 import com.ou.pojo.Student;
 import com.ou.pojo.User;
 import com.ou.services.AdminService;
@@ -49,12 +50,18 @@ public class UserController {
         return "lecturer_account";
     }
 
+    @GetMapping("/{userID}")
+    public String updateProfile(Model model, @PathVariable("userID") int id){
+        model.addAttribute("profile", this.userService.getProfileById(id));
+        return "user_profile";
+    }
+
     @PostMapping("/")
-    public String updateProfile(@ModelAttribute("profileDto") @Valid ProfileDto profileDto, BindingResult rs) {
+    public String updateProfile(@ModelAttribute("product") @Valid Profile profile, BindingResult rs) {
         if(!rs.hasErrors()) {
             try {
-                this.userService.updateProfileDto(profileDto);
-                if (profileDto.getRole().equals("ROLE_LECTURER")){
+                this.userService.updateProfile(profile);
+                if (profile.getUser().getRole().equals("ROLE_LECTURER")){
                     return "redirect:/users/lecturer";
                 }
                 else{
@@ -65,13 +72,7 @@ public class UserController {
                 System.out.println(e.getMessage());
             }
         }
-        return String.format("redirect:/users/%d", profileDto.getId());
-    }
-
-    @GetMapping("/{userID}")
-    public String updateProfile(Model model, @PathVariable("userID") int id){
-        model.addAttribute("profileDto", this.userService.getProfileUserById(id));
-        return "user_profile";
+        return String.format("redirect:/users/%d", profile.getId());
     }
 
     @GetMapping("/student")

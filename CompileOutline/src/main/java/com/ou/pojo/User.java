@@ -40,4 +40,7 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     private Lecturer lecturer;
+
+    @OneToOne(mappedBy = "user")
+    private Student student;
 }

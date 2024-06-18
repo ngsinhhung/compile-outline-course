@@ -12,7 +12,7 @@
 <div class=" d-flex flex-column justify-content-center py-4" style="margin-left: 0 !important;">
     <div class="mx-auto w-100" style="max-width: 400px;">
         <h2 class="mt-4 text-center fw-bold text-dark">
-            Đăng kí tài Khoản Giảng Viên
+            Đăng ký giảng viên
         </h2>
     </div>
     <div class="mt-4 mx-auto w-100" style="max-width: 400px;">

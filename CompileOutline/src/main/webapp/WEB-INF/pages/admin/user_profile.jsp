@@ -10,8 +10,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="container-xl px-4 mt-4">
     <c:url value="/users/" var="action"/>
-    <form:form method="post" modelAttribute="profileDto" action="${action}" enctype="multipart/form-data">
+    <form:form method="post" modelAttribute="profile" action="${action}" enctype="multipart/form-data">
         <form:hidden path="id"/>
+        <form:hidden path="avatar"/>
         <div class="row">
             <div class="col-xl-4">
                 <!-- Profile picture card-->
@@ -19,7 +20,7 @@
                     <div class="card-header">Ảnh hồ sơ</div>
                     <div class="card-body text-center">
                         <!-- Profile picture image-->
-                        <img class="img-account-profile rounded-circle mb-2 h-auto" style="width: 300px" src="${profileDto.avatar}" alt="">
+                        <img class="img-account-profile rounded-circle mb-2 h-auto" style="width: 300px" src="${profile.avatar}" alt="">
                         <!-- Profile picture upload button-->
                         <form:input path="file" type="file" class="form-control"/>
 <%--                        <button class="btn btn-primary" type="button">Chỉnh sửa ảnh</button>--%>
@@ -34,7 +35,7 @@
                         <!-- Form Group (username)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputUsername">Username</label>
-                            <form:input path="username" class="form-control" id="inputUsername" type="text"/>
+                            <form:input path="user.username" class="form-control" id="inputUsername" type="text"/>
                         </div>
                         <!-- Form Group (fullname)-->
                         <div class="mb-3">
@@ -57,14 +58,14 @@
                         <!-- Form Group (role)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="showRole">Vai trò</label>
-                            <form:input path="role" value="${profileDto.role}" class="form-control" id="showRole" readonly="true" type="text"/>
+                            <form:input path="user.role" value="${user.role}" class="form-control" id="showRole" readonly="true" type="text"/>
                         </div>
                         <!-- Form Group (is active)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="isActive">Đang hoạt động</label>
-                            <form:select path="isActive" class="form-select" id="isActive">
+                            <form:select path="user.isActive" class="form-select" id="isActive">
                                 <c:choose>
-                                    <c:when test="${profileDto.isActive == true}">
+                                    <c:when test="${profile.user.isActive == true}">
                                         <option value="1" selected>Bật</option>
                                         <option value="0">Tắt</option>
                                     </c:when>
@@ -77,20 +78,41 @@
                         </div>
                         <!-- Form Group (faculty)-->
                         <div class="mb-3">
-                            <label for="faculty">Khoa:</label>
-                            <form:select path="facultyId" class="form-select" id="faculty">
-                                <option hidden="hidden" disabled selected>Chọn khoa</option>
-                                <c:forEach items="${faculties}" var="f">
-                                    <c:choose>
-                                        <c:when test="${f.id==profileDto.facultyId}">
-                                            <option value="${f.id}" selected>${f.facultyName}</option>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <option value="${f.id}">${f.facultyName}</option>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </c:forEach>
-                            </form:select>
+                            <c:choose>
+                                <c:when test="${profile.user.role == 'ROLE_LECTURER'}">
+                                    <label for="faculty">Khoa:</label>
+                                    <form:select path="user.lecturer.faculty" class="form-select" id="faculty">
+                                        <option hidden="hidden" disabled selected>Chọn khoa</option>
+                                        <c:forEach items="${faculties}" var="f">
+                                            <c:choose>
+                                                <c:when test="${f.id==profile.user.lecturer.faculty.id}">
+                                                    <option value="${f.id}" selected>${f.facultyName}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${f.id}">${f.facultyName}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </form:select>
+                                </c:when>
+                                <c:when test="${profile.user.role == 'ROLE_STUDENT'}">
+                                    <label for="faculty">Khoa:</label>
+                                    <form:select path="user.student.faculty" class="form-select" id="faculty">
+                                        <option hidden="hidden" disabled selected>Chọn khoa</option>
+                                        <c:forEach items="${faculties}" var="f">
+                                            <c:choose>
+                                                <c:when test="${f.id==profile.user.lecturer.faculty.id}">
+                                                    <option value="${f.id}" selected>${f.facultyName}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${f.id}">${f.facultyName}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </form:select>
+                                </c:when>
+                            </c:choose>
+
                         </div>
                         <!-- Save changes button-->
                         <button class="btn btn-primary" type="submit">Lưu thay đổi</button>

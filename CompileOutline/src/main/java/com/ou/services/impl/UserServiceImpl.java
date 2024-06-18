@@ -44,57 +44,35 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public ProfileDto getProfileUserById(int id) {
-        User u = this.userRepository.getUserById(id);
-        Profile p = this.profileRepository.getProfileById(id);
-        Faculty f = new Faculty();
-        if(u.getRole().equals("ROLE_LECTURER")){
-            f = this.facultyRepository.getFacultyOfLecturerId(id);
-        } else if (u.getRole().equals("ROLE_STUDENT")) {
-            f = this.facultyRepository.getFacultyOfStudentId(id);
-        }
-        ProfileDto profileDto = new ProfileDto();
-        profileDto.setId(id);
-        profileDto.setUsername(u.getUsername());
-        profileDto.setFullname(p.getFullname());
-        profileDto.setEmail(p.getEmail());
-        profileDto.setPhone(p.getPhone());
-        profileDto.setAvatar(p.getAvatar());
-        profileDto.setRole(u.getRole());
-        profileDto.setIsActive(u.getIsActive());
-        profileDto.setFacultyId(f.getId());
-        return profileDto;
+    public Profile getProfileById(int id) {
+        return this.profileRepository.getProfileById(id);
     }
 
     @Override
-    public void updateProfileDto(ProfileDto profileDto) {
-//        Faculty f = this.facultyRepository.getFacultyById(profileDto.getFacultyId());
-//        if(profileDto.getRole().equals("ROLE_LECTURER")){
-//            Lecturer l = this.lecturerRepository.getLecturerById(profileDto.getId());
-//            l.setFaculty(f);
-//            this.lecturerRepository.updateLecturer(l);
-//        } else if (profileDto.getRole().equals("ROLE_STUDENT")) {
-//            Student s = this.studentRepository.getStudentById(profileDto.getId());
-//            s.setFaculty(f);
-//            this.studentRepository.updateStudent(s);
-//        }
-//        User u = this.userRepository.getUserById(profileDto.getId());
-//        u.setUsername(profileDto.getUsername());
-//        u.setIsActive(profileDto.getIsActive());
-//        this.userRepository.addOrUpdateUser(u);
-//        Profile p = this.profileRepository.getProfileById(profileDto.getId());
-//        p.setFullname(profileDto.getFullname());
-//        p.setEmail(profileDto.getEmail());
-//        p.setPhone(profileDto.getPhone());
-//        if(!profileDto.getFile().isEmpty()){
-//            try {
-//                Map rs = this.cloudinary.uploader().upload(profileDto.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
-//                p.setAvatar(rs.get("secure_url").toString());
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//        this.profileRepository.updateProfile(p);
+    public void updateProfile(Profile profile) {
+        if(!profile.getFile().isEmpty()){
+            try {
+                Map rs = this.cloudinary.uploader().upload(profile.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+                profile.setAvatar(rs.get("secure_url").toString());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        System.out.println(profile.getAvatar());
+        this.profileRepository.updateProfile(profile);
+        User u = this.userRepository.getUserById(profile.getId());
+        u.setUsername(profile.getUser().getUsername());
+        u.setIsActive(profile.getUser().getIsActive());
+        this.userRepository.addOrUpdateUser(u);
+        if(profile.getUser().getRole().equals("ROLE_LECTURER")){
+            Lecturer l = this.lecturerRepository.getLecturerById(profile.getId());
+            l.setFaculty(profile.getUser().getLecturer().getFaculty());
+            this.lecturerRepository.updateLecturer(l);
+        } else if (profile.getUser().getRole().equals("ROLE_STUDENT")) {
+            Student s = this.studentRepository.getStudentById(profile.getId());
+            s.setFaculty(profile.getUser().getStudent().getFaculty());
+            this.studentRepository.updateStudent(s);
+        }
     }
 
     @Override
