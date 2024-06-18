@@ -1,8 +1,5 @@
 package com.ou.repositories.impl;
 
-import com.ou.dto.ProfileDto;
-import com.ou.pojo.Lecturer;
-import com.ou.pojo.Profile;
 import com.ou.pojo.User;
 import com.ou.repositories.UserRepository;
 import org.hibernate.Session;

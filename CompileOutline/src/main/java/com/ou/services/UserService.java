@@ -1,6 +1,5 @@
 package com.ou.services;
 
-import com.ou.dto.ProfileDto;
 import com.ou.pojo.Profile;
 import com.ou.pojo.Student;
 import com.ou.pojo.User;

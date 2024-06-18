@@ -1,7 +1,5 @@
 package com.ou.controllers;
 
-import com.ou.dto.ProfileDto;
-import com.ou.pojo.Admin;
 import com.ou.pojo.Profile;
 import com.ou.pojo.Student;
 import com.ou.pojo.User;
