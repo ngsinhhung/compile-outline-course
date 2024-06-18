@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,8 +49,8 @@
 </style>
 <body>
 <tiles:insertAttribute name="header"/>
-<main class=" d-flex" style="gap:2px ;   min-height: calc(100vh - 65px);">
-    <tiles:insertAttribute name="sidebar"/>
+<main class=" d-flex" style="gap:2px; min-height: calc(100vh - 65px);">
+   <tiles:insertAttribute name="sidebar"/>
    <div class="content">
        <tiles:insertAttribute name="content"/>
    </div>

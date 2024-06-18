@@ -28,6 +28,7 @@ public class UserController {
     @Autowired
     private AdminService adminService;
 
+
     @GetMapping("/admin")
     public String admin(Model model) {
         model.addAttribute("admins", this.adminService.getAllAdmins());
@@ -53,7 +54,7 @@ public class UserController {
         if(!rs.hasErrors()) {
             try {
                 this.userService.updateProfileDto(profileDto);
-                if (profileDto.getRole().equals("LECTURER")){
+                if (profileDto.getRole().equals("ROLE_LECTURER")){
                     return "redirect:/users/lecturer";
                 }
                 else{

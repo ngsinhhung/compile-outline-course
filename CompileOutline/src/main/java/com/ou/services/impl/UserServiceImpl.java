@@ -49,9 +49,9 @@ public class UserServiceImpl implements UserService {
         User u = this.userRepository.getUserById(id);
         Profile p = this.profileRepository.getProfileById(id);
         Faculty f = new Faculty();
-        if(u.getRole().equals("LECTURER")){
+        if(u.getRole().equals("ROLE_LECTURER")){
             f = this.facultyRepository.getFacultyOfLecturerId(id);
-        } else if (u.getRole().equals("STUDENT")) {
+        } else if (u.getRole().equals("ROLE_STUDENT")) {
             f = this.facultyRepository.getFacultyOfStudentId(id);
         }
         ProfileDto profileDto = new ProfileDto();
@@ -70,11 +70,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateProfileDto(ProfileDto profileDto) {
         Faculty f = this.facultyRepository.getFacultyById(profileDto.getFacultyId());
-        if(profileDto.getRole().equals("LECTURER")){
+        if(profileDto.getRole().equals("ROLE_LECTURER")){
             Lecturer l = this.lecturerRepository.getLecturerById(profileDto.getId());
             l.setFaculty(f);
             this.lecturerRepository.updateLecturer(l);
-        } else if (profileDto.getRole().equals("STUDENT")) {
+        } else if (profileDto.getRole().equals("ROLE_STUDENT")) {
             Student s = this.studentRepository.getStudentById(profileDto.getId());
             s.setFaculty(f);
             this.studentRepository.updateStudent(s);
@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
         u.setUsername(newStudentDto.getUsername());
         String pwd = newStudentDto.getPassword();
         u.setPassword(this.passwordEncoder.encode(pwd).toString());
-        u.setRole("STUDENT");
+        u.setRole("ROLE_STUDENT");
         u.setIsActive(true);
         this.userRepository.addOrUpdateUser(u);
 
@@ -127,7 +127,7 @@ public class UserServiceImpl implements UserService {
     public void registerAdmin(User u) {
         String pwd = u.getPassword();
         u.setPassword(this.passwordEncoder.encode(pwd).toString());
-        u.setRole("ADMIN");
+        u.setRole("ROLE_ADMIN");
         u.setIsActive(true);
         this.userRepository.addOrUpdateUser(u);
         this.adminRepository.addAdmin(u);

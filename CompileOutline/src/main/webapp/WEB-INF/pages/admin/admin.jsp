@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <style>
     .card {
         border: none;
@@ -24,7 +25,9 @@
 <div class="container">
     <div class=" card shadow-sm rounded-sm">
         <div class="card-body">
-            <h1 class="card-title">Chào mừng trở lại Nguyễn Sinh Hùng 👋</h1>
+            <h1 class="card-title">
+                Chào mừng trở lại, <sec:authentication property="principal.username"/>
+                👋</h1>
             <div class="row">
                 <div class="col-md-4 mb-3">
                     <div class="card shadow" style="background-color: #f3f4f6;">
