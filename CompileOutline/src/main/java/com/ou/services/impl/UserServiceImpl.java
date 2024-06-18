@@ -2,7 +2,6 @@ package com.ou.services.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.ou.dto.ProfileDto;
 import com.ou.pojo.*;
 import com.ou.repositories.*;
 import com.ou.services.UserService;
