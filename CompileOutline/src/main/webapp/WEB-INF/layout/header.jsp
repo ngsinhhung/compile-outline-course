@@ -59,16 +59,19 @@
                 </sec:authorize>
 
             </div>
+            <sec:authorize access="hasRole('ADMIN')">
+            
             <div class="d-flex align-items-center">
                 <button class="btn d-md-none" onclick="toggleSidebar()">
                     <i class="fas fa-bars menu-icon fs-5 text-white"></i>
                 </button>
+            </sec:authorize>
                 <sec:authorize access="isAuthenticated()">
                     <div class="dropdown my-auto ms-3">
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="d-none d-sm-inline fw-bolder">
-                                <sec:authentication property="principal.username"/>
+                                Chào mừng  <sec:authentication property="principal.username"/>
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right p-2 rounded-sm"
