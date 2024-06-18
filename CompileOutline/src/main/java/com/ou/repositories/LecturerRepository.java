@@ -8,4 +8,5 @@ public interface LecturerRepository {
     List<Lecturer> getAllLecturer();
     void updateLecturer(Lecturer lecturer);
     Lecturer getLecturerById(int id);
+    void addLecturer(Lecturer lecturer);
 }

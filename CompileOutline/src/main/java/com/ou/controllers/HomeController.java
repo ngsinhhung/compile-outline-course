@@ -1,14 +1,18 @@
 package com.ou.controllers;
 
+import com.ou.pojo.User;
+import com.ou.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.logging.Logger;
 
 @Controller
 public class HomeController {
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/")
     public String index() {
@@ -20,16 +24,23 @@ public class HomeController {
         return "login";
     }
 
+    @GetMapping("/register")
+    public String registerView(Model model) {
+        model.addAttribute("user", new User());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String register(@ModelAttribute("user") User user) {
+        this.userService.registerLecturer(user);
+        return "redirect:/login";
+    }
 
 //    @RequestMapping("/admin/manage-outlines")
 //    public String manageOutlines() {
 //        return "manageOutlines";
 //    }
 //
-//    @RequestMapping("/admin/manage-accounts")
-//    public String manageAccounts() {
-//        return "register";
-//    }
 //
 //
 //    @RequestMapping("/assignment")

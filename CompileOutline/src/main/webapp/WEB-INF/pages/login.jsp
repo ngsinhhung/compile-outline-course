@@ -37,7 +37,7 @@
             <div class="mt-4 text-center">
                 <p class="text-muted">
                     Bạn đã chưa có tài khoản?
-                    <a href="#" class="text-primary fw-bold">
+                    <a href="<c:url value="/register" />" class="text-primary fw-bold">
                         Đăng kí
                     </a>
                 </p>

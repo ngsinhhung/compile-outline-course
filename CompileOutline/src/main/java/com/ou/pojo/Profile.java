@@ -2,6 +2,7 @@ package com.ou.pojo;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -37,5 +38,8 @@ public class Profile {
 
     @Column(name = "gender")
     private Boolean gender;
+
+    @Transient
+    private MultipartFile file;
 
 }

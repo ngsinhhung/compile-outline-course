@@ -13,4 +13,5 @@ public interface UserService extends UserDetailsService {
     void updateProfileDto(ProfileDto profileDto);
     void addNewStudent(NewStudentDto newStudentDto);
     void registerAdmin(User u);
+    void registerLecturer(User u);
 }

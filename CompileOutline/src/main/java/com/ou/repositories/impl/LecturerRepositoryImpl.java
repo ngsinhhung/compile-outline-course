@@ -34,4 +34,10 @@ public class LecturerRepositoryImpl implements LecturerRepository {
         Session s = this.factory.getObject().getCurrentSession();
         return s.get(Lecturer.class, id);
     }
+
+    @Override
+    public void addLecturer(Lecturer lecturer) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.save(lecturer);
+    }
 }

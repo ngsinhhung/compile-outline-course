@@ -133,6 +133,32 @@ public class UserServiceImpl implements UserService {
         this.adminRepository.addAdmin(u);
     }
 
+    @Override
+    public void registerLecturer(User u) {
+        if(!u.getProfile().getFile().isEmpty()){
+            try {
+                Map rs = this.cloudinary.uploader().upload(u.getProfile().getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+                u.getProfile().setAvatar(rs.get("secure_url").toString());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        String pwd = u.getPassword();
+        u.setPassword(this.passwordEncoder.encode(pwd).toString());
+        u.setRole("ROLE_LECTURER");
+        u.setIsActive(false);
+        this.userRepository.addOrUpdateUser(u);
+        User user = this.userRepository.getUserByUsername(u.getUsername());
+        Lecturer l = u.getLecturer();
+        l.setId(user.getId());
+        l.setUser(user);
+        this.lecturerRepository.addLecturer(l);
+        Profile p = u.getProfile();
+        p.setId(user.getId());
+        p.setUser(user);
+        this.profileRepository.addProfile(p);
+    }
+
 
     @Override
     public User getUserByUsername(String username) {

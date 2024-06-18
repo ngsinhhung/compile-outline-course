@@ -16,6 +16,7 @@ import javax.persistence.*;
 })
 public class Lecturer {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "User_id", nullable = false)
     private Integer id;
 
