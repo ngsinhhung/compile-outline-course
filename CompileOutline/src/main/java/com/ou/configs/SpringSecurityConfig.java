@@ -2,6 +2,7 @@ package com.ou.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.ou.filter.CustomAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -47,7 +48,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .loginPage("/login").permitAll()
                 .usernameParameter("username")
-                .passwordParameter("password");
+                .passwordParameter("password").successHandler( new CustomAuthenticationSuccessHandler());
 
         http.logout().logoutSuccessUrl("/login");
 

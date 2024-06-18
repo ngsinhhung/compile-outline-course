@@ -142,8 +142,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User u = this.userRepository.getUserByUsername(username);
-        if (u == null) {
-            throw new UsernameNotFoundException("Không tồn tại!");
+        if (u == null || !u.getIsActive()) {
+            throw new UsernameNotFoundException("Không tồn tại hoặc chưa active !");
         }
         Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority(u.getRole()));
