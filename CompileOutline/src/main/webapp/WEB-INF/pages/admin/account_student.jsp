@@ -74,14 +74,14 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <c:url value="/users/student" var="action"/>
-                <form:form method="post" modelAttribute="studentDto" action="${action}">
+                <form:form method="post" modelAttribute="student" action="${action}">
                     <div class="form-floating mb-3 mt-3">
-                        <form:input path="username" type="text" class="form-control" id="username"/>
+                        <form:input path="user.username" type="text" class="form-control" id="username"/>
                         <label for="username">Username</label>
                     </div>
 
                     <div class="form-floating mb-3 mt-3">
-                        <form:input path="email" type="email" class="form-control" id="email"/>
+                        <form:input path="user.profile.email" type="email" class="form-control" id="email"/>
                         <label for="email">Email</label>
                     </div>
                     <div class="form-floating mb-3 mt-3">
@@ -94,7 +94,7 @@
                     </div>
 
                     <div class="form-floating mt-3 mb-3">
-                        <form:input path="password" type="password" class="form-control" id="password"/>
+                        <form:input path="user.password" type="password" class="form-control" id="password"/>
                         <label for="password">Mật khẩu</label>
                     </div>
                     <div class="d-flex justify-content-end">

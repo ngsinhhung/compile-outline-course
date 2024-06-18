@@ -1,8 +1,8 @@
 package com.ou.controllers;
 
-import com.ou.dto.NewStudentDto;
 import com.ou.dto.ProfileDto;
 import com.ou.pojo.Admin;
+import com.ou.pojo.Student;
 import com.ou.pojo.User;
 import com.ou.services.AdminService;
 import com.ou.services.LecturerService;
@@ -77,12 +77,12 @@ public class UserController {
     @GetMapping("/student")
     public String student(Model model) {
         model.addAttribute("students", this.studentService.getAllStudent());
-        model.addAttribute("studentDto", new NewStudentDto());
+        model.addAttribute("student", new Student());
         return "student_account";
     }
 
     @PostMapping("/student")
-    public String newStudent(@ModelAttribute(value = "studentDto") NewStudentDto student) {
+    public String newStudent(@ModelAttribute(value = "student") Student student) {
         this.userService.addNewStudent(student);
         return "redirect:/users/student";
     }

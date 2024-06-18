@@ -2,7 +2,6 @@ package com.ou.services.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.ou.dto.NewStudentDto;
 import com.ou.dto.ProfileDto;
 import com.ou.pojo.*;
 import com.ou.repositories.*;
@@ -69,57 +68,50 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateProfileDto(ProfileDto profileDto) {
-        Faculty f = this.facultyRepository.getFacultyById(profileDto.getFacultyId());
-        if(profileDto.getRole().equals("ROLE_LECTURER")){
-            Lecturer l = this.lecturerRepository.getLecturerById(profileDto.getId());
-            l.setFaculty(f);
-            this.lecturerRepository.updateLecturer(l);
-        } else if (profileDto.getRole().equals("ROLE_STUDENT")) {
-            Student s = this.studentRepository.getStudentById(profileDto.getId());
-            s.setFaculty(f);
-            this.studentRepository.updateStudent(s);
-        }
-        User u = this.userRepository.getUserById(profileDto.getId());
-        u.setUsername(profileDto.getUsername());
-        u.setIsActive(profileDto.getIsActive());
-        this.userRepository.addOrUpdateUser(u);
-        Profile p = this.profileRepository.getProfileById(profileDto.getId());
-        p.setFullname(profileDto.getFullname());
-        p.setEmail(profileDto.getEmail());
-        p.setPhone(profileDto.getPhone());
-        if(!profileDto.getFile().isEmpty()){
-            try {
-                Map rs = this.cloudinary.uploader().upload(profileDto.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
-                p.setAvatar(rs.get("secure_url").toString());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        this.profileRepository.updateProfile(p);
+//        Faculty f = this.facultyRepository.getFacultyById(profileDto.getFacultyId());
+//        if(profileDto.getRole().equals("ROLE_LECTURER")){
+//            Lecturer l = this.lecturerRepository.getLecturerById(profileDto.getId());
+//            l.setFaculty(f);
+//            this.lecturerRepository.updateLecturer(l);
+//        } else if (profileDto.getRole().equals("ROLE_STUDENT")) {
+//            Student s = this.studentRepository.getStudentById(profileDto.getId());
+//            s.setFaculty(f);
+//            this.studentRepository.updateStudent(s);
+//        }
+//        User u = this.userRepository.getUserById(profileDto.getId());
+//        u.setUsername(profileDto.getUsername());
+//        u.setIsActive(profileDto.getIsActive());
+//        this.userRepository.addOrUpdateUser(u);
+//        Profile p = this.profileRepository.getProfileById(profileDto.getId());
+//        p.setFullname(profileDto.getFullname());
+//        p.setEmail(profileDto.getEmail());
+//        p.setPhone(profileDto.getPhone());
+//        if(!profileDto.getFile().isEmpty()){
+//            try {
+//                Map rs = this.cloudinary.uploader().upload(profileDto.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+//                p.setAvatar(rs.get("secure_url").toString());
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//        this.profileRepository.updateProfile(p);
     }
 
     @Override
-    public void addNewStudent(NewStudentDto newStudentDto) {
-        User u = new User();
-        u.setUsername(newStudentDto.getUsername());
-        String pwd = newStudentDto.getPassword();
+    public void addNewStudent(Student student) {
+        User u = student.getUser();
+        String pwd = student.getUser().getPassword();
         u.setPassword(this.passwordEncoder.encode(pwd).toString());
         u.setRole("ROLE_STUDENT");
         u.setIsActive(true);
         this.userRepository.addOrUpdateUser(u);
-
-        User u1 = this.userRepository.getUserByUsername(newStudentDto.getUsername());
-
-        Student s = new Student();
-        s.setId(u1.getId());
-        s.setUser(u1);
-        s.setFaculty(newStudentDto.getFaculty());
-        this.studentRepository.addStudent(s);
-
-        Profile p = new Profile();
-        p.setId(u1.getId());
-        p.setEmail(newStudentDto.getEmail());
-        p.setUser(u1);
+        User user = this.userRepository.getUserByUsername(u.getUsername());
+        student.setId(user.getId());
+        student.setUser(user);
+        this.studentRepository.addStudent(student);
+        Profile p = student.getUser().getProfile();
+        p.setId(user.getId());
+        p.setUser(user);
         this.profileRepository.addProfile(p);
     }
 
