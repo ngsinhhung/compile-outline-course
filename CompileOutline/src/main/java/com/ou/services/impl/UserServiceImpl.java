@@ -8,13 +8,21 @@ import com.ou.pojo.*;
 import com.ou.repositories.*;
 import com.ou.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
-@Service
+@Service("userDetailsService")
+@Transactional
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
@@ -26,6 +34,9 @@ public class UserServiceImpl implements UserService {
     private LecturerRepository lecturerRepository;
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private AdminRepository adminRepository;
+
 
     @Autowired
     private Cloudinary cloudinary;
@@ -110,5 +121,33 @@ public class UserServiceImpl implements UserService {
         p.setEmail(newStudentDto.getEmail());
         p.setUser(u1);
         this.profileRepository.addProfile(p);
+    }
+
+    @Override
+    public void registerAdmin(User u) {
+        String pwd = u.getPassword();
+        u.setPassword(this.passwordEncoder.encode(pwd).toString());
+        u.setRole("ADMIN");
+        u.setIsActive(true);
+        this.userRepository.addOrUpdateUser(u);
+        this.adminRepository.addAdmin(u);
+    }
+
+
+    @Override
+    public User getUserByUsername(String username) {
+        return this.userRepository.getUserByUsername(username);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User u = this.userRepository.getUserByUsername(username);
+        if (u == null) {
+            throw new UsernameNotFoundException("Không tồn tại!");
+        }
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        authorities.add(new SimpleGrantedAuthority(u.getRole()));
+        return new org.springframework.security.core.userdetails.User(
+                u.getUsername(), u.getPassword(), authorities);
     }
 }

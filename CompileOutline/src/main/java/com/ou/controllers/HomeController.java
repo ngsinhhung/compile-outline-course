@@ -10,21 +10,22 @@ public class HomeController {
         return "home";
     }
 
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
 
 //    @RequestMapping("/admin/manage-outlines")
 //    public String manageOutlines() {
 //        return "manageOutlines";
 //    }
 //
-    @RequestMapping("/admin/manage-accounts")
-    public String manageAccounts() {
-        return "register";
-    }
+//    @RequestMapping("/admin/manage-accounts")
+//    public String manageAccounts() {
+//        return "register";
+//    }
 //
-    @RequestMapping("/admin/login")
-    public String manageCourses() {
-        return "login";
-    }
 //
 //    @RequestMapping("/assignment")
 //    public String assignmentTeacher() {

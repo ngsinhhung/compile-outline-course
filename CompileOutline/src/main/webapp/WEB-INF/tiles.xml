@@ -85,9 +85,9 @@
         <put-attribute name="title" value="Trang chủ quản trị"/>
         <put-attribute name="content" value="/WEB-INF/pages/lecturer/register.jsp"/>
     </definition>
-    <definition name="teacherHome" extends="baseLayout">
+    <definition name="lecturerHome" extends="baseLayout">
         <put-attribute name="title" value="Home Page"/>
-        <put-attribute name="content" value="/WEB-INF/pages/lecturer/teacherHome.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/pages/lecturer/lecturerHome.jsp"/>
     </definition>
     <definition name="login" extends="baseLayout">
         <put-attribute name="title" value="Home Page"/>

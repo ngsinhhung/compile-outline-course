@@ -8,7 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
-
     .sidebar {
         background-color: #ffffff;
         color: #343a40;
@@ -17,7 +16,7 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         transition: all 0.3s;
         width: 240px;
-        min-height:calc(100vh - 65px);
+        min-height: calc(100vh - 65px);
 
     }
 
@@ -45,7 +44,7 @@
         background-color: rgba(0, 123, 255, 0.2);
         color: #007bff;
     }
-    
+
     .sidebar-header {
         display: none !important;
     }
@@ -140,9 +139,14 @@
                     <span class="ms-1 ">Quản lý tài khoản</span>
                 </a>
                 <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                   
                     <li class="w-100">
-                        <a href="<c:url value="/users/lecturer" />" class="nav-link p-2 mb-3">
+                        <a href="<c:url value="/users/admin"/>" class="nav-link p-2 mb-3">
+                            <i class="fas fa-user-shield"></i>
+                            <span class="">Tài khoản quản trị</span>
+                        </a>
+                    </li>
+                    <li class="w-100">
+                        <a href="<c:url value="/users/lecturer"/>" class="nav-link p-2 mb-3">
                             <i class="fas fa-chalkboard-teacher"></i>
                             <span class="">Tài khoản giảng viên</span>
                         </a>

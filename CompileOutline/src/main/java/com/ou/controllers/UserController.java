@@ -2,6 +2,9 @@ package com.ou.controllers;
 
 import com.ou.dto.NewStudentDto;
 import com.ou.dto.ProfileDto;
+import com.ou.pojo.Admin;
+import com.ou.pojo.User;
+import com.ou.services.AdminService;
 import com.ou.services.LecturerService;
 import com.ou.services.StudentService;
 import com.ou.services.UserService;
@@ -22,11 +25,22 @@ public class UserController {
     private LecturerService lecturerService;
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private AdminService adminService;
 
     @GetMapping("/admin")
-    public String admin() {
+    public String admin(Model model) {
+        model.addAttribute("admins", this.adminService.getAllAdmins());
+        model.addAttribute("user", new User());
         return "admin_account";
     }
+
+    @PostMapping("/admin")
+    public String newAdmin(@ModelAttribute("user") User u) {
+        this.userService.registerAdmin(u);
+        return "redirect:/users/admin";
+    }
+
 
     @GetMapping("/lecturer")
     public String lecturer(Model model) {
@@ -68,10 +82,6 @@ public class UserController {
 
     @PostMapping("/student")
     public String newStudent(@ModelAttribute(value = "studentDto") NewStudentDto student) {
-        System.out.println(student.getUsername());
-        System.out.println(student.getEmail());
-        System.out.println(student.getPassword());
-        System.out.println(student.getFaculty());
         this.userService.addNewStudent(student);
         return "redirect:/users/student";
     }
