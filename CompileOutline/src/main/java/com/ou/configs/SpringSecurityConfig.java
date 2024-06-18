@@ -45,7 +45,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http)
             throws Exception {
         http.formLogin()
-                .loginPage("/login")
+                .loginPage("/login").permitAll()
                 .usernameParameter("username")
                 .passwordParameter("password");
 
@@ -53,11 +53,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
 //                .anyRequest().permitAll()
-                .antMatchers("/users/**").access("hasRole('ADMIN')")
-                .antMatchers("/subject/**").access("hasRole('ADMIN')")
-                .antMatchers("/faculty/**").access("hasRole('ADMIN')")
-                .antMatchers("/assignment/**").access("hasRole('ADMIN')")
-                .antMatchers("/specification/**").access("hasRole('LECTURER')")
+                .antMatchers("/").hasRole("ADMIN")
+                .antMatchers("/users/**").hasRole("ADMIN")
+                .antMatchers("/subject/**").hasRole("ADMIN")
+                .antMatchers("/faculty/**").hasRole("ADMIN")
+                .antMatchers("/assignment/**").hasRole("ADMIN")
+                .antMatchers("/specification/**").hasRole("LECTURER")
                 .anyRequest().authenticated()
                 .and().csrf().disable();
 

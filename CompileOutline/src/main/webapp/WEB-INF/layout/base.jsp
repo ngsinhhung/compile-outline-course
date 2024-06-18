@@ -27,7 +27,7 @@
             crossorigin="anonymous"
     />
     <%--  --------  css --------  --%>
-    <link rel="stylesheet" href="<c:url value="/resources/CSS/app.css"/> "/>
+<%--    <link rel="stylesheet" href="<c:url value="/resources/CSS/app.css"/> "/>--%>
 </head>
 <style>
     body {
