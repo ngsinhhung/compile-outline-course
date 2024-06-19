@@ -5,7 +5,10 @@ import com.ou.services.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @ControllerAdvice
@@ -31,9 +34,16 @@ public class SubjectController {
     }
 
     @PostMapping("/create")
-    public String createSubject(@ModelAttribute(value = "subject") Subject subject) {
-        this.subjectService.addOrUpdate(subject);
-        return "redirect:/subject/";
+    public String createSubject(@ModelAttribute(value = "subject") @Valid Subject subject , BindingResult result) {
+        if(!result.hasErrors()){
+            try{
+                this.subjectService.addOrUpdate(subject);
+                return "redirect:/subject/";
+            }catch (Exception exception){
+                System.err.println(exception.getMessage());
+            }
+        }
+        return "subject";
     }
 
     @GetMapping("/{subjectID}")

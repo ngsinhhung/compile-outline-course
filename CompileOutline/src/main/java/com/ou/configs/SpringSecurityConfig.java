@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -26,7 +28,12 @@ import static org.springframework.security.authorization.AuthorityReactiveAuthor
         "com.ou.repositories",
         "com.ou.services"
 })
+@PropertySource("classpath:cloudinary.properties")
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+    @Autowired
+    private Environment env;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -84,9 +91,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public Cloudinary cloudinary() {
         Cloudinary cloudinary
                 = new Cloudinary(ObjectUtils.asMap(
-                "cloud_name", "dmdljcwau",
-                "api_key", "751729637915529",
-                "api_secret", "-9greGmb76IjiPCDjePMEPuuz1I",
+                "cloud_name", env.getProperty("cloud_name"),
+                "api_key", env.getProperty("api_key"),
+                "api_secret", env.getProperty("api_secret"),
                 "secure", true));
         return cloudinary;
     }

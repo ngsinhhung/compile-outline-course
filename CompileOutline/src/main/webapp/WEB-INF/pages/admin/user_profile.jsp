@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Hùng's Dell
-  Date: 12/06/2024
-  Time: 4:31 CH
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -20,10 +13,13 @@
                     <div class="card-header">Ảnh hồ sơ</div>
                     <div class="card-body text-center">
                         <!-- Profile picture image-->
-                        <img class="img-account-profile rounded-circle mb-2 h-auto" style="width: 300px" src="${profile.avatar}" alt="">
+                        <img id="profileImage" class="img-account-profile rounded-circle mb-2 h-auto" style="width: 300px" src="${profile.avatar}" alt="">
                         <!-- Profile picture upload button-->
-                        <form:input path="file" type="file" class="form-control"/>
-<%--                        <button class="btn btn-primary" type="button">Chỉnh sửa ảnh</button>--%>
+                        <div class="mb-3">
+                            <form:input path="file" id="avatarFileInput" type="file" class="form-control d-none" onchange="displaySelectedImage(event);"/>
+                            <label for="avatarFileInput" class="btn btn-primary">Chọn ảnh</label>
+                        </div>
+                        <button class="btn btn-secondary" type="button" onclick="resetImage()">Hủy</button>
                     </div>
                 </div>
             </div>
@@ -37,14 +33,11 @@
                             <label class="small mb-1" for="inputUsername">Username</label>
                             <form:input path="user.username" class="form-control" id="inputUsername" type="text"/>
                         </div>
-                        <!-- Form Group (fullname)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputFullname">Họ và Tên</label>
                             <form:input path="fullname" class="form-control" id="inputFullname" type="text"/>
                         </div>
-                        <!-- Form Row -->
                         <div class="row gx-3 mb-3">
-                            <!-- Form Group (email)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputEmail">Email</label>
                                 <form:input path="email" class="form-control" id="inputEmail" type="text"/>
@@ -55,7 +48,6 @@
                                 <form:input path="phone" class="form-control" id="inputPhone" type="text"/>
                             </div>
                         </div>
-                        <!-- Form Group (role)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="showRole">Vai trò</label>
                             <form:input path="user.role" value="${user.role}" class="form-control" id="showRole" readonly="true" type="text"/>
@@ -101,7 +93,7 @@
                                         <option hidden="hidden" disabled selected>Chọn khoa</option>
                                         <c:forEach items="${faculties}" var="f">
                                             <c:choose>
-                                                <c:when test="${f.id==profile.user.lecturer.faculty.id}">
+                                                <c:when test="${f.id==profile.user.student.faculty.id}">
                                                     <option value="${f.id}" selected>${f.facultyName}</option>
                                                 </c:when>
                                                 <c:otherwise>
@@ -112,7 +104,7 @@
                                     </form:select>
                                 </c:when>
                             </c:choose>
-
+                        
                         </div>
                         <!-- Save changes button-->
                         <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
@@ -122,3 +114,27 @@
         </div>
     </form:form>
 </div>
+
+<script>
+    function displaySelectedImage(event) {
+        const fileInput = event.target;
+        const files = fileInput.files;
+        if (files.length > 0) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageElement = document.getElementById('profileImage');
+                imageElement.src = e.target.result;
+            }
+            reader.readAsDataURL(files[0]);
+        }
+    }
+
+    function resetImage() {
+        const imageElement = document.getElementById('profileImage');
+        // Reset the image to the original or default avatar
+        imageElement.src = "${profile.avatar}";
+        // Clear the file input field
+        const fileInput = document.getElementById('avatarFileInput');
+        fileInput.value = '';
+    }
+</script>

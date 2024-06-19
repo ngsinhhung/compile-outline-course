@@ -1,10 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
 <div class="py-4">
     <div class="container">
-
         <div class="modal fade" id="addAssignmentModal" tabindex="-1" aria-labelledby="addAssignmentModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -14,28 +12,31 @@
                     </div>
                     <div class="modal-body">
                         <c:url value="/assignment/add" var="action"/>
-                        <form:form id="addAssignmentForm" modelAttribute="assignment" method="post" action="${action}">
+                        <form:form id="addAssignmentForm" modelAttribute="assignment" method="post" action="${action}" onsubmit="return validateForm()">
                             <div class="mb-3">
                                 <label for="subjectSelect" class="form-label">Chọn Môn Học:</label>
                                 <c:url value="/api/getLecturersByFaculty/" var="urlload">
                                     <c:param name="facultyId" value="${facultyId}" />
                                 </c:url>
-                                <form:select path="subject" class="form-select" id="subjectSelect" name="subjectId" onchange="loadLecturers('${urlload}')">
-                                    <option>Chon mon hoc</option>
+                                <form:select path="subject.id" class="form-select" id="subjectSelect" onchange="loadLecturers('${urlload}')">
+                                    <option value="" hidden="hidden" disabled selected>Chọn môn học</option>
                                     <c:forEach var="subject" items="${subjects}">
                                         <option value="${subject.id}" data-faculty-id="${subject.faculty.id}">Môn học: ${subject.subjectName} - Khoa: ${subject.faculty.facultyName}</option>
                                     </c:forEach>
                                 </form:select>
+                                <div class="text-danger" id="subjectError"></div>
+                                <form:errors path="subject.id" cssClass="text-danger" />
                             </div>
                             <div class="mb-3">
                                 <label for="lecturerSelect" class="form-label">Chọn Giáo Viên:</label>
-                                
-                                <form:select path="lecturerUser" class="form-select" id="lecturerSelect" name="lecturerId">
-                                    <option>Chon giang vien</option>
-<%--                                    <c:forEach var="lecturer" items="${lecturers}">--%>
-<%--                                        <option value="${lecturer.userId}">${lecturer.user.profile.fullname}</option>--%>
-<%--                                    </c:forEach>--%>
+                                <form:select path="lecturerUser.id" class="form-select" id="lecturerSelect">
+                                    <option value="" hidden="hidden" disabled selected>Chọn giáo viên</option>
+                                    <c:forEach var="lecturer" items="${lecturers}">
+                                        <option value="${lecturer.userId}">${lecturer.user.profile.fullname}</option>
+                                    </c:forEach>
                                 </form:select>
+                                <div class="text-danger" id="lecturerError"></div>
+                                <form:errors path="lecturerUser.id" cssClass="text-danger" />
                             </div>
                             <button type="submit" class="btn btn-primary">Lưu</button>
                         </form:form>
@@ -50,7 +51,7 @@
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAssignmentModal">
                     Thêm Phân Công
                 </button>
-                </div>
+            </div>
             <table class="table">
                 <thead>
                 <tr>
@@ -110,6 +111,31 @@
             })
             .catch(error => console.error('Error loading lecturers:', error));
     }
+
+    function validateForm() {
+        const subjectSelect = document.getElementById('subjectSelect');
+        const lecturerSelect = document.getElementById('lecturerSelect');
+        let isValid = true;
+
+        // Clear previous errors
+        document.getElementById('subjectError').textContent = '';
+        document.getElementById('lecturerError').textContent = '';
+
+        if (subjectSelect.value === "") {
+            document.getElementById('subjectError').textContent = "Vui lòng chọn môn học.";
+            subjectSelect.focus();
+            isValid = false;
+        }
+
+        if (lecturerSelect.value === "") {
+            document.getElementById('lecturerError').textContent = "Vui lòng chọn giáo viên.";
+            lecturerSelect.focus();
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
     function deleteAssignment(url, id) {
         fetch(url, {
             method: 'DELETE'

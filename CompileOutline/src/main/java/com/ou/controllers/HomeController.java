@@ -5,8 +5,10 @@ import com.ou.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.logging.Logger;
 
 @Controller
@@ -31,36 +33,16 @@ public class HomeController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("user") User user) {
-        this.userService.registerLecturer(user);
-        return "redirect:/login";
+    public String register(@ModelAttribute("user") @Valid User user, BindingResult result) {
+        if (!result.hasErrors()) {
+            try {
+                this.userService.registerLecturer(user);
+                return "redirect:/login";
+            } catch (Exception exception) {
+                System.err.println(exception.getMessage());
+            }
+        }
+        return "register";
     }
-
-//    @RequestMapping("/admin/manage-outlines")
-//    public String manageOutlines() {
-//        return "manageOutlines";
-//    }
-//
-//
-//
-//    @RequestMapping("/assignment")
-//    public String assignmentTeacher() {
-//        return "assignment";
-//    }
-//    @RequestMapping("/teacher/home")
-//    public String teacherHome() {
-//        return "teacherHome";
-//    }
-//
-//    @RequestMapping("/teacher/chat")
-//    public String chatPage() {
-//        return "chatpage";
-//    }
-//    @RequestMapping("/teacher/create-specification")
-//    public String createSpecification() {
-//        return "createSpecification";
-//    }
-
-
 
 }

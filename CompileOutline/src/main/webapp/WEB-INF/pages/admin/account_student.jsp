@@ -78,11 +78,13 @@
                     <div class="form-floating mb-3 mt-3">
                         <form:input path="user.username" type="text" class="form-control" id="username"/>
                         <label for="username">Username</label>
+                        <form:errors path="user.username" cssClass="text-danger" />
                     </div>
 
                     <div class="form-floating mb-3 mt-3">
                         <form:input path="user.profile.email" type="email" class="form-control" id="email"/>
                         <label for="email">Email</label>
+                        <form:errors path="user.profile.email" cssClass="text-danger" />
                     </div>
                     <div class="form-floating mb-3 mt-3">
                         <form:select path="faculty" class="form-select" id="faculty">
@@ -95,6 +97,7 @@
 
                     <div class="form-floating mt-3 mb-3">
                         <form:input path="user.password" type="password" class="form-control" id="password"/>
+                        <form:errors path="user.password" cssClass="text-danger" />
                         <label for="password">Mật khẩu</label>
                     </div>
                     <div class="d-flex justify-content-end">

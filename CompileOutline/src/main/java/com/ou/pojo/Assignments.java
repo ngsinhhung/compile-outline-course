@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,10 +26,11 @@ public class Assignments {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @NotNull(message = "Vui Lòng chọn giảng viên")
     @JoinColumn(name = "Lecturer_User_id", nullable = false)
     private Lecturer lecturerUser;
 
-
+    @NotNull(message = "Vui Lòng chọn môn học")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Subject_id", nullable = false)
     private Subject subject;

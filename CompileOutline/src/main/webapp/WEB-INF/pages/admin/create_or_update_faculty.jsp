@@ -21,15 +21,16 @@
     <div class="mb-3">
         <label for="name" class="form-label">Tên khoa:</label>
         <form:input id="name" type="text" path="facultyName" class="form-control" />
+        <form:errors path="facultyName" cssClass="text-danger" />
     </div>
 
-    <button type="submit" class="btn btn-success float-end">
+    <form:button  class="btn btn-success float-end">
         <c:choose>
             <c:when test="${faculty.id > 0}">Cập nhật</c:when>
             <c:otherwise>
                 Thêm
             </c:otherwise>
         </c:choose>
-    </button>
+    </form:button>
     <form:hidden path="id"/>
 </form:form>

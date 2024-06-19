@@ -13,4 +13,6 @@ public interface UserService extends UserDetailsService {
     void addNewStudent(Student student);
     void registerAdmin(User u);
     void registerLecturer(User u);
+
+    boolean authUser(String username,String password);
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 
 @Getter
 @Setter
@@ -22,6 +23,7 @@ public class Student {
     @MapsId
     @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "User_id", nullable = false)
+    @Valid
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

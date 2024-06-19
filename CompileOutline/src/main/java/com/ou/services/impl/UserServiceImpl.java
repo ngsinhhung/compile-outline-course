@@ -26,8 +26,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private ProfileRepository profileRepository;
-    @Autowired
-    private FacultyRepository facultyRepository;
+
+
     @Autowired
     private LecturerRepository lecturerRepository;
     @Autowired
@@ -144,5 +144,11 @@ public class UserServiceImpl implements UserService {
         authorities.add(new SimpleGrantedAuthority(u.getRole()));
         return new org.springframework.security.core.userdetails.User(
                 u.getUsername(), u.getPassword(), authorities);
+    }
+
+
+    @Override
+    public boolean authUser(String username, String password) {
+        return this.userRepository.authUser(username,password);
     }
 }

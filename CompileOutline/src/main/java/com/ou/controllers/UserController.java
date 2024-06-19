@@ -56,7 +56,7 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public String updateProfile(@ModelAttribute("product") @Valid Profile profile, BindingResult rs) {
+    public String updateProfile(@ModelAttribute("profile") @Valid Profile profile, BindingResult rs) {
         if(!rs.hasErrors()) {
             try {
                 this.userService.updateProfile(profile);
@@ -82,8 +82,15 @@ public class UserController {
     }
 
     @PostMapping("/student")
-    public String newStudent(@ModelAttribute(value = "student") Student student) {
-        this.userService.addNewStudent(student);
-        return "redirect:/users/student";
+    public String newStudent(@ModelAttribute(value = "student") @Valid Student student , BindingResult result) {
+        if(!result.hasErrors()){
+            try {
+                this.userService.addNewStudent(student);
+                return "redirect:/users/student";
+            }catch (Exception exception){
+                System.err.println(exception.getMessage());
+            }
+        }
+        return "student_account";
     }
 }
