@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -33,5 +35,17 @@ public class Specification {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Assignments_id", nullable = false)
     private Assignments assignments;
+
+    @OneToMany(mappedBy = "specification")
+    private Set<Feedback> feedbacks = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "specification")
+    private Set<Objective> objectives = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "specification")
+    private Set<Outcome> outcomes = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "specification")
+    private Set<SpecificationRating> specificationRatings = new LinkedHashSet<>();
 
 }

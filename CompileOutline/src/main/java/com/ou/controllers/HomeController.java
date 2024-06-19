@@ -3,6 +3,10 @@ package com.ou.controllers;
 import com.ou.pojo.User;
 import com.ou.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +14,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.logging.Logger;
 
 @Controller
+@ControllerAdvice
 public class HomeController {
     @Autowired
     private UserService userService;
+
+    @ModelAttribute
+    public void currentUser(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserDetails) {
+                UserDetails userDetails = (UserDetails) principal;
+                String username = userDetails.getUsername();
+                User u = this.userService.getUserByUsername(username);
+                model.addAttribute("currentUser", u);
+            }
+        }
+//        String username = userDetails.getUsername();
+//        User u = this.userService.getUserByUsername(username);
+//        model.addAttribute("currentUser", u);
+    }
+
 
     @RequestMapping("/")
     public String index() {
@@ -35,6 +58,7 @@ public class HomeController {
         this.userService.registerLecturer(user);
         return "redirect:/login";
     }
+
 
 //    @RequestMapping("/admin/manage-outlines")
 //    public String manageOutlines() {
@@ -60,7 +84,6 @@ public class HomeController {
 //    public String createSpecification() {
 //        return "createSpecification";
 //    }
-
 
 
 }

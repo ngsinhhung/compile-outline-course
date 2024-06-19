@@ -71,7 +71,22 @@
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="d-none d-sm-inline fw-bolder">
-                                Chào mừng  <sec:authentication property="principal.username"/>
+                                <c:choose>
+                                    <c:when test="${currentUser.profile.avatar == ''}">
+                                        <img src="https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" alt="" width="30" height="30" class="rounded-circle me-2">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="${currentUser.profile.avatar}" alt="" width="30" height="30" class="rounded-circle me-2">
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${currentUser.role == 'ROLE_ADMIN'}">
+                                        <sec:authentication property="principal.username"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        Chào mừng giáo viên, ${currentUser.profile.fullname}!
+                                    </c:otherwise>
+                                </c:choose>
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right p-2 rounded-sm"
