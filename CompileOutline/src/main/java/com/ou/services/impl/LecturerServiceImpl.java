@@ -22,4 +22,9 @@ public class LecturerServiceImpl implements LecturerService {
         return this.lecturerRepository.getAllLecturer();
     }
 
+    @Override
+    public List<Lecturer> getLecturerByFacultyId(int facultyId) {
+        return this.lecturerRepository.getLecturerByFacultyId(facultyId);
+    }
+
 }

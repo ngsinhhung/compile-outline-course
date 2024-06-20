@@ -24,6 +24,14 @@ public class LecturerRepositoryImpl implements LecturerRepository {
     }
 
     @Override
+    public List<Lecturer> getLecturerByFacultyId(int facultyId) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createNamedQuery("Lecturer.findByFaculty");
+        q.setParameter("facultyId", facultyId);
+        return q.getResultList();
+    }
+
+    @Override
     public void updateLecturer(Lecturer lecturer) {
         Session s = this.factory.getObject().getCurrentSession();
         s.update(lecturer);

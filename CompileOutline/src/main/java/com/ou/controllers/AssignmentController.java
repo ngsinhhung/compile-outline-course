@@ -1,58 +1,38 @@
 package com.ou.controllers;
 
-import com.ou.pojo.Assignments;
-import com.ou.services.AssignmentServices;
-import com.ou.services.SubjectService;
+import com.ou.pojo.Specification;
+import com.ou.services.LecturerService;
+import com.ou.services.SpecificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/assignment")
 public class AssignmentController {
 
     @Autowired
-    private SubjectService subjectService;
+    private LecturerService lecturerService;
 
     @Autowired
-    private AssignmentServices assignmentServices;
-
-    @ModelAttribute
-    public void getSubject(Model model) {
-        model.addAttribute("subjects", this.assignmentServices.getAllSubjectNoAssignemnt());
-        model.addAttribute("assignment", new Assignments());
-    }
-
-
-    @PostMapping("/add")
-    public String addAssignment(Model model,
-                                @ModelAttribute(value = "assignment") @Valid Assignments assignment,
-                                BindingResult rs) {
-        if (!rs.hasErrors()) {
-            try {
-                this.assignmentServices.assigmentTeacher(assignment);
-                return "redirect:/assignment/";
-            } catch (Exception ex) {
-                model.addAttribute("errMsg", ex.toString());
-            }
-        }
-        return "assignment";
-    }
-
-    @GetMapping("/{assignmentId}/update")
-    public String updateAssignment(Model model, @PathVariable("assignmentId") int id) {
-        model.addAttribute("assignments", this.assignmentServices.getAssignmentById(id));
-        model.addAttribute("allSubject", this.assignmentServices.findAllUnassignedSubjectsIncludingCurrent(id));
-        return "assignemted";
-    }
+    private SpecificationService specificationService;
 
     @GetMapping("/")
-    public String list(Model model) {
-        model.addAttribute("assignments", this.assignmentServices.getAllAssignment());
-        return "assignment";
+    public String assignmentList(Model model) {
+        Specification s = new Specification();
+        s.setCredits(0);
+        model.addAttribute("assignment", s);
+        model.addAttribute("assignments", this.specificationService.getAllSpecification());
+        return "assignmentList";
+    }
+
+    @PostMapping("/new")
+    public String newAssignment(@ModelAttribute("assignment") Specification specification) {
+        this.specificationService.createOrUpdateSpecification(specification);
+        return "redirect:/assignment/";
     }
 }

@@ -1,7 +1,7 @@
 package com.ou.repositories.impl;
 
 
-import com.ou.pojo.Assignments;
+import com.ou.pojo.Specification;
 import com.ou.repositories.SpecificationRepository;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +16,39 @@ import java.util.List;
 @Transactional
 public class SpecificationRepositoryImpl implements SpecificationRepository {
     @Autowired
-    private LocalSessionFactoryBean factoryBean;
+    private LocalSessionFactoryBean factory;
 
     @Override
-    public List<Assignments> getAssignmentById(int assignmentId) {
-        Session session = factoryBean.getObject().getCurrentSession();
-        Query query = session.createNamedQuery("Specification.findAssignmentsById");
-        query.setParameter("assignmentId",assignmentId);
-        return query.getResultList();
+    public List<Specification> getAllSpecification() {
+        Session s = factory.getObject().getCurrentSession();
+        Query q = s.createNamedQuery("Specification.findAll");
+        return q.getResultList();
+    }
 
+    @Override
+    public List<Specification> getListSpecificationDesc() {
+        Session s = factory.getObject().getCurrentSession();
+        Query q = s.createNamedQuery("Specification.findByOrderByIdDesc");
+        return q.getResultList();
+    }
+
+//    @Override
+//    public List<Specification> getSpecificationByLecturer(int lecturerId) {
+//        Session s = factory.getObject().getCurrentSession();
+//        Query q = s.createNamedQuery("Specification.findByAssignments_LecturerUser_Id");
+//        q.setParameter("id", lecturerId);
+//        return q.getResultList();
+//    }
+
+    @Override
+    public Specification getSpecificationById(int specificationId) {
+        Session s = factory.getObject().getCurrentSession();
+        return s.get(Specification.class, specificationId);
+    }
+
+    @Override
+    public void createOrUpdateSpecification(Specification specification) {
+        Session s = factory.getObject().getCurrentSession();
+        s.saveOrUpdate(specification);
     }
 }

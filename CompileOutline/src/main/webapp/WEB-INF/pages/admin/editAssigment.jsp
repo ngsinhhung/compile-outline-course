@@ -1,11 +1,11 @@
-a<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:url value="/assignment/add" var="action"/>
 <form:form id="editAssignmentForm" modelAttribute="assignments" method="post" action="${action}">
     <form:hidden path="id"/>
     <div class="mb-3">
-        <label for="subjectSelect" class="form-label">Chọn Môn Học:</label>
+        <label for="subjectSelect" class="form-label">Chọn môn học:</label>
         <c:url value="/api/getLecturersByFaculty/" var="urlload">
             <c:param name="facultyId" value="${facultyId}" />
         </c:url>
@@ -23,7 +23,7 @@ a<%@ page contentType="text/html;charset=UTF-8" language="java" %>
         </form:select>
     </div>
     <div class="mb-3">
-        <label for="lecturerSelect" class="form-label">Chọn Giáo Viên:</label>
+        <label for="lecturerSelect" class="form-label">Chọn giảng viên:</label>
         <form:select path="lecturerUser" class="form-select" id="lecturerSelect" name="lecturerId">
             <c:forEach var="lecturer" items="${lecturers}">
                 <option value="${lecturer.id}"
