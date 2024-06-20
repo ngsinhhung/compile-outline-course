@@ -1,5 +1,6 @@
 package com.ou.services;
 
+import com.ou.dto.requets.UpdateRequireRequest;
 import com.ou.pojo.Profile;
 import com.ou.pojo.Student;
 import com.ou.pojo.User;
@@ -17,4 +18,8 @@ public interface UserService extends UserDetailsService {
     boolean authUser(String username,String password);
 
     boolean userExistByName(String username);
+
+    void updateRequired(UpdateRequireRequest updateRequireRequest) throws Exception;
+
+
 }

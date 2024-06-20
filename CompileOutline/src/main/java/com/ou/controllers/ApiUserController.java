@@ -2,6 +2,7 @@ package com.ou.controllers;
 
 
 import com.ou.components.JWTService;
+import com.ou.dto.requets.UpdateRequireRequest;
 import com.ou.pojo.Profile;
 import com.ou.pojo.User;
 import com.ou.services.UserService;
@@ -10,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,12 +30,12 @@ public class ApiUserController {
 
     @PostMapping("/login/")
     @CrossOrigin
-    public ResponseEntity<String> login(@RequestBody User user){
-        if(this.userService.authUser(user.getUsername(),user.getPassword())){
+    public ResponseEntity<String> login(@RequestBody User user) {
+        if (this.userService.authUser(user.getUsername(), user.getPassword())) {
             String token = this.jwtService.generateTokenLogin(user.getUsername());
             return new ResponseEntity<>(token, HttpStatus.OK);
         }
-        return new ResponseEntity<>("error",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("username or password doesn't correct", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping(path = "/current-user/", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,4 +57,24 @@ public class ApiUserController {
         responseObject.put("phone", profile.getPhone());
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
+
+    @PatchMapping(path = "/change-required/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateUserRequired(
+            @RequestPart("olPassword") String oldPassword,
+            @RequestPart("newPassword") String newPassword,
+            @RequestPart("avatar") MultipartFile avatar) {
+        UpdateRequireRequest updateRequireRequest = new UpdateRequireRequest();
+        updateRequireRequest.setOlPassword(oldPassword);
+        updateRequireRequest.setNewPassword(newPassword);
+        updateRequireRequest.setAvatar(avatar);
+
+        try {
+            userService.updateRequired(updateRequireRequest);
+            return new ResponseEntity<>("Password and avatar updated successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
 }

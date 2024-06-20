@@ -11,7 +11,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
 
 @Repository
 @Transactional
@@ -22,6 +27,9 @@ public class UserRepositoryImpl implements UserRepository {
     @Autowired
     private BCryptPasswordEncoder passEncoder;
 
+
+    @PersistenceContext
+    private EntityManager entityManager;
     @Override
     public User getUserById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
@@ -66,4 +74,18 @@ public class UserRepositoryImpl implements UserRepository {
             return false;
         }
     }
+
+    @Override
+    public void updateRequired(User user) throws Exception {
+        try{
+            Session session = this.factory.getObject().getCurrentSession();
+            Instant currentTime = Instant.now();
+            user.getProfile().setDateJoined(LocalDate.ofInstant(currentTime, ZoneOffset.UTC));
+            session.update(user);
+        }catch (Exception exception){
+            throw  new Exception(exception);
+        }
+    }
+
+
 }

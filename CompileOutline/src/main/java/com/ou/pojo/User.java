@@ -29,11 +29,10 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(min = 5,max = 10 ,message = "Tài khoảng ít nhất là 5 tối ta là 10")
     @NotEmpty(message = "Tên đăng nhập không được để trống")
     @Column(name = "username", nullable = false, length = 45)
     private String username;
-    @Size(min = 3,max = 10 ,message =  "Mật khẩu ít nhất là 3")
+//    @Size(min = 3,max = 10 ,message =  "Mật khẩu ít nhất là 3")
     @NotEmpty(message = "Mật khẩu không được để trống")
     @Column(name = "password", nullable = false, length = 100)
     private String password;

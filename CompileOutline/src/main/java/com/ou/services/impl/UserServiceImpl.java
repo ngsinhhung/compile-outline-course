@@ -2,12 +2,15 @@ package com.ou.services.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.ou.dto.requets.UpdateRequireRequest;
 import com.ou.pojo.*;
 import com.ou.repositories.*;
 import com.ou.services.UserService;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,6 +29,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private ProfileRepository profileRepository;
+
 
 
     @Autowired
@@ -49,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateProfile(Profile profile) {
-        if(!profile.getFile().isEmpty()){
+        if (!profile.getFile().isEmpty()) {
             try {
                 Map rs = this.cloudinary.uploader().upload(profile.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
                 profile.setAvatar(rs.get("secure_url").toString());
@@ -63,7 +67,7 @@ public class UserServiceImpl implements UserService {
         u.setUsername(profile.getUser().getUsername());
         u.setIsActive(profile.getUser().getIsActive());
         this.userRepository.addOrUpdateUser(u);
-        if(profile.getUser().getRole().equals("ROLE_LECTURER")){
+        if (profile.getUser().getRole().equals("ROLE_LECTURER")) {
             Lecturer l = this.lecturerRepository.getLecturerById(profile.getId());
             l.setFaculty(profile.getUser().getLecturer().getFaculty());
             this.lecturerRepository.updateLecturer(l);
@@ -104,7 +108,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void registerLecturer(User u) {
-        if(!u.getProfile().getFile().isEmpty()){
+        if (!u.getProfile().getFile().isEmpty()) {
             try {
                 Map rs = this.cloudinary.uploader().upload(u.getProfile().getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
                 u.getProfile().setAvatar(rs.get("secure_url").toString());
@@ -149,11 +153,40 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean authUser(String username, String password) {
-        return this.userRepository.authUser(username,password);
+        return this.userRepository.authUser(username, password);
     }
 
     @Override
     public boolean userExistByName(String username) {
         return this.userRepository.userExistByName(username);
     }
+
+    @Override
+    public void updateRequired(UpdateRequireRequest updateRequireRequest) throws Exception {
+        var context = SecurityContextHolder.getContext();
+        String username = context.getAuthentication().getName();
+        User user = userRepository.getUserByUsername(username);
+        String avatarUrl = null;
+        if (user == null) {
+            throw new Exception("Authorize");
+        }
+
+        if (!passwordEncoder.matches(updateRequireRequest.getOlPassword(), user.getPassword())) {
+            throw new Exception("old password doesn't match");
+        }
+        if(updateRequireRequest.getAvatar().isEmpty()){
+            throw new Exception("avatar you need update");
+        }
+        try {
+            Map uploadResult =  this.cloudinary.uploader().upload(updateRequireRequest.getAvatar().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+            avatarUrl = (String) uploadResult.get("secure_url");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        user.setPassword(passwordEncoder.encode(updateRequireRequest.getNewPassword()));
+        user.getProfile().setAvatar(avatarUrl);
+        userRepository.updateRequired(user);
+    }
+
+
 }
