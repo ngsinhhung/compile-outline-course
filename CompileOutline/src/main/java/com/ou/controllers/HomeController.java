@@ -21,6 +21,12 @@ public class HomeController {
 
     @ModelAttribute
     public void currentUser(Model model) {
+        if(this.getCurrentUser() != null){
+            model.addAttribute("currentUser", this.getCurrentUser());
+        }
+    }
+
+    public User getCurrentUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             Object principal = authentication.getPrincipal();
@@ -28,14 +34,11 @@ public class HomeController {
                 UserDetails userDetails = (UserDetails) principal;
                 String username = userDetails.getUsername();
                 User u = this.userService.getUserByUsername(username);
-                model.addAttribute("currentUser", u);
+                return u;
             }
         }
-//        String username = userDetails.getUsername();
-//        User u = this.userService.getUserByUsername(username);
-//        model.addAttribute("currentUser", u);
+        return null;
     }
-
 
     @RequestMapping("/")
     public String index() {
@@ -58,32 +61,4 @@ public class HomeController {
         this.userService.registerLecturer(user);
         return "redirect:/login";
     }
-
-
-//    @RequestMapping("/admin/manage-outlines")
-//    public String manageOutlines() {
-//        return "manageOutlines";
-//    }
-//
-//
-//
-//    @RequestMapping("/assignment")
-//    public String assignmentTeacher() {
-//        return "assignment";
-//    }
-//    @RequestMapping("/teacher/home")
-//    public String teacherHome() {
-//        return "teacherHome";
-//    }
-//
-//    @RequestMapping("/teacher/chat")
-//    public String chatPage() {
-//        return "chatpage";
-//    }
-//    @RequestMapping("/teacher/create-specification")
-//    public String createSpecification() {
-//        return "createSpecification";
-//    }
-
-
 }

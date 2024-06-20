@@ -84,7 +84,7 @@
                                         <sec:authentication property="principal.username"/>
                                     </c:when>
                                     <c:otherwise>
-                                        Chào mừng giáo viên, ${currentUser.profile.fullname}!
+                                        Chào mừng giảng viên, ${currentUser.profile.fullname}!
                                     </c:otherwise>
                                 </c:choose>
                             </span>
