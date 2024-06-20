@@ -8,4 +8,6 @@ public interface UserRepository {
     void addOrUpdateUser(User user);
 
     boolean authUser(String username,String password);
+
+    boolean userExistByName(String username);
 }

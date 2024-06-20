@@ -12,6 +12,7 @@ public class DispatcherServeletInit extends AbstractAnnotationConfigDispatcherSe
                 SpringSecurityConfig.class,
                 JWTSecurityConfig.class,
                 FilterConfig.class,
+                FirebaseConfig.class,
         };
     }
 

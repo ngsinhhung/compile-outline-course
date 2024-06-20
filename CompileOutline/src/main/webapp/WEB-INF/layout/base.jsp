@@ -30,7 +30,16 @@
             crossorigin="anonymous"
     />
     <%--  --------  css --------  --%>
-    <link rel="stylesheet" href="<c:url value="/resources/CSS/app.css"/> "/>
+    
+    <link rel="stylesheet" href="<c:url value="/CSS/app.css"/> "/>
+    
+    
+    <%-------------------------------------    Firebase---------------------------------%>
+    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.2/firebase-ui-auth.js"></script>
+
+
 </head>
 <style>
     body {
@@ -51,6 +60,28 @@
     }
 </style>
 <body>
+<script type="module">
+    import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+        getStorage,
+        ref,
+        uploadBytesResumable,
+        getDownloadURL
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBRjcxoBo2ezaS89SwsrFAuEJ-4pd0sU6k",
+        authDomain: "chatrealtime-cb6a0.firebaseapp.com",
+        projectId: "chatrealtime-cb6a0",
+        storageBucket: "chatrealtime-cb6a0.appspot.com",
+        messagingSenderId: "156500470716",
+        appId: "1:156500470716:web:1a180086bd4e4e056a19b9",
+        measurementId: "G-DY06R8Q9NC",
+    };
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    export const db = getStorage(app);
+</script>
 <tiles:insertAttribute name="header"/>
 <main class=" d-flex" style="gap:2px; min-height: calc(100vh - 65px);">
     <tiles:insertAttribute name="sidebar"/>

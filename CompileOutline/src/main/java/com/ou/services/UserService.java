@@ -15,4 +15,6 @@ public interface UserService extends UserDetailsService {
     void registerLecturer(User u);
 
     boolean authUser(String username,String password);
+
+    boolean userExistByName(String username);
 }

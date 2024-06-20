@@ -21,6 +21,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Autowired
     private BCryptPasswordEncoder passEncoder;
+
     @Override
     public User getUserById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
@@ -44,6 +45,7 @@ public class UserRepositoryImpl implements UserRepository {
         }
         else{
             s.update(user);
+//            firebaseService.addUserFirebase(user);
         }
     }
 
@@ -51,5 +53,17 @@ public class UserRepositoryImpl implements UserRepository {
     public boolean authUser(String username, String password) {
         User user = this.getUserByUsername(username);
         return this.passEncoder.matches(password, user.getPassword());
+    }
+
+    @Override
+    public boolean userExistByName(String username) {
+        try {
+            Session s = this.factory.getObject().getCurrentSession();
+            Query q = s.createQuery("FROM User WHERE username = :username");
+            q.setParameter("username", username);
+            return !q.getResultList().isEmpty();
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

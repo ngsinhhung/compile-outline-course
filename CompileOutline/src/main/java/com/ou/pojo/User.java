@@ -1,19 +1,21 @@
 package com.ou.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @XmlRootElement
 @Table(name = "user")
 @NamedQueries({
@@ -21,7 +23,7 @@ import javax.validation.constraints.NotNull;
         @NamedQuery(name = "User.findByUsername", query = "select u from User u where u.username = :username"),
         @NamedQuery(name = "User.findByIsActive", query = "select u from User u where u.isActive = :isActive")
 })
-public class User {
+public class User implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,4 +58,5 @@ public class User {
     @OneToOne(mappedBy = "user")
     @JsonIgnore
     private Student student;
+
 }
