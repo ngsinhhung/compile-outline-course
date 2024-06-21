@@ -100,7 +100,7 @@ public class UserServiceImpl implements UserService {
         Map<String , Object> userMap = new HashMap<>();
         userMap.put("username",user.getUsername());
         userMap.put("email",user.getProfile().getEmail());
-        userMap.put("avatar",user.getProfile().getEmail());
+        userMap.put("avatar",user.getProfile().getAvatar());
         firebaseService.addUser(userMap);
 
     }
@@ -142,7 +142,7 @@ public class UserServiceImpl implements UserService {
         Map<String , Object> userMap = new HashMap<>();
         userMap.put("username",user.getUsername());
         userMap.put("email",user.getProfile().getEmail());
-        userMap.put("avatar",user.getProfile().getEmail());
+        userMap.put("avatar",user.getProfile().getAvatar());
         firebaseService.addUser(userMap);
 
 
