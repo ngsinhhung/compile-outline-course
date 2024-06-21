@@ -74,10 +74,10 @@
                         <div class="mb-3">
                             <label for="selectSubject" class="form-label"><i class="fas fa-bookmark text-danger"></i>
                                 Chọn môn học *</label>
-                            <form action="${pageContext.request.contextPath}/specification/create" method="get">
+                            <form action="${pageContext.request.contextPath}/specification/edit" method="get">
                                 <select class="form-select" id="selectSubject" name="assigmentId" aria-label="Chọn môn học">
-                                    <c:forEach var="assigment" items="${assigment}">
-                                        <option value="${assigment.id}">Môn Học :${assigment.subject.subjectName} - Khoa ${assigment.subject.faculty.facultyName}</option>
+                                    <c:forEach var="s" items="${specification}">
+                                        <option value="${s.id}">Môn Học: ${s.subject.subjectName} - Khoa: ${s.subject.faculty.facultyName}</option>
                                     </c:forEach>
                                 </select>
                                 <div class="d-grid mt-3">
@@ -94,69 +94,29 @@
     <div class="container mt-4">
         <h2 class="mb-4 text-center">Đề Cương của bạn</h2>
         <div class="row">
-            <div class="col-md-4">
-                <div class="card mb-4 shadow">
-                    <div class="card-body">
-                        <h5 class="card-title mb-3">Đề cương 1</h5>
-                        <div class="card-text">
-                            <p class="mb-2"><strong>Tên môn học:</strong> Toán học</p>
-                            <p class="mb-2"><strong>Mã học:</strong> MATH101</p>
-                            <p class="mb-2"><strong>Khoa:</strong> Khoa học tự nhiên</p>
-                        
-                        </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <a href="#" class="btn btn-primary d-flex align-items-center">
-                                <i class="fas fa-eye me-1"></i> Xem chi tiết
-                            </a>
-                            <a href="#" class="btn btn-success d-flex align-items-center">
-                                <i class="fas fa-edit me-1"></i> Sửa đề cương
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-4">
-                <div class="card mb-4 shadow">
-                    <div class="card-body">
-                        <h5 class="card-title mb-3">Đề cương 2</h5>
-                        <div class="card-text">
-                            <p class="mb-2"><strong>Tên môn học:</strong> Vật lý</p>
-                            <p class="mb-2"><strong>Mã học:</strong> PHYS101</p>
-                            <p class="mb-2"><strong>Khoa:</strong> Khoa học tự nhiên</p>
-                        </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <a href="#" class="btn btn-primary d-flex align-items-center">
-                                <i class="fas fa-eye me-1"></i> Xem chi tiết
-                            </a>
-                            <a href="#" class="btn btn-success d-flex align-items-center">
-                                <i class="fas fa-edit me-1"></i> Sửa đề cương
-                            </a>
+            <c:forEach items="${specification}" var="s">
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Đề cương ${s.subject.subjectName}</h5>
+                            <div class="card-text">
+                                <p class="mb-2"><strong>Mã học:</strong> MH${s.subject.id}</p>
+                                <p class="mb-2"><strong>Khoa:</strong> ${s.subject.faculty.facultyName}</p>
+
+                            </div>
+                            <div class="d-flex justify-content-between mt-3">
+                                    <%--                            <c:url value="/specification/${s.id}"/>--%>
+                                <a href="#" class="btn btn-primary d-flex align-items-center">
+                                    <i class="fas fa-eye me-1"></i> Xem chi tiết
+                                </a>
+                                <a href="<c:url value="/specification/${s.id}/edit"/>" class="btn btn-success d-flex align-items-center">
+                                    <i class="fas fa-edit me-1"></i> Sửa đề cương
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="col-md-4">
-                <div class="card mb-4 shadow">
-                    <div class="card-body">
-                        <h5 class="card-title mb-3">Đề cương 3</h5>
-                        <div class="card-text">
-                            <p class="mb-2"><strong>Tên môn học:</strong> Hóa học</p>
-                            <p class="mb-2"><strong>Mã học:</strong> CHEM101</p>
-                            <p class="mb-2"><strong>Khoa:</strong> Khoa học tự nhiên</p>
-                        </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <a href="xemChiTiet.jsp?deCuongId=3" class="btn btn-primary d-flex align-items-center">
-                                <i class="fas fa-eye me-1"></i> Xem chi tiết
-                            </a>
-                            <a href="suaDeCuong.jsp?deCuongId=3" class="btn btn-success d-flex align-items-center">
-                                <i class="fas fa-edit me-1"></i> Sửa đề cương
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </c:forEach>
         </div>
         
         <nav aria-label="Page navigation example">

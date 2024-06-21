@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -25,5 +27,8 @@ public class Subject {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Faculty_id", nullable = false)
     private Faculty faculty;
+
+    @OneToMany(mappedBy = "subject", fetch = FetchType.EAGER)
+    private Set<SubjectRequirement> subjectRequirements = new LinkedHashSet<>();
 
 }

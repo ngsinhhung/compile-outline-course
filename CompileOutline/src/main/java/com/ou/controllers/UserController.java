@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public String updateProfile(@ModelAttribute("product") @Valid Profile profile, BindingResult rs) {
+    public String updateProfile(@ModelAttribute("profile") @Valid Profile profile, BindingResult rs) {
         if(!rs.hasErrors()) {
             try {
                 this.userService.updateProfile(profile);

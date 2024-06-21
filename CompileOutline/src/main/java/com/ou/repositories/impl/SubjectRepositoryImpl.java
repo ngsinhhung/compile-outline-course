@@ -16,6 +16,7 @@ import java.util.List;
 public class SubjectRepositoryImpl implements SubjectRepository {
     @Autowired
     private LocalSessionFactoryBean factory;
+
     @Override
     public List<Subject> getSubjects() {
         Session s = this.factory.getObject().getCurrentSession();
@@ -26,10 +27,9 @@ public class SubjectRepositoryImpl implements SubjectRepository {
     @Override
     public void addOrUpdate(Subject subject) {
         Session s = this.factory.getObject().getCurrentSession();
-        if(subject.getId() != null && subject.getId() > 0){
+        if (subject.getId() != null && subject.getId() > 0) {
             s.update(subject);
-        }
-        else {
+        } else {
             s.save(subject);
         }
     }

@@ -16,6 +16,7 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = "Specification.findAll", query = "select s from Specification s"),
         @NamedQuery(name = "Specification.findByOrderByIdDesc", query = "select s from Specification s order by s.id DESC"),
+        @NamedQuery(name = "Specification.findByLecturerUser_Id", query = "select s from Specification s where s.lecturerUser.id = :id")
 })
 
 public class Specification {

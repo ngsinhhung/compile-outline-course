@@ -93,8 +93,20 @@
         <put-attribute name="title" value="Đăng nhập"/>
         <put-attribute name="content" value="/WEB-INF/pages/login.jsp"/>
     </definition>
-    <definition name="createSpecification" extends="baseLayout">
-        <put-attribute name="title" value="Home Page"/>
-        <put-attribute name="content" value="/WEB-INF/pages/lecturer/createSpecification.jsp"/>
+    <definition name="specification" extends="baseLayout">
+        <put-attribute name="title" value="Biên soạn đề cương"/>
+        <put-attribute name="content" value="/WEB-INF/pages/lecturer/specification.jsp"/>
+    </definition>
+    <definition name="objectives" extends="baseLayout">
+        <put-attribute name="title" value="Mục tiêu môn học"/>
+        <put-attribute name="content" value="/WEB-INF/pages/lecturer/objectives.jsp"/>
+    </definition>
+    <definition name="outcomes" extends="baseLayout">
+        <put-attribute name="title" value="Đầu ra môn học"/>
+        <put-attribute name="content" value="/WEB-INF/pages/lecturer/outcomes.jsp"/>
+    </definition>
+    <definition name="subject_requirement" extends="baseLayout">
+        <put-attribute name="title" value="Thêm môm học điều kiện"/>
+        <put-attribute name="content" value="/WEB-INF/pages/lecturer/subject_requirement.jsp"/>
     </definition>
 </tiles-definitions>

@@ -101,7 +101,7 @@
                                         <option hidden="hidden" disabled selected>Chọn khoa</option>
                                         <c:forEach items="${faculties}" var="f">
                                             <c:choose>
-                                                <c:when test="${f.id==profile.user.lecturer.faculty.id}">
+                                                <c:when test="${f.id==profile.user.student.faculty.id}">
                                                     <option value="${f.id}" selected>${f.facultyName}</option>
                                                 </c:when>
                                                 <c:otherwise>

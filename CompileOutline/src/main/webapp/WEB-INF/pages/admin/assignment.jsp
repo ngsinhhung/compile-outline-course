@@ -79,7 +79,7 @@
                             </c:choose>
                         </td>
                         <td>
-                            <a href="<c:url value='/assignment/${assignment.id}' />" class="btn btn-primary">
+                            <a href="<c:url value='/assignment/${s.id}' />" class="btn btn-primary">
                                 <i class="fas fa-edit"></i> Sửa
                             </a>
 <%--                            <c:url value="/api/${assignment.id}/delete/" var="url"/>--%>

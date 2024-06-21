@@ -19,6 +19,11 @@ public class SpecificationServiceImpl implements SpecificationService {
     }
 
     @Override
+    public List<Specification> getListSpecificationOfLecturerId(int lecturerId) {
+        return this.specificationRepository.getListSpecificationOfLecturerId(lecturerId);
+    }
+
+    @Override
     public Integer getIdSpecificationLatest() {
         if(!this.specificationRepository.getListSpecificationDesc().isEmpty()){
             List<Specification> specifications = this.specificationRepository.getListSpecificationDesc();
