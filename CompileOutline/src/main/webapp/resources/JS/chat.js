@@ -33,86 +33,75 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", async () => {
     let username = localStorage.getItem("username");
     if (!username) {
         username = prompt("Please enter your username:");
         localStorage.setItem("username", username);
     }
 
-    const renderUsers = (users) => {
-        const chatListContainer = document.querySelector('.chat-list');
-        chatListContainer.innerHTML = ''; // Clear existing list
+    let currentRoomId = null; // To store the ID of the current chat room
 
-        users.forEach(user => {
-            const { username: userUsername, avatar } = user.data;
-            const userItem = document.createElement('li');
-            userItem.classList.add('p-2', 'border-bottom');
-            userItem.innerHTML = `
-            <a href="#!" class="d-flex justify-content-between user-item" data-user-id="${user.id}">
-                <div class="d-flex flex-row">
-                    <div>
-                        <img src="${avatar}" alt="avatar" class="d-flex align-self-center me-3 rounded-circle" width="60">
-                    </div>
-                    <div class="pt-1">
-                        <p class="fw-bold mb-0">${userUsername}</p>
-                    </div>
-                </div>
-            </a>
+    const renderMessage = (text, sender, timestamp) => {
+        const messagesContainer = document.getElementById("chat-messages");
+        const messageElement = document.createElement("div");
+        messageElement.classList.add("message");
+
+        if (sender === username) {
+            messageElement.classList.add("message-outgoing");
+        } else {
+            messageElement.classList.add("message-incoming");
+        }
+
+        messageElement.innerHTML = `
+            <div class="message-content">
+                <p>${text}</p>
+                <span class="message-time">${sender}, ${formatDate(timestamp)}</span>
+            </div>
         `;
-            chatListContainer.appendChild(userItem);
-        });
 
-        // Add event listeners to user items
-        const userItems = document.querySelectorAll('.user-item');
-        userItems.forEach(item => {
-            item.addEventListener('click', async () => {
-                const selectedUserId = item.getAttribute('data-user-id');
-                await startChatWithUser(selectedUserId);
-            });
-        });
+        messagesContainer.appendChild(messageElement);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight; // Auto-scroll to bottom
     };
 
-    const usersRef = collection(db, "users");
-    onSnapshot(usersRef, (snapshot) => {
-        const users = [];
-        snapshot.forEach(doc => {
-            users.push({ id: doc.id, data: doc.data() });
-        });
-        renderUsers(users);
-    }, error => {
-        console.error("Error fetching users: ", error);
-    });
+    // Function to format timestamp
+    const formatDate = (timestamp) => {
+        return timestamp.toDate().toLocaleTimeString();
+    };
 
-    // Watch for real-time updates of rooms
-    let currentRoomId = null;
-
-    async function startChatWithUser(selectedUserId) {
+    // Function to start a chat with a specific user or room
+    const startChatWithUser = async (selectedId, isRoom = false) => {
         try {
-            let roomRef = null;
-            const roomQuery = query(
-                collection(db, 'rooms'),
-                where('members', 'array-contains', username)
-            );
-            const roomSnapshot = await getDocs(roomQuery);
-            roomSnapshot.forEach(doc => {
-                const room = doc.data();
-                if (room.members.includes(selectedUserId)) {
-                    roomRef = doc;
-                }
-            });
+            let roomId = selectedId;
 
-            if (!roomRef) {
-                const roomData = {
-                    members: [username, selectedUserId],
-                    createdAt: serverTimestamp()
-                };
-                const newRoomRef = await addDoc(collection(db, 'rooms'), roomData);
-                currentRoomId = newRoomRef.id;
-            } else {
-                currentRoomId = roomRef.id;
+            if (!isRoom) {
+                // Check if there is an existing room with both users
+                const roomQuery = query(
+                    collection(db, 'rooms'),
+                    where('members', 'array-contains', username)
+                );
+                const roomSnapshot = await getDocs(roomQuery);
+                roomSnapshot.forEach(doc => {
+                    const room = doc.data();
+                    if (room.members.includes(selectedId)) {
+                        roomId = doc.id;
+                    }
+                });
+
+                // If no existing room found, create a new one
+                if (selectedId !== roomId) {
+                    const roomData = {
+                        members: [username, username],
+                        createdAt: serverTimestamp()
+                    };
+                    const newRoomRef = await addDoc(collection(db, 'rooms'), roomData);
+                    roomId = newRoomRef.id;
+                }
             }
 
+            currentRoomId = roomId;
+
+            // Set up listener for real-time messages in the current room
             const messagesQuery = query(
                 collection(db, 'messages'),
                 where('roomId', '==', currentRoomId),
@@ -122,30 +111,17 @@ document.addEventListener("DOMContentLoaded", async function () {
                 const messagesContainer = document.getElementById("chat-messages");
                 messagesContainer.innerHTML = "";
                 querySnapshot.forEach(doc => {
-                    const message = doc.data(); // Lưu ý sự thay đổi ở đây
-                    renderMessage(message.text, message.sender === username ? "message-outgoing" : "message-incoming", message.sender);
+                    const message = doc.data();
+                    renderMessage(message.text, message.sender, message.timestamp);
                 });
-                messagesContainer.scrollTop = messagesContainer.scrollHeight; // Auto-scroll to bottom
             });
 
         } catch (error) {
             console.error("Error starting chat: ", error);
         }
-    }
-
-    const renderMessage = (text, className, sender) => {
-        const messagesContainer = document.getElementById("chat-messages");
-        const messageElement = document.createElement("div");
-        messageElement.classList.add("message", className);
-        messageElement.innerHTML = `
-            <div class="message-content">
-                <p>${text}</p>
-                <span class="message-time">${sender}</span>
-            </div>
-        `;
-        messagesContainer.appendChild(messageElement);
     };
 
+    // Event listener for the send button
     document.getElementById("send-button").addEventListener("click", async () => {
         const messageInput = document.getElementById("message-input");
         const text = messageInput.value.trim();
@@ -158,6 +134,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     roomId: currentRoomId,
                     timestamp: serverTimestamp()
                 });
+
                 messageInput.value = "";
             } catch (error) {
                 console.error("Error sending message: ", error);
@@ -166,5 +143,65 @@ document.addEventListener("DOMContentLoaded", async function () {
             console.log("Message input is empty or no room selected");
         }
     });
+
+    // Function to render list of rooms
+    const renderRooms = (rooms) => {
+        const chatListContainer = document.querySelector('.chat-list');
+        chatListContainer.innerHTML = ''; // Clear existing list
+
+        rooms.forEach(room => {
+            // Create room item element
+            const roomItem = document.createElement('div');
+            roomItem.classList.add('p-2', 'border-bottom');
+            roomItem.innerHTML = `
+                <a href="#!" class="d-flex justify-content-between room-item" data-room-id="${room.id}">
+                    <div class="d-flex flex-row">
+                        <div>
+                            <img src="https://via.placeholder.com/60" alt="avatar" class="d-flex align-self-center me-3 rounded-circle" width="60">
+                        </div>
+                        <div class="pt-1">
+                            <p class="fw-bold mb-0">${room.id}</p>
+                        </div>
+                    </div>
+                </a>
+            `;
+            chatListContainer.appendChild(roomItem);
+
+            // Add event listener to each room item
+            roomItem.addEventListener('click', async (event) => {
+                event.preventDefault(); // Prevent default link behavior
+                const selectedRoomId = room.id;
+                await startChatWithUser(selectedRoomId, true); // Pass true to indicate it's a room
+            });
+        });
+    };
+
+    // Function to fetch and render list of rooms initially
+    const fetchUserRooms = async () => {
+        try {
+            const username = localStorage.getItem("username");
+            if (!username) {
+                console.log("Username not found in localStorage");
+                return;
+            }
+
+            // Query rooms where current user is a member
+            const roomsQuery = query(
+                collection(db, 'rooms'),
+                where('members', 'array-contains', username)
+            );
+            const roomsSnapshot = await getDocs(roomsQuery);
+            const userRooms = [];
+            roomsSnapshot.forEach(doc => {
+                userRooms.push({ id: doc.id });
+            });
+            renderRooms(userRooms); // Render list of rooms where user is a member
+        } catch (error) {
+            console.error("Error fetching user's rooms: ", error);
+        }
+    };
+
+    // Call function to fetch and render user's rooms when DOM is loaded
+    fetchUserRooms();
 
 });

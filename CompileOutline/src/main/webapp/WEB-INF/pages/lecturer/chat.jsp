@@ -13,60 +13,42 @@
         border-right: 1px solid #dee2e6;
     }
 
-    .message {
+    .chat-messages {
+        overflow-y: auto; /* Cho phép cuộn khi nội dung vượt quá chiều cao */
         padding: 10px;
-        border-radius: 8px;
-        margin: 5px 0;
-        max-width: 70%;
-        word-wrap: break-word;
-        overflow: hidden; /* Đảm bảo các message không bị overflow khi chứa ảnh */
+        min-height: calc(100vh - 250px);
     }
 
-    .message .message-content {
+    .message {
+        margin-bottom: 10px;
         display: flex;
-        align-items: center;
-        position: relative; /* Để chứa image và text bên trong message */
+        flex-direction: row;
+        align-items: flex-start;
     }
 
-    .message .message-content p {
-        margin: 0;
-    }
-
-    .message .message-content img {
-        max-width: 100%;
+    .message-content {
+        max-width: 70%; /* Giới hạn chiều rộng của nội dung tin nhắn */
+        padding: 8px;
         border-radius: 8px;
-        margin-top: 10px;
-        background-color: white;
     }
 
     .message-outgoing {
-        color: black;
-        border-radius: 10px; /* Rounded corners */
-        max-width: 70%;
-        margin-bottom: 10px; /* Bottom margin */
-        align-self: flex-end; /* Align to the right (end) of the container */
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Box shadow for a subtle effect */
+        align-self: flex-end; /* Căn tin nhắn gửi đi sang phải */
+        background-color: #dcf8c6; /* Màu nền tin nhắn gửi đi */
     }
 
     .message-incoming {
-        color: #333;
-        align-self: flex-start;
+        align-self: flex-start; /* Căn tin nhắn nhận sang trái */
+        background-color: #f0f0f0; /* Màu nền tin nhắn nhận */
+    }
+
+    .message-content p {
+        margin: 0;
     }
 
     .message-time {
         font-size: 12px;
-        color: #999;
-        margin-left: 10px;
-        align-self: flex-end;
-    }
-
-    .chat-messages {
-        height: calc(100vh - 250px);
-        overflow-y: auto;
-        padding: 10px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        color: #777;
     }
 
     .chat-input {
@@ -117,9 +99,52 @@
         background-color: #0056b3;
     }
 
+    .user-item {
+        text-decoration: none;
+        color: #333;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .user-item:hover {
+        background-color: #f0f0f0;
+    }
+
+    .user-item .user-details {
+        display: flex;
+        align-items: center;
+    }
+
+    .user-item .user-details img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #fff; /* Add a white border for better contrast */
+    }
+
+    .user-item .user-details .user-info {
+        margin-left: 15px;
+    }
+
+    .user-item .user-info p {
+        margin: 0;
+    }
+
+    .user-item .user-info .username {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .user-item .user-info .last-message {
+        font-size: 14px;
+        color: #777;
+    }
+
 </style>
 
-<section >
+<section>
     <div class="container">
         <div class="row">
             <div class="col-md-4">
@@ -133,9 +158,9 @@
                         </span>
                     </div>
                     <div class="chat-list">
-                        <ul class="list-unstyled mb-0">
+                        <ul class="list-unstyled mb-0" style="list-style-type: none;">
                             <!-- Chat List Items (Example) -->
-                            <li class="p-2 border-bottom">
+                            <li class="p-2 border-bottom" style="list-style-type: none !important;">
                                 <a href="#!" class="d-flex justify-content-between">
                                     <div class="d-flex flex-row">
                                         <div>
@@ -177,6 +202,6 @@
     </div>
 </section>
 <script>
-    localStorage.setItem("username","${username}")
+    localStorage.setItem("username", "${username}")
 </script>
 <script type="module" src="<c:url value="/JS/chat.js" />"></script>
