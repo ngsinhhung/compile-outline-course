@@ -21,25 +21,37 @@
 
     .message {
         margin-bottom: 10px;
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
+      
     }
 
     .message-content {
-        max-width: 70%; /* Giới hạn chiều rộng của nội dung tin nhắn */
+        max-width: 100%; /* Giới hạn chiều rộng của nội dung tin nhắn */
         padding: 8px;
         border-radius: 8px;
     }
 
     .message-outgoing {
-        align-self: flex-end; /* Căn tin nhắn gửi đi sang phải */
-        background-color: #dcf8c6; /* Màu nền tin nhắn gửi đi */
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        background-color: #dcf8c6;
+        width: fit-content;
+        max-width: 70%;
+        padding: 8px;
+        border-radius: 8px;
     }
 
     .message-incoming {
-        align-self: flex-start; /* Căn tin nhắn nhận sang trái */
-        background-color: #f0f0f0; /* Màu nền tin nhắn nhận */
+        background-color: #f0f0f0;
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        text-align: end;
+        width: fit-content;
+        max-width: 70%;
+        margin-left: auto;
+        padding: 8px;
+        border-radius: 8px;
     }
 
     .message-content p {
