@@ -2,7 +2,7 @@ package com.ou.services.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.ou.components.FirebaseService;
+import com.ou.services.FirebaseService;
 import com.ou.dto.requets.UpdateRequireRequest;
 import com.ou.pojo.*;
 import com.ou.repositories.*;
@@ -88,6 +88,7 @@ public class UserServiceImpl implements UserService {
         u.setPassword(this.passwordEncoder.encode(pwd).toString());
         u.setRole("ROLE_STUDENT");
         u.setIsActive(true);
+        this.userRepository.addOrUpdateUser(u);
         User user = this.userRepository.getUserByUsername(u.getUsername());
         student.setId(user.getId());
         student.setUser(user);
@@ -97,12 +98,12 @@ public class UserServiceImpl implements UserService {
         p.setUser(user);
         this.profileRepository.addProfile(p);
 
+
         Map<String , Object> userMap = new HashMap<>();
         userMap.put("username",user.getUsername());
         userMap.put("email",user.getProfile().getEmail());
         userMap.put("avatar",user.getProfile().getAvatar());
         firebaseService.addUser(userMap);
-
     }
 
     @Override

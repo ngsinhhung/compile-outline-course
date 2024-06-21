@@ -48,9 +48,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         messageElement.classList.add("message");
 
         if (sender === username) {
-            messageElement.classList.add("message-outgoing");
-        } else {
             messageElement.classList.add("message-incoming");
+        } else {
+            messageElement.classList.add("message-outgoing");
         }
 
         messageElement.innerHTML = `
@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 messagesContainer.innerHTML = "";
                 querySnapshot.forEach(doc => {
                     const message = doc.data();
+                    console.log(message)
                     renderMessage(message.text, message.sender, message.timestamp);
                 });
             });

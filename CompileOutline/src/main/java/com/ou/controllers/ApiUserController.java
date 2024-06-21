@@ -58,15 +58,15 @@ public class ApiUserController {
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
 
-    @PatchMapping(path = "/change-required/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(path = "/change-required/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> updateUserRequired(
             @RequestPart("olPassword") String oldPassword,
             @RequestPart("newPassword") String newPassword,
-            @RequestPart("avatar") MultipartFile avatar) {
+            @RequestPart("file") MultipartFile [] file) {
         UpdateRequireRequest updateRequireRequest = new UpdateRequireRequest();
         updateRequireRequest.setOlPassword(oldPassword);
         updateRequireRequest.setNewPassword(newPassword);
-        updateRequireRequest.setAvatar(avatar);
+        updateRequireRequest.setAvatar(file[0]);
 
         try {
             userService.updateRequired(updateRequireRequest);
