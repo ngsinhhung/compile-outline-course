@@ -176,4 +176,7 @@
         </div>
     </div>
 </section>
+<script>
+    localStorage.setItem("username","${username}")
+</script>
 <script type="module" src="<c:url value="/JS/chat.js" />"></script>

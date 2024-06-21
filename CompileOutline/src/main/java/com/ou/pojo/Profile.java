@@ -33,7 +33,6 @@ public class Profile {
     private String email;
 
     @Column(name = "avatar", length = 100)
-    @NotEmpty(message = "{avatar.nullErr}")
     private String avatar;
 
     @Column(name = "date_joined")

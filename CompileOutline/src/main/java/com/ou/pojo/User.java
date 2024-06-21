@@ -32,7 +32,6 @@ public class User implements Serializable {
     @NotEmpty(message = "Tên đăng nhập không được để trống")
     @Column(name = "username", nullable = false, length = 45)
     private String username;
-//    @Size(min = 3,max = 10 ,message =  "Mật khẩu ít nhất là 3")
     @NotEmpty(message = "Mật khẩu không được để trống")
     @Column(name = "password", nullable = false, length = 100)
     private String password;
@@ -46,7 +45,6 @@ public class User implements Serializable {
 
     @OneToOne(mappedBy = "user")
     @JsonIgnore
-    @Valid
     private Profile profile;
 
     @Valid

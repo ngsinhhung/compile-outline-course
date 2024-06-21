@@ -2,6 +2,7 @@ package com.ou.services.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.ou.components.FirebaseService;
 import com.ou.dto.requets.UpdateRequireRequest;
 import com.ou.pojo.*;
 import com.ou.repositories.*;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -39,7 +41,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private AdminRepository adminRepository;
 
-
+    @Autowired
+    private FirebaseService firebaseService;
     @Autowired
     private Cloudinary cloudinary;
 
@@ -85,7 +88,6 @@ public class UserServiceImpl implements UserService {
         u.setPassword(this.passwordEncoder.encode(pwd).toString());
         u.setRole("ROLE_STUDENT");
         u.setIsActive(true);
-        this.userRepository.addOrUpdateUser(u);
         User user = this.userRepository.getUserByUsername(u.getUsername());
         student.setId(user.getId());
         student.setUser(user);
@@ -94,6 +96,13 @@ public class UserServiceImpl implements UserService {
         p.setId(user.getId());
         p.setUser(user);
         this.profileRepository.addProfile(p);
+
+        Map<String , Object> userMap = new HashMap<>();
+        userMap.put("username",user.getUsername());
+        userMap.put("email",user.getProfile().getEmail());
+        userMap.put("avatar",user.getProfile().getEmail());
+        firebaseService.addUser(userMap);
+
     }
 
     @Override
@@ -106,9 +115,8 @@ public class UserServiceImpl implements UserService {
         this.adminRepository.addAdmin(u);
     }
 
-    @Override
     public void registerLecturer(User u) {
-        if (!u.getProfile().getFile().isEmpty()) {
+        if(!u.getProfile().getFile().isEmpty()){
             try {
                 Map rs = this.cloudinary.uploader().upload(u.getProfile().getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
                 u.getProfile().setAvatar(rs.get("secure_url").toString());
@@ -130,6 +138,15 @@ public class UserServiceImpl implements UserService {
         p.setId(user.getId());
         p.setUser(user);
         this.profileRepository.addProfile(p);
+
+        Map<String , Object> userMap = new HashMap<>();
+        userMap.put("username",user.getUsername());
+        userMap.put("email",user.getProfile().getEmail());
+        userMap.put("avatar",user.getProfile().getEmail());
+        firebaseService.addUser(userMap);
+
+
+
     }
 
 

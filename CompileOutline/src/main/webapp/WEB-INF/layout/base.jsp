@@ -29,7 +29,11 @@
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
             crossorigin="anonymous"
     />
-    <%--  --------  css --------  --%>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<%--  --------  css --------  --%>
     
     <link rel="stylesheet" href="<c:url value="/CSS/app.css"/> "/>
     
