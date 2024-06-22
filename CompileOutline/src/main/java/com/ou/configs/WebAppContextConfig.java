@@ -82,4 +82,5 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/CSS/**").addResourceLocations("/resources/CSS/");
     }
 
+
 }

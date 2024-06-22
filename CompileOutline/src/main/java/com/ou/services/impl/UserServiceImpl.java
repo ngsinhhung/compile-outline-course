@@ -2,6 +2,7 @@ package com.ou.services.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.ou.services.EmailService;
 import com.ou.services.FirebaseService;
 import com.ou.dto.requets.UpdateRequireRequest;
 import com.ou.pojo.*;
@@ -32,7 +33,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ProfileRepository profileRepository;
 
-
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private LecturerRepository lecturerRepository;
@@ -82,7 +84,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addNewStudent(Student student) {
+    public void addNewStudent(Student student) throws IOException {
         User u = student.getUser();
         String pwd = student.getUser().getPassword();
         u.setPassword(this.passwordEncoder.encode(pwd).toString());
@@ -97,6 +99,8 @@ public class UserServiceImpl implements UserService {
         p.setId(user.getId());
         p.setUser(user);
         this.profileRepository.addProfile(p);
+
+        emailService.sendAccountCreationEmail(u);
 
 
         Map<String , Object> userMap = new HashMap<>();

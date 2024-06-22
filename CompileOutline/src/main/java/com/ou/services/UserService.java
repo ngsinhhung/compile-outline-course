@@ -6,12 +6,14 @@ import com.ou.pojo.Student;
 import com.ou.pojo.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.io.IOException;
+
 
 public interface UserService extends UserDetailsService {
     Profile getProfileById(int id);
     User getUserByUsername(String username);
     void updateProfile(Profile profile);
-    void addNewStudent(Student student);
+    void addNewStudent(Student student) throws IOException;
     void registerAdmin(User u);
     void registerLecturer(User u);
 

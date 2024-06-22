@@ -131,7 +131,6 @@
             <artifactId>guava</artifactId>
             <version>32.1.2-jre</version>
         </dependency>
-
         <dependency>
             <groupId>com.sendgrid</groupId>
             <artifactId>sendgrid-java</artifactId>
