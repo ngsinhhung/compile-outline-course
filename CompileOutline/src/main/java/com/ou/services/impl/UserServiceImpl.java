@@ -100,9 +100,10 @@ public class UserServiceImpl implements UserService {
         p.setUser(user);
         this.profileRepository.addProfile(p);
 
+        //send mail
         emailService.sendAccountCreationEmail(u);
 
-
+        //register firebase
         Map<String , Object> userMap = new HashMap<>();
         userMap.put("username",user.getUsername());
         userMap.put("email",user.getProfile().getEmail());
