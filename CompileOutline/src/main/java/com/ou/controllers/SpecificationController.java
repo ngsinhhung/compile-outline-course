@@ -1,15 +1,15 @@
 package com.ou.controllers;
 
 
-import com.ou.pojo.Objective;
-import com.ou.pojo.Outcome;
-import com.ou.pojo.Specification;
-import com.ou.pojo.User;
+import com.ou.pojo.*;
 import com.ou.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("/specification")
@@ -22,6 +22,9 @@ public class SpecificationController {
 
     @Autowired
     private SubjectService subjectService;
+
+    @Autowired
+    private SubjectRequirementService subjectRequirementService;
 
     @Autowired
     private ObjectiveService objectiveService;
@@ -37,7 +40,7 @@ public class SpecificationController {
     }
 
     @GetMapping("/")
-    public String specificationList (Model model) {
+    public String specificationList(Model model) {
         User u = this.homeController.getCurrentUser();
         model.addAttribute("specification", this.specificationService.getListSpecificationOfLecturerId(u.getId()));
         return "lecturerHome";
@@ -45,7 +48,7 @@ public class SpecificationController {
 
     @GetMapping("/{specificationId}/edit")
     public String editSpecification(@PathVariable("specificationId") int specificationId, Model model) {
-        model.addAttribute("specification",this.specificationService.getSpecificationById(specificationId));
+        model.addAttribute("specification", this.specificationService.getSpecificationById(specificationId));
         return "specification";
     }
 
@@ -53,6 +56,27 @@ public class SpecificationController {
     public String updateSpecification(@ModelAttribute("specification") Specification specification) {
         this.specificationService.createOrUpdateSpecification(specification);
         return String.format("redirect:/specification/%d/edit", specification.getId());
+    }
+
+    //requirement
+    @GetMapping("/{specificationId}/requirement")
+    public String requirement(@PathVariable("specificationId") int specificationId, RedirectAttributes redirectAttributes, Model model) {
+        redirectAttributes.addFlashAttribute("specId", specificationId);
+        Specification spec = this.specificationService.getSpecificationById(specificationId);
+        SubjectRequirement subjectRequirement = new SubjectRequirement();
+        subjectRequirement.setSubject(spec.getSubject());
+        model.addAttribute("subjectRequirement", subjectRequirement);
+        model.addAttribute("specId", specificationId);
+        return "requirement";
+    }
+
+    @PostMapping("/requirement/save")
+    public String saveRequirement(@ModelAttribute("subjectRequirement") SubjectRequirement subjectRequirement,
+                                  @RequestParam("specId") int specId) {
+        SubjectRequirementId subjectRequirementId = new SubjectRequirementId(subjectRequirement.getSubject().getId(), subjectRequirement.getSubjectRequirements().getId());
+        subjectRequirement.setId(subjectRequirementId);
+        this.subjectRequirementService.addOrUpdateSubjectRequirement(subjectRequirement);
+        return String.format("redirect:/specification/%d/edit", specId);
     }
 
     //objective
@@ -66,9 +90,9 @@ public class SpecificationController {
     }
 
     @PostMapping("/objectives")
-    public String editObjectives(@ModelAttribute("objectives") Objective objective ){
+    public String editObjectives(@ModelAttribute("objectives") Objective objective) {
         this.objectiveService.addOrUpdateObjective(objective);
-        return String.format("redirect:/specification/%d/edit",objective.getSpecification().getId());
+        return String.format("redirect:/specification/%d/edit", objective.getSpecification().getId());
     }
 
     @GetMapping("/objectives/{objectiveId}")
@@ -88,9 +112,9 @@ public class SpecificationController {
     }
 
     @PostMapping("/outcomes")
-    public String editOutcomes(@ModelAttribute("outcomes") Outcome outcome ){
+    public String editOutcomes(@ModelAttribute("outcomes") Outcome outcome) {
         this.outcomeService.addOrUpdateOutcome(outcome);
-        return String.format("redirect:/specification/%d/edit",outcome.getSpecification().getId());
+        return String.format("redirect:/specification/%d/edit", outcome.getSpecification().getId());
     }
 
     @GetMapping("/outcomes/{outcomeId}")

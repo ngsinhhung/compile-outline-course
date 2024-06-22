@@ -55,6 +55,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addFormatter(new LecturerFormatter());
         registry.addFormatter(new SubjectFormatter());
         registry.addFormatter(new SpecificationFormatter());
+        registry.addFormatter(new RequirementFormatter());
     }
 
     @Override

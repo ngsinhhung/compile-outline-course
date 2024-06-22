@@ -105,7 +105,7 @@
         <put-attribute name="title" value="Đầu ra môn học"/>
         <put-attribute name="content" value="/WEB-INF/pages/lecturer/outcomes.jsp"/>
     </definition>
-    <definition name="subject_requirement" extends="baseLayout">
+    <definition name="requirement" extends="baseLayout">
         <put-attribute name="title" value="Thêm môm học điều kiện"/>
         <put-attribute name="content" value="/WEB-INF/pages/lecturer/subject_requirement.jsp"/>
     </definition>

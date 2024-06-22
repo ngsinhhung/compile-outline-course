@@ -1,6 +1,8 @@
 package com.ou.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
@@ -12,6 +14,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Embeddable
+@NoArgsConstructor
 public class SubjectRequirementId implements Serializable {
     private static final long serialVersionUID = -3740726909843399410L;
     @Column(name = "Subject_id", nullable = false)
@@ -19,6 +22,11 @@ public class SubjectRequirementId implements Serializable {
 
     @Column(name = "Subject_requirements_id", nullable = false)
     private Integer subjectRequirementsId;
+
+    public SubjectRequirementId(Integer subjectId, Integer subjectRequirementsId) {
+        this.subjectId = subjectId;
+        this.subjectRequirementsId = subjectRequirementsId;
+    }
 
     @Override
     public boolean equals(Object o) {
