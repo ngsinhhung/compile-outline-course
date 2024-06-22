@@ -2,12 +2,17 @@ package com.ou.services.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.ou.services.EmailService;
+import com.ou.services.FirebaseService;
+import com.ou.dto.requets.UpdateRequireRequest;
 import com.ou.pojo.*;
 import com.ou.repositories.*;
 import com.ou.services.UserService;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -26,8 +32,10 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private ProfileRepository profileRepository;
+
     @Autowired
-    private FacultyRepository facultyRepository;
+    private EmailService emailService;
+
     @Autowired
     private LecturerRepository lecturerRepository;
     @Autowired
@@ -35,7 +43,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private AdminRepository adminRepository;
 
-
+    @Autowired
+    private FirebaseService firebaseService;
     @Autowired
     private Cloudinary cloudinary;
 
@@ -49,7 +58,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateProfile(Profile profile) {
-        if(!profile.getFile().isEmpty()){
+        if (!profile.getFile().isEmpty()) {
             try {
                 Map rs = this.cloudinary.uploader().upload(profile.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
                 profile.setAvatar(rs.get("secure_url").toString());
@@ -63,7 +72,7 @@ public class UserServiceImpl implements UserService {
         u.setUsername(profile.getUser().getUsername());
         u.setIsActive(profile.getUser().getIsActive());
         this.userRepository.addOrUpdateUser(u);
-        if(profile.getUser().getRole().equals("ROLE_LECTURER")){
+        if (profile.getUser().getRole().equals("ROLE_LECTURER")) {
             Lecturer l = this.lecturerRepository.getLecturerById(profile.getId());
             l.setFaculty(profile.getUser().getLecturer().getFaculty());
             this.lecturerRepository.updateLecturer(l);
@@ -75,7 +84,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addNewStudent(Student student) {
+    public void addNewStudent(Student student) throws IOException {
         User u = student.getUser();
         String pwd = student.getUser().getPassword();
         u.setPassword(this.passwordEncoder.encode(pwd).toString());
@@ -90,6 +99,16 @@ public class UserServiceImpl implements UserService {
         p.setId(user.getId());
         p.setUser(user);
         this.profileRepository.addProfile(p);
+
+        //send mail
+        emailService.sendAccountCreationEmail(u);
+
+        //register firebase
+        Map<String , Object> userMap = new HashMap<>();
+        userMap.put("username",user.getUsername());
+        userMap.put("email",user.getProfile().getEmail());
+        userMap.put("avatar",user.getProfile().getAvatar());
+        firebaseService.addUser(userMap);
     }
 
     @Override
@@ -102,7 +121,6 @@ public class UserServiceImpl implements UserService {
         this.adminRepository.addAdmin(u);
     }
 
-    @Override
     public void registerLecturer(User u) {
         if(!u.getProfile().getFile().isEmpty()){
             try {
@@ -126,6 +144,15 @@ public class UserServiceImpl implements UserService {
         p.setId(user.getId());
         p.setUser(user);
         this.profileRepository.addProfile(p);
+
+        Map<String , Object> userMap = new HashMap<>();
+        userMap.put("username",user.getUsername());
+        userMap.put("email",user.getProfile().getEmail());
+        userMap.put("avatar",user.getProfile().getAvatar());
+        firebaseService.addUser(userMap);
+
+
+
     }
 
 
@@ -145,4 +172,54 @@ public class UserServiceImpl implements UserService {
         return new org.springframework.security.core.userdetails.User(
                 u.getUsername(), u.getPassword(), authorities);
     }
+
+
+    @Override
+    public boolean authUser(String username, String password) {
+        return this.userRepository.authUser(username, password);
+    }
+
+    @Override
+    public boolean userExistByName(String username) {
+        return this.userRepository.userExistByName(username);
+    }
+
+    @Override
+    public void updateRequired(UpdateRequireRequest updateRequireRequest) throws Exception {
+        var context = SecurityContextHolder.getContext();
+        String username = context.getAuthentication().getName();
+        User user = userRepository.getUserByUsername(username);
+        String avatarUrl = null;
+        if (user == null) {
+            throw new Exception("Authorize");
+        }
+
+        if (!passwordEncoder.matches(updateRequireRequest.getOlPassword(), user.getPassword())) {
+            throw new Exception("old password doesn't match");
+        }
+        if(updateRequireRequest.getAvatar().isEmpty()){
+            throw new Exception("avatar you need update");
+        }
+        try {
+            Map uploadResult =  this.cloudinary.uploader().upload(updateRequireRequest.getAvatar().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+            avatarUrl = (String) uploadResult.get("secure_url");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        user.setPassword(passwordEncoder.encode(updateRequireRequest.getNewPassword()));
+        user.getProfile().setAvatar(avatarUrl);
+        userRepository.updateRequired(user);
+    }
+
+    @Override
+    public void updateRequired(User user) throws Exception {
+        var context = SecurityContextHolder.getContext();
+        String username = context.getAuthentication().getName();
+        User isCheck = userRepository.getUserByUsername(username);
+        if (isCheck != null){
+            this.userRepository.updateRequired(user);
+        }
+    }
+
+
 }

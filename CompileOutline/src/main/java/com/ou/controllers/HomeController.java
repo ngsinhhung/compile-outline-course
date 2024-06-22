@@ -9,8 +9,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.logging.Logger;
 
 @Controller
@@ -57,8 +59,15 @@ public class HomeController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("user") User user) {
-        this.userService.registerLecturer(user);
-        return "redirect:/login";
+    public String register(@ModelAttribute("user") @Valid User user, BindingResult result) {
+        if (!result.hasErrors()) {
+            try {
+                this.userService.registerLecturer(user);
+                return "redirect:/login";
+            } catch (Exception exception) {
+                System.err.println(exception.getMessage());
+            }
+        }
+        return "register";
     }
 }

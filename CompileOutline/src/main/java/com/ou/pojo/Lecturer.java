@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -25,6 +28,7 @@ public class Lecturer {
     @JoinColumn(name = "User_id", nullable = false)
     private User user;
 
+    @NotNull(message = "Khoa không được để trống")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Faculty_id", nullable = false)
     private Faculty faculty;

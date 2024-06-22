@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
 <div class="py-4">
     <div class="container">
         <div class="modal fade" id="addAssignmentModal" tabindex="-1" aria-labelledby="addAssignmentModalLabel" aria-hidden="true">
@@ -13,7 +12,7 @@
                     </div>
                     <div class="modal-body">
                         <c:url value="/assignment/new" var="action"/>
-                        <form:form id="addAssignmentForm" modelAttribute="assignment" method="post" action="${action}">
+                        <form:form id="addAssignmentForm" modelAttribute="assignment" method="post" action="${action}" onsubmit="return validateForm()">
                             <form:hidden path="credits"/>
                             <div class="mb-3">
                                 <label for="subjectSelect" class="form-label">Chọn môn học:</label>
@@ -26,6 +25,8 @@
                                         <option value="${subject.id}" data-faculty-id="${subject.faculty.id}">Môn học: ${subject.subjectName} - Khoa: ${subject.faculty.facultyName}</option>
                                     </c:forEach>
                                 </form:select>
+                                <div class="text-danger" id="subjectError"></div>
+                                <form:errors path="subject.id" cssClass="text-danger" />
                             </div>
                             <div class="mb-3">
                                 <label for="lecturerSelect" class="form-label">Chọn giảng viên:</label>
@@ -49,7 +50,7 @@
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAssignmentModal">
                     Thêm Phân Công
                 </button>
-                </div>
+            </div>
             <table class="table">
                 <thead>
                 <tr>
@@ -120,6 +121,31 @@
             })
             .catch(error => console.error('Error loading lecturers:', error));
     }
+
+    function validateForm() {
+        const subjectSelect = document.getElementById('subjectSelect');
+        const lecturerSelect = document.getElementById('lecturerSelect');
+        let isValid = true;
+
+        // Clear previous errors
+        document.getElementById('subjectError').textContent = '';
+        document.getElementById('lecturerError').textContent = '';
+
+        if (subjectSelect.value === "") {
+            document.getElementById('subjectError').textContent = "Vui lòng chọn môn học.";
+            subjectSelect.focus();
+            isValid = false;
+        }
+
+        if (lecturerSelect.value === "") {
+            document.getElementById('lecturerError').textContent = "Vui lòng chọn giáo viên.";
+            lecturerSelect.focus();
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
     function deleteAssignment(url, id) {
         fetch(url, {
             method: 'DELETE'

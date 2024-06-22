@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -19,6 +21,7 @@ public class Faculty {
     private Integer id;
 
     @Column(name = "faculty_name", length = 45)
+    @NotEmpty(message = "Vui nhập khoa")
     private String facultyName;
 
 }

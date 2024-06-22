@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Hùng's Dell
-  Date: 11/06/2024
-  Time: 12:03 SA
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -22,6 +15,7 @@
     <div class="mb-3 mt-3">
         <label for="subjectName" class="form-label">Tên môn học</label>
         <form:input path="subjectName" type="text" class="form-control" id="subjectName"/>
+        <form:errors path="subjectName" cssClass="text-danger" />
     </div>
     <div class="mb-3 mt-3">
         <label for="faculty">Khoa:</label>
@@ -38,13 +32,14 @@
                 </c:choose>
             </c:forEach>
         </form:select>
+        <form:errors path="faculty" cssClass="text-danger" />
     </div>
-    <button type="submit" class="btn btn-success float-end mt-3">
+    <form:button class="btn btn-success float-end mt-3">
         <c:choose>
             <c:when test="${subject.id > 0}">Cập nhật môn học</c:when>
             <c:otherwise>
                 Thêm môn học
             </c:otherwise>
         </c:choose>
-    </button>
+    </form:button>
 </form:form>

@@ -1,5 +1,6 @@
 package com.ou.configs;
 
+import com.ou.filter.FilterConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class DispatcherServeletInit extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -9,6 +10,10 @@ public class DispatcherServeletInit extends AbstractAnnotationConfigDispatcherSe
                 HibernateConfig.class,
                 TilesConfig.class,
                 SpringSecurityConfig.class,
+                JWTSecurityConfig.class,
+                FilterConfig.class,
+                FirebaseConfig.class,
+                JacksonConfig.class,
         };
     }
 

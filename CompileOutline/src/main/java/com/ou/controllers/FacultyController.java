@@ -5,7 +5,10 @@ import com.ou.services.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @ControllerAdvice
@@ -31,9 +34,16 @@ public class FacultyController {
     }
 
     @PostMapping("/create")
-    public String createNewFaculty(@ModelAttribute(value = "faculty") Faculty faculty) {
-        this.facultyService.addOrUpdate(faculty);
-        return "redirect:/faculty/";
+    public String createNewFaculty(@ModelAttribute(value = "faculty") @Valid Faculty faculty, BindingResult result) {
+        if(!result.hasErrors()){
+            try{
+                this.facultyService.addOrUpdate(faculty);
+                return "redirect:/faculty/";
+            }catch (Exception exception){
+                System.err.println(exception.getMessage());
+            }
+        }
+        return "faculty";
     }
 
     @GetMapping("/{facultyID}")

@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ACER
-  Date: 6/17/2024
-  Time: 4:24 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -16,8 +9,7 @@
     </div>
     <div class="mt-4 mx-auto w-100" style="max-width: 400px;">
         <div class="bg-white p-4 shadow rounded">
-<%--            <c:url value='/${pageContext.request.contextPath}/login' var="action"/>--%>
-            <form id="registerForm" class="space-y-2" method="post" action="${pageContext.request.contextPath}/login" >
+            <form id="loginForm" class="space-y-2" method="post" action="${pageContext.request.contextPath}/login" onsubmit="return validateLoginForm()">
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input name="username" type="text" id="username" placeholder="Nhập vào tên đăng nhập" class="form-control"/>
@@ -45,3 +37,27 @@
         </div>
     </div>
 </div>
+
+<script>
+    function validateLoginForm() {
+        let isValid = true;
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        // Clear previous errors
+        document.getElementById('usernameError').textContent = '';
+        document.getElementById('passwordError').textContent = '';
+
+        if (username === '') {
+            document.getElementById('usernameError').textContent = 'Vui lòng nhập tên đăng nhập.';
+            isValid = false;
+        }
+
+        if (password === '') {
+            document.getElementById('passwordError').textContent = 'Vui lòng nhập mật khẩu.';
+            isValid = false;
+        }
+
+        return isValid;
+    }
+</script>

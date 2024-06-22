@@ -5,6 +5,9 @@ import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Getter
@@ -25,6 +28,8 @@ public class Profile {
     private String fullname;
 
     @Column(name = "email", nullable = false, length = 45)
+    @Email(message = "Địa chỉ Email không hợp lệ")
+    @NotEmpty(message = "Vui Lòng nhập email")
     private String email;
 
     @Column(name = "avatar", length = 100)

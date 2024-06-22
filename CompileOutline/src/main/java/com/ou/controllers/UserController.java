@@ -1,5 +1,6 @@
 package com.ou.controllers;
 
+import com.ou.pojo.Admin;
 import com.ou.pojo.Profile;
 import com.ou.pojo.Student;
 import com.ou.pojo.User;
@@ -81,8 +82,15 @@ public class UserController {
     }
 
     @PostMapping("/student")
-    public String newStudent(@ModelAttribute(value = "student") Student student) {
-        this.userService.addNewStudent(student);
-        return "redirect:/users/student";
+    public String newStudent(@ModelAttribute(value = "student") @Valid Student student , BindingResult result) {
+        if(!result.hasErrors()){
+            try {
+                this.userService.addNewStudent(student);
+                return "redirect:/users/student";
+            }catch (Exception exception){
+                System.err.println(exception.getMessage());
+            }
+        }
+        return "student_account";
     }
 }

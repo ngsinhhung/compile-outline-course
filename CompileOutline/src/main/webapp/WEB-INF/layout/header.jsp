@@ -49,7 +49,7 @@
                                 </a>
                             </p>
                             <p class="nav-item">
-                                <a href="<c:url value="/assignment/" />" class="nav-link-header">
+                                <a href="<c:url value="/chat/" />" class="nav-link-header">
                                     <i class="fas fa-envelope"></i>
                                     <span class="ms-1">Nhắn tin</span>
                                 </a>
