@@ -19,4 +19,9 @@ public class ObjectiveServiceImpl implements ObjectiveService {
     public Objective getObjectiveById(int id) {
         return this.objectiveRepository.getObjectiveById(id);
     }
+
+    @Override
+    public void deleteObjectiveById(int id) {
+        this.objectiveRepository.deleteObjectiveById(id);
+    }
 }

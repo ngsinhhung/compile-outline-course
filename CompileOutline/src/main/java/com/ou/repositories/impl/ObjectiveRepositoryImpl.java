@@ -29,4 +29,10 @@ public class ObjectiveRepositoryImpl implements ObjectiveRepository {
         Session s = this.factory.getObject().getCurrentSession();
         return s.get(Objective.class, id);
     }
+
+    @Override
+    public void deleteObjectiveById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.delete(this.getObjectiveById(id));
+    }
 }

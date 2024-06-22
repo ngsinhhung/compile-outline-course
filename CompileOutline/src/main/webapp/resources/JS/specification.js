@@ -1,4 +1,4 @@
-function deleteSubjectRequirement(url){
+function deleteComponent(url){
     console.log(window.location);
     fetch(url, {
         method: 'delete'

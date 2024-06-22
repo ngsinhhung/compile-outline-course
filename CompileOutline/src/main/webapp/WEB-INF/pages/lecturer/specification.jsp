@@ -94,13 +94,13 @@
                             <c:forEach items="${specification.subject.subjectRequirements}" var="sR">
                                 <c:choose>
                                     <c:when test="${sR.requirements.id == r.id}">
-                                        <tr>
+                                        <tr id="MH${sR.subjectRequirements.id}">
                                             <td></td>
                                             <td>${sR.subjectRequirements.subjectName}</td>
                                             <td>MH${sR.subjectRequirements.id}</td>
                                             <td>
                                                 <c:url value="/api/specification/${specification.subject.id}/${sR.subjectRequirements.id}" var="urlDeleteSubjectRequirement"/>
-                                                <button onclick="deleteSubjectRequirement('${urlDeleteSubjectRequirement}')" type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                <button onclick="deleteComponent('${urlDeleteSubjectRequirement}')" type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     </c:when>
@@ -129,7 +129,8 @@
                                 <td>${o.description}</td>
                                 <td>
                                     <a href="<c:url value="/specification/objectives/${o.id}"/> " class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                    <button type="button" class="btn btn-danger" onclick="deleteRow(this)"><i
+                                    <c:url value="/api/specification/objectives/${o.id}" var="urlDeleteObjectives"/>
+                                    <button type="button" class="btn btn-danger" onclick="deleteComponent('${urlDeleteObjectives}')"><i
                                             class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
