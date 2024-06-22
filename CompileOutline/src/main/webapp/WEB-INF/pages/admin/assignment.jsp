@@ -17,9 +17,9 @@
                             <form:hidden path="credits"/>
                             <div class="mb-3">
                                 <label for="subjectSelect" class="form-label">Chọn môn học:</label>
-<%--                                <c:url value="/api/getLecturersByFaculty/" var="urlload">--%>
-<%--                                    <c:param name="facultyId" value="${facultyId}" />--%>
-<%--                                </c:url>--%>
+                                <c:url value="/api/assignment/getLecturersByFaculty" var="urlload">
+                                    <c:param name="facultyId" value="${facultyId}" />
+                                </c:url>
                                 <form:select path="subject" class="form-select" id="subjectSelect" name="subjectId" onchange="loadLecturers('${urlload}')">
                                     <option hidden="hidden" selected disabled >Môn học</option>
                                     <c:forEach var="subject" items="${subjects}">
@@ -82,8 +82,8 @@
                             <a href="<c:url value='/assignment/${s.id}' />" class="btn btn-primary">
                                 <i class="fas fa-edit"></i> Sửa
                             </a>
-<%--                            <c:url value="/api/${assignment.id}/delete/" var="url"/>--%>
-<%--                            <button onclick="deleteAssignment('${url}', ${assignment.id})" class="btn btn-danger">Xoá</button>--%>
+                            <c:url value="/api/${assignment.id}/delete/" var="url"/>
+                            <button onclick="deleteAssignment('${url}', ${assignment.id})" class="btn btn-danger">Xoá</button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -95,40 +95,40 @@
 
 <script>
     function loadLecturers(urlload) {
-        // const subjectSelect = document.getElementById('subjectSelect');
-        // const facultyId = subjectSelect.options[subjectSelect.selectedIndex].getAttribute('data-faculty-id');
-        // console.log(facultyId);
-        // fetch(urlload + facultyId)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         let lecturerSelect = document.getElementById('lecturerSelect');
-        //         lecturerSelect.innerHTML = "";
-        //
-        //         const lecturers = data.map(lecturer => ({
-        //             fullname: lecturer[0],
-        //             id: lecturer[1]
-        //         }));
-        //
-        //         // Populate options
-        //         lecturers.forEach(lecturer => {
-        //             let option = document.createElement('option');
-        //             option.value = lecturer.id;
-        //             option.textContent = lecturer.fullname;
-        //             lecturerSelect.appendChild(option);
-        //             console.log(option)
-        //         });
-        //     })
-        //     .catch(error => console.error('Error loading lecturers:', error));
+        const subjectSelect = document.getElementById('subjectSelect');
+        const facultyId = subjectSelect.options[subjectSelect.selectedIndex].getAttribute('data-faculty-id');
+        console.log(facultyId);
+        fetch(urlload + facultyId)
+            .then(response => response.json())
+            .then(data => {
+                let lecturerSelect = document.getElementById('lecturerSelect');
+                lecturerSelect.innerHTML = "";
+
+                const lecturers = data.map(lecturer => ({
+                    fullname: lecturer[0],
+                    id: lecturer[1]
+                }));
+
+                // Populate options
+                lecturers.forEach(lecturer => {
+                    let option = document.createElement('option');
+                    option.value = lecturer.id;
+                    option.textContent = lecturer.fullname;
+                    lecturerSelect.appendChild(option);
+                    console.log(option)
+                });
+            })
+            .catch(error => console.error('Error loading lecturers:', error));
     }
     function deleteAssignment(url, id) {
-        // fetch(url, {
-        //     method: 'DELETE'
-        // }).then(res => {
-        //     if (res.status === 204) {
-        //         location.reload();
-        //     } else {
-        //         alert("ERROR");
-        //     }
-        // });
+        fetch(url, {
+            method: 'DELETE'
+        }).then(res => {
+            if (res.status === 204) {
+                location.reload();
+            } else {
+                alert("ERROR");
+            }
+        });
     }
 </script>

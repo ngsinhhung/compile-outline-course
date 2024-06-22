@@ -75,7 +75,7 @@
     <!--        <put-attribute name="title" value="Trang chủ quản trị" />-->
     <!--        <put-attribute name="content" value="/WEB-INF/pages/manageCourses.jsp" />-->
     <!--    </definition>-->
-    <definition name="assignment" extends="baseLayout">
+    <definition name="assignmentList" extends="baseLayout">
         <put-attribute name="title" value="Trang chủ quản trị"/>
         <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
         <put-attribute name="content" value="/WEB-INF/pages/admin/assignment.jsp"/>

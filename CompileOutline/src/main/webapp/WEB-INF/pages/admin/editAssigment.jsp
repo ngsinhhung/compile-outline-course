@@ -1,12 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:url value="/assignment/add" var="action"/>
-<form:form id="editAssignmentForm" modelAttribute="assignments" method="post" action="${action}">
+<c:url value="/assignment/new" var="action"/>
+<form:form id="editAssignmentForm" modelAttribute="assignment" method="post" action="${action}">
     <form:hidden path="id"/>
     <div class="mb-3">
         <label for="subjectSelect" class="form-label">Chọn môn học:</label>
-        <c:url value="/api/getLecturersByFaculty/" var="urlload">
+        <c:url value="/api/assignment/getLecturersByFaculty/" var="urlload">
             <c:param name="facultyId" value="${facultyId}" />
         </c:url>
         <form:select path="subject" class="form-select" id="subjectSelect" name="subjectId" onchange="loadLecturers('${urlload}')">

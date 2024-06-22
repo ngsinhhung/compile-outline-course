@@ -6,10 +6,7 @@ import com.ou.services.SpecificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/assignment")
@@ -34,5 +31,11 @@ public class AssignmentController {
     public String newAssignment(@ModelAttribute("assignment") Specification specification) {
         this.specificationService.createOrUpdateSpecification(specification);
         return "redirect:/assignment/";
+    }
+
+    @GetMapping("/{assignmentId}")
+    public String editAssignment(@PathVariable("assignmentId") int assignmentId, Model model) {
+        model.addAttribute("assignment", this.specificationService.getSpecificationById(assignmentId));
+        return "assignemted";
     }
 }
