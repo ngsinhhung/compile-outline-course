@@ -42,39 +42,48 @@ public class ApiUserController {
     @CrossOrigin
     public ResponseEntity<Object> getCurrentUser(Principal principal) {
         User user = userService.getUserByUsername(principal.getName());
+
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        Profile profile = user.getProfile();
+        Map<String, Object> userMap = new HashMap<>();
+        userMap.put("username", user.getUsername());
 
-        Map<String, Object> responseObject = new HashMap<>();
-        responseObject.put("username", user.getUsername());
-        responseObject.put("fullName", profile.getFullname());
-        responseObject.put("email", profile.getEmail());
-        responseObject.put("avatar", profile.getAvatar());
-        responseObject.put("dateJoined", profile.getDateJoined());
-        responseObject.put("phone", profile.getPhone());
-        return new ResponseEntity<>(responseObject, HttpStatus.OK);
-    }
+        if (user.getProfile() != null) {
+            userMap.put("email", user.getProfile().getEmail());
+            userMap.put("avatar", user.getProfile().getAvatar());
+        }
 
-    @PatchMapping(path = "/change-required/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> updateUserRequired(
-            @RequestPart("olPassword") String oldPassword,
-            @RequestPart("newPassword") String newPassword,
-            @RequestPart("file") MultipartFile [] file) {
-        UpdateRequireRequest updateRequireRequest = new UpdateRequireRequest();
-        updateRequireRequest.setOlPassword(oldPassword);
-        updateRequireRequest.setNewPassword(newPassword);
-        updateRequireRequest.setAvatar(file[0]);
+        userMap.put("active", user.getIsActive());
 
         try {
-            userService.updateRequired(updateRequireRequest);
+            return new ResponseEntity<>(userMap, HttpStatus.OK);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @PostMapping(path = "/change-required/", consumes = {
+            MediaType.APPLICATION_JSON_VALUE,
+            MediaType.MULTIPART_FORM_DATA_VALUE
+    }, produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<String> updateUserRequired(
+            @RequestParam Map<String, String> params,
+            @RequestPart MultipartFile file) {
+
+        UpdateRequireRequest updateRequireRequest = new UpdateRequireRequest();
+        updateRequireRequest.setOlPassword(params.get("oldPassword"));
+        updateRequireRequest.setNewPassword(params.get("newPassword"));
+        updateRequireRequest.setAvatar(file);
+        try {
+             userService.updateRequired(updateRequireRequest);
             return new ResponseEntity<>("Password and avatar updated successfully", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
 
 }

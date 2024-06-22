@@ -206,5 +206,15 @@ public class UserServiceImpl implements UserService {
         userRepository.updateRequired(user);
     }
 
+    @Override
+    public void updateRequired(User user) throws Exception {
+        var context = SecurityContextHolder.getContext();
+        String username = context.getAuthentication().getName();
+        User isCheck = userRepository.getUserByUsername(username);
+        if (isCheck != null){
+            this.userRepository.updateRequired(user);
+        }
+    }
+
 
 }

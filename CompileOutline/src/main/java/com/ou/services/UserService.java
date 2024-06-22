@@ -21,5 +21,7 @@ public interface UserService extends UserDetailsService {
 
     void updateRequired(UpdateRequireRequest updateRequireRequest) throws Exception;
 
+    void updateRequired(User user) throws Exception;
+
 
 }
