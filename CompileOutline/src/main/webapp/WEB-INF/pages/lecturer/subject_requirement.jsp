@@ -9,7 +9,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <h4 class="title">
-    Thêm môn học điều kiện - Môn học: ${subjectRequirement.subject.subjectName} - Mã môn học: ${subjectRequirement.subject.id}
+    Thêm môn học điều kiện - Môn học: ${subjectRequirement.subject.subjectName} - Mã môn học:
+    MH${subjectRequirement.subject.id}
 </h4>
 <c:url value="/specification/requirement/save" var="action">
     <c:param name="specId" value="${specId}"/>
@@ -21,7 +22,14 @@
         <form:select path="requirements" class="form-select" id="condition">
             <option hidden="hidden" disabled selected>Chọn điều kiện</option>
             <c:forEach items="${requirements}" var="r">
-                <option value="${r.id}">${r.type}</option>
+                <c:choose>
+                    <c:when test="${r.id == subjectRequirement.requirements.id}">
+                        <option value="${r.id}" selected>${r.type}</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="${r.id}">${r.type}</option>
+                    </c:otherwise>
+                </c:choose>
             </c:forEach>
         </form:select>
     </div>
@@ -31,7 +39,10 @@
             <option hidden="hidden" disabled selected>Chọn môn học:</option>
             <c:forEach items="${subjects}" var="s">
                 <c:choose>
-                    <c:when test="${s.id != requirement.subject.id}">
+                    <c:when test="${s.id != subjectRequirement.subject.id and s.id == subjectRequirement.subjectRequirements.id}">
+                        <option value="${s.id}" selected>${s.subjectName}</option>
+                    </c:when>
+                    <c:when test="${s.id != subjectRequirement.subject.id}">
                         <option value="${s.id}">${s.subjectName}</option>
                     </c:when>
                 </c:choose>

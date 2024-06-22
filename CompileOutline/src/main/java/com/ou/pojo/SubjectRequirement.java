@@ -10,7 +10,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "subject_requirements")
 @NamedQueries({
-        @NamedQuery(name = "SubjectRequirement.findBySubject_Id", query = "select s from SubjectRequirement s where s.subject.id = :id")
+        @NamedQuery(name = "SubjectRequirement.findBySubject_Id", query = "select s from SubjectRequirement s where s.subject.id = :id"),
+        @NamedQuery(name = "SubjectRequirement.findBySubject_IdAndSubjectRequirements_Id", query = "select s from SubjectRequirement s where s.subject.id = :subjectId and s.subjectRequirements.id = :subjectRequirementsId")
 })
 public class SubjectRequirement {
     @EmbeddedId

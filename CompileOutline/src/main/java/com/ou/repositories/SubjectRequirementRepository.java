@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface SubjectRequirementRepository {
     void addOrUpdateSubjectRequirement(SubjectRequirement subjectRequirement);
+    SubjectRequirement getSubjectRequirementById(int subjectId, int subjectRequirementId);
+    void deleteSubjectRequirementById(int subjectId, int subjectRequirementId);
 }

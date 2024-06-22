@@ -99,9 +99,8 @@
                                             <td>${sR.subjectRequirements.subjectName}</td>
                                             <td>MH${sR.subjectRequirements.id}</td>
                                             <td>
-                                                <a href="<c:url value="/specification/requirement/${sR.id}"/> " class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                                <button type="button" class="btn btn-danger" onclick="deleteRow(this)">
-                                                    <i class="fas fa-trash"></i></button>
+                                                <c:url value="/api/specification/${specification.subject.id}/${sR.subjectRequirements.id}" var="urlDeleteSubjectRequirement"/>
+                                                <button onclick="deleteSubjectRequirement('${urlDeleteSubjectRequirement}')" type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     </c:when>
