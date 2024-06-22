@@ -100,7 +100,7 @@
                                             <td>MH${sR.subjectRequirements.id}</td>
                                             <td>
                                                 <c:url value="/api/specification/${specification.subject.id}/${sR.subjectRequirements.id}" var="urlDeleteSubjectRequirement"/>
-                                                <button onclick="deleteComponent('${urlDeleteSubjectRequirement}')" type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                <button onclick="deleteComponent('${urlDeleteSubjectRequirement}', 'MH${sR.subjectRequirements.id}')" type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     </c:when>
@@ -130,7 +130,7 @@
                                 <td>
                                     <a href="<c:url value="/specification/objectives/${o.id}"/> " class="btn btn-primary"><i class="fas fa-edit"></i></a>
                                     <c:url value="/api/specification/objectives/${o.id}" var="urlDeleteObjectives"/>
-                                    <button type="button" class="btn btn-danger" onclick="deleteComponent('${urlDeleteObjectives}')"><i
+                                    <button type="button" class="btn btn-danger" onclick="deleteComponent('${urlDeleteObjectives}', 'objective${o.id}')"><i
                                             class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -153,13 +153,13 @@
                         </thead>
                         <tbody>
                         <c:forEach items="${specification.outcomes}" var="o" varStatus="status">
-                            <tr>
+                            <tr id="outcomes${o.id}">
                                 <td>${status.index + 1}</td>
                                 <td>${o.description}</td>
                                 <td>
                                     <a href="<c:url value="/specification/outcomes/${o.id}"/> " class="btn btn-primary"><i class="fas fa-edit"></i></a>
                                     <c:url value="/api/specification/outcomes/${o.id}" var="urlDeleteOutcomes"/>
-                                    <button type="button" class="btn btn-danger" onclick="deleteComponent('${urlDeleteOutcomes}')"><i
+                                    <button type="button" class="btn btn-danger" onclick="deleteComponent('${urlDeleteOutcomes}', 'outcomes${o.id}')"><i
                                             class="fas fa-trash"></i></button>
                                 </td>
                             </tr>

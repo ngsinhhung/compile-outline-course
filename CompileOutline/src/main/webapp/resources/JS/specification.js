@@ -1,10 +1,12 @@
-function deleteComponent(url){
+function deleteComponent(url, elementId){
     console.log(window.location);
     fetch(url, {
         method: 'delete'
     }).then(res => {
         if(res.status === 204){
-            location.reload();
+            let element = document.getElementById(elementId)
+            element.remove()
+            // location.reload();
         }
     })
 }
