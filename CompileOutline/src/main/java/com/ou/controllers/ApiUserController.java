@@ -53,6 +53,12 @@ public class ApiUserController {
         if (user.getProfile() != null) {
             userMap.put("email", user.getProfile().getEmail());
             userMap.put("avatar", user.getProfile().getAvatar());
+
+            if (user.getProfile().getDateJoined() != null) {
+                userMap.put("dateJoined", user.getProfile().getDateJoined().toString());
+            } else {
+                userMap.put("dateJoined", "N/A");
+            }
         }
 
         userMap.put("active", user.getIsActive());
