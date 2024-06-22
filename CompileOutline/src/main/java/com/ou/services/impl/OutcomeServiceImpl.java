@@ -21,4 +21,9 @@ public class OutcomeServiceImpl implements OutcomeService {
     public Outcome getOutcomeById(int id) {
         return this.outcomeRepository.getOutcomeById(id);
     }
+
+    @Override
+    public void deleteOutcomeById(int id) {
+        this.outcomeRepository.deleteOutcomeById(id);
+    }
 }

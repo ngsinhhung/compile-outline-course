@@ -29,4 +29,10 @@ public class OutcomeRepositoryImpl implements OutcomeRepository {
         Session s = this.factory.getObject().getCurrentSession();
         return s.get(Outcome.class, id);
     }
+
+    @Override
+    public void deleteOutcomeById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.delete(this.getOutcomeById(id));
+    }
 }

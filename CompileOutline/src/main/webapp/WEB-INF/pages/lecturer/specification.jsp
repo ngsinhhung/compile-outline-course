@@ -124,7 +124,7 @@
                         </thead>
                         <tbody>
                         <c:forEach items="${specification.objectives}" var="o" varStatus="status">
-                            <tr>
+                            <tr id="objective${o.id}">
                                 <td>${status.index + 1}</td>
                                 <td>${o.description}</td>
                                 <td>
@@ -158,7 +158,8 @@
                                 <td>${o.description}</td>
                                 <td>
                                     <a href="<c:url value="/specification/outcomes/${o.id}"/> " class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                    <button type="button" class="btn btn-danger" onclick="deleteRow(this)"><i
+                                    <c:url value="/api/specification/outcomes/${o.id}" var="urlDeleteOutcomes"/>
+                                    <button type="button" class="btn btn-danger" onclick="deleteComponent('${urlDeleteOutcomes}')"><i
                                             class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
