@@ -85,10 +85,20 @@ public class ApiUserController {
         updateRequireRequest.setNewPassword(params.get("newPassword"));
         updateRequireRequest.setAvatar(file);
         try {
-             userService.updateRequired(updateRequireRequest);
+            userService.updateRequired(updateRequireRequest);
             return new ResponseEntity<>("Password and avatar updated successfully", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = "/check-phone/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> isCheck(@RequestBody Map<String, String> params) {
+        try {
+            userService.isCheckPhone(params.get("phone"));
+            return new ResponseEntity<>("Found phone user", HttpStatus.OK);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

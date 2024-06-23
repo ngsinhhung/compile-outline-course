@@ -17,6 +17,7 @@ import javax.persistence.Query;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -30,6 +31,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
+
     @Override
     public User getUserById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
@@ -48,10 +50,9 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void addOrUpdateUser(User user) {
         Session s = this.factory.getObject().getCurrentSession();
-        if(user.getId() == null){
+        if (user.getId() == null) {
             s.save(user);
-        }
-        else{
+        } else {
             s.update(user);
         }
     }
@@ -76,14 +77,24 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void updateRequired(User user) throws Exception {
-        try{
+        try {
             Session session = this.factory.getObject().getCurrentSession();
             Instant currentTime = Instant.now();
             user.getProfile().setDateJoined(LocalDate.ofInstant(currentTime, ZoneOffset.UTC));
             session.update(user);
-        }catch (Exception exception){
-            throw  new Exception(exception);
+        } catch (Exception exception) {
+            throw new Exception(exception);
         }
+    }
+
+    @Override
+    public boolean isCheckPhone(String phone) {
+        Session session = this.factory.getObject().getCurrentSession();
+        Query query = session.createQuery("SELECT s from User s where s.profile.phone =: phoneNumber");
+        query.setParameter("phoneNumber", phone);
+        List<User> result = query.getResultList();
+
+        return !result.isEmpty();
     }
 
 

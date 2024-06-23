@@ -13,7 +13,6 @@ html ::-webkit-scrollbar-thumb {
 }
 
 
-
 /*---------------------------------- !*specification*! --------------------*/
 
 .card {
@@ -68,4 +67,33 @@ html ::-webkit-scrollbar-thumb {
 
 .page-link:focus {
     box-shadow: none; /* Loại bỏ shadow khi focus */
+}
+
+.digit-group {
+    input {
+        width: 50px;
+        height: 50px;
+        border: none;
+        background-color: gray;
+        line-height: 50px;
+        text-align: center;
+        font-size: 24px;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 200;
+        color: white;
+        border-radius: 10px;
+        margin: 0 2px;
+    }
+
+    .splitter {
+        padding: 0 5px;
+        color: white;
+        font-size: 24px;
+    }
+}
+
+.prompt {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: white;
 }

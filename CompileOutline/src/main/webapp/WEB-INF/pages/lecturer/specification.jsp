@@ -9,7 +9,52 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div id="toast"></div>
+<div class="modal fade" id="submitModal" tabindex="-1" role="dialog"
+     aria-labelledby="submitModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="submitModalLabel">Xác nhận nộp đề cương</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label style="" class="form-label fs-6">Nhập số điện thoại:</label>
+                <div id="formCheckPhone" class="">
+                    <div class="input-group mb-3 ">
+                        <input type="text" class="form-control" name="student_phone_number" id="check-student"
+                               aria-describedby="basic-addon3">
+                    </div>
+                    <div id="recaptcha-container" class="mt-2"></div>
+                    <button class="btn btn-success my-2" id="btnCheckPhoneNumber" type="submit" style="color:white">Xác
+                        nhận
+                    </button>
+                </div>
+                <div class="digit-group d-lg-none" id="digit-group">
+                    <label style="color:black" class="form-label fs-6">Vui Lòng nhập OTP:</label>
+                    <div class="mb-2 digit-group d-flex justify-content-center">
+                        <input type="text" id="digit-1" name="digit-1" data-next="digit-2"/>
+                        <input type="text" id="digit-2" name="digit-2" data-next="digit-3" data-previous="digit-1"/>
+                        <input type="text" id="digit-3" name="digit-3" data-next="digit-4" data-previous="digit-2"/>
+                        <input type="text" id="digit-4" name="digit-4" data-next="digit-5" data-previous="digit-3"/>
+                        <input type="text" id="digit-5" name="digit-5" data-next="digit-6" data-previous="digit-4"/>
+                        <input type="text" id="digit-6" name="digit-6" data-previous="digit-5"/>
+                    </div>
+                    <div class="mb-2 digit-group d-flex justify-content-center">
+                        <button class="btn-success btn w-50" id="checkOtp">Xác nhận OTP</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" onclick="confirmSubmit()">Nộp</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="" style="min-height:calc(100vh - 65px);">
     <div class="d-flex justify-content-between">
         <div class="d-flex align-items-center mb-4">
@@ -66,7 +111,8 @@
                 <label for="credits" class="form-label mb-0 me-2">Số tín chỉ:</label>
                 <div class="col-2">
                     <form:input path="credits" type="number" min="1" max="5" step="0.5"
-                                class="form-control form-control-sm" id="credits" style="width: 70px;" placeholder="1"/>
+                                class="form-control form-control-sm" id="credits" style="width: 70px;"
+                                placeholder="1"/>
                 </div>
             </div>
             <div class="course-info mt-4">
@@ -152,8 +198,9 @@
                                        class="btn btn-primary"><i class="fas fa-edit"></i></a>
                                     <c:url value="/api/specification/objectives/${o.id}" var="urlDeleteObjectives"/>
                                     <button type="button" class="btn btn-danger"
-                                            onclick="deleteComponent('${urlDeleteObjectives}', 'objective${o.id}')"><i
-                                            class="fas fa-trash"></i></button>
+                                            onclick="deleteComponent('${urlDeleteObjectives}', 'objective${o.id}')">
+                                        <i
+                                                class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -181,7 +228,8 @@
                                 <td>${status.index + 1}</td>
                                 <td>${o.description}</td>
                                 <td>
-                                    <a href="<c:url value="/specification/outcomes/${o.id}"/> " class="btn btn-primary"><i
+                                    <a href="<c:url value="/specification/outcomes/${o.id}"/> "
+                                       class="btn btn-primary"><i
                                             class="fas fa-edit"></i></a>
                                     <c:url value="/api/specification/outcomes/${o.id}" var="urlDeleteOutcomes"/>
                                     <button type="button" class="btn btn-danger"
@@ -268,10 +316,120 @@
                 </form:form>
             </div>
         </div>
+    
     </div>
+
+
 </div>
 
 <script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyBRjcxoBo2ezaS89SwsrFAuEJ-4pd0sU6k",
+        authDomain: "chatrealtime-cb6a0.firebaseapp.com",
+        projectId: "chatrealtime-cb6a0",
+        storageBucket: "chatrealtime-cb6a0.appspot.com",
+        messagingSenderId: "156500470716",
+        appId: "1:156500470716:web:1a180086bd4e4e056a19b9",
+        measurementId: "G-DY06R8Q9NC",
+    };
+    firebase.initializeApp(firebaseConfig);
+    var coderesult = ""
+    var dataStudent = null
+    //OTP VERIFY
+    $('.digit-group').find('input').each(function () {
+        $(this).attr('maxlength', 1);
+        $(this).on('keyup', function (e) {
+            var parent = $($(this).parent());
+
+            if (e.keyCode === 8 || e.keyCode === 37) {
+                var prev = parent.find('input#' + $(this).data('previous'));
+
+                if (prev.length) {
+                    $(prev).select();
+                }
+            } else if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 96 && e.keyCode <= 105) || e.keyCode === 39) {
+                var next = parent.find('input#' + $(this).data('next'));
+
+                if (next.length) {
+                    $(next).select();
+                } else {
+                    if (parent.data('autosubmit')) {
+                        parent.submit();
+                    }
+                }
+            }
+        });
+    });
+
+
+    function convertPhoneNumber(phoneNumber) {
+        if (typeof phoneNumber !== 'string' || phoneNumber.length === 0) {
+            throw new Error('Invalid phone number');
+        }
+
+        if (phoneNumber.startsWith('0')) {
+            return '+84' + phoneNumber.slice(1);
+        } else {
+            return phoneNumber;
+        }
+    }
+
+    function render() {
+
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+
+        recaptchaVerifier.render();
+
+    }
+
+    render()
+
+    document.getElementById("btnCheckPhoneNumber").addEventListener("click", function (e) {
+        e.preventDefault();
+        const phoneNumber = document.getElementById("check-student").value
+        const data = {
+            "phone": phoneNumber
+        }
+        fetch('/CompileOutline/api/check-phone/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            if (response.ok) {
+                return;
+            } else {
+                toastCustom("Error", "Không tim thấy số điện thoại.", "error");
+            }
+        }).then(data => {
+            firebase.auth().signInWithPhoneNumber(convertPhoneNumber(phoneNumber), window.recaptchaVerifier).then(function (confirmationResult) {
+                window.confirmationResult = confirmationResult;
+                coderesult = confirmationResult;
+                console.log('OTP Sent');
+                document.getElementById("btnCheckPhoneNumber").style.display = "none"
+                document.getElementById("recaptcha-container").style.display = "none"
+            }).catch(function (error) {
+                alert(error.message);
+            });
+            document.getElementById("digit-group").classList.remove("d-lg-none")
+            document.getElementById("checkOtp").addEventListener("click", function () {
+                const inputs = document.querySelectorAll('.digit-group input')
+                let opt = ''
+                inputs.forEach((input) => {
+                    opt += input.value;
+                });
+                coderesult.confirm(opt).then(function () {
+                    toastCustom("Success", "Nộp bài thành công", "success");
+                }).catch(function (error) {
+                    console.error("Error occurred:", error);
+                    toastCustom("Error", "OTP nhâp sai nha.", "error");
+                });
+
+            })
+        })
+    })
+
     function deleteComponent(url, elementId) {
         fetch(url, {
             method: 'delete'
@@ -331,9 +489,10 @@
     }
 
     function submitSpecification() {
-        if (validateSpecification() == true) {
-            toastCustom("Success", "Đã nộp đề cương", "success")
+        if (validateSpecification() === true) {
+            $('#submitModal').modal('show');
         }
     }
+
 </script>
 <script src="<c:url value="/resources/JS/specification.js" />"></script>

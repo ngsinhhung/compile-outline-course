@@ -15,4 +15,6 @@ public interface UserRepository {
 
     void updateRequired(User user) throws Exception;
 
+    boolean isCheckPhone (String phone);
+
 }

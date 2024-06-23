@@ -25,5 +25,7 @@ public interface UserService extends UserDetailsService {
 
     void updateRequired(User user) throws Exception;
 
+    boolean isCheckPhone (String phone);
+
 
 }

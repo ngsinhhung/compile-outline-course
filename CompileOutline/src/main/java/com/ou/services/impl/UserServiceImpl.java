@@ -224,5 +224,10 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public boolean isCheckPhone(String phone) {
+        return this.userRepository.isCheckPhone(phone);
+    }
+
 
 }
