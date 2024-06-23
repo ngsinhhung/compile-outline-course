@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import {
     getFirestore,
     collection,
@@ -42,20 +42,24 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let currentRoomId = null;
 
-    const renderMessage = (text, sender, timestamp) => {
+    const renderMessage = (text, sender, timestamp, isImage = false) => {
         const messagesContainer = document.getElementById("chat-messages");
         const messageElement = document.createElement("div");
         messageElement.classList.add("message");
 
         if (sender === username) {
-            messageElement.classList.add("message-outgoing");
-        } else {
             messageElement.classList.add("message-incoming");
+        } else {
+            messageElement.classList.add("message-outgoing");
         }
 
+        let messageContent = isImage ?
+            `<img src="${text}" alt="${text}" class="message-image" width="100" height="100">` :
+            `<p>${text}</p>`;
+
         messageElement.innerHTML = `
-            <div class="message-content">
-                <p>${text}</p>
+            <div class="message-content" style="display: flex;flex-direction: column; margin: 10px">
+                ${messageContent}
                 <span class="message-time">${formatDate(timestamp)}</span>
             </div>
         `;
@@ -74,7 +78,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             let roomId = selectedId;
 
             if (!isRoom) {
-                // Check if there is an existing room with both users
                 const roomQuery = query(
                     collection(db, 'rooms'),
                     where('members', 'array-contains', username)
@@ -99,7 +102,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             currentRoomId = roomId;
 
-            // Set up listener for real-time messages in the current room
             const messagesQuery = query(
                 collection(db, 'messages'),
                 where('roomId', '==', currentRoomId),
@@ -110,7 +112,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 messagesContainer.innerHTML = "";
                 querySnapshot.forEach(doc => {
                     const message = doc.data();
-                    renderMessage(message.text, message.sender, message.timestamp);
+                    renderMessage(message.text, message.sender, message.timestamp, message.isImage,);
                 });
             });
 
@@ -122,16 +124,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Event listener for the send button
     document.getElementById("send-button").addEventListener("click", async () => {
         const messageInput = document.getElementById("message-input");
+        const fileInput = document.getElementById("file-input");
         const text = messageInput.value.trim();
+        const file = fileInput.files[0];
+        console.log(file)
 
-        if (text && currentRoomId) {
+        if (text && currentRoomId || file && currentRoomId) {
             try {
-                await addDoc(collection(db, 'messages'), {
-                    text: text,
-                    sender: username,
-                    roomId: currentRoomId,
-                    timestamp: serverTimestamp()
-                });
+                if (file) {
+                    const storageRef = ref(storage, "images/" + file.name);
+                    const uploadTask = uploadBytesResumable(storageRef,file)
+                    const snapshot = await  uploadTask;
+                    const imageUrl = await getDownloadURL(snapshot.ref);
+                    await addDoc(collection(db, "messages"), {
+                        text: imageUrl,
+                        sender: username,
+                        roomId: currentRoomId,
+                        timestamp: new Date(),
+                        isImage: true
+                    })
+                } else {
+                    await addDoc(collection(db, 'messages'), {
+                        text: text,
+                        sender: username,
+                        roomId: currentRoomId,
+                        timestamp: new Date(),
+                        isImage: false,
+                    });
+                }
 
                 messageInput.value = "";
             } catch (error) {
@@ -142,13 +162,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
-    // Function to render list of rooms
     const renderRooms = (rooms) => {
         const chatListContainer = document.querySelector('.chat-list');
-        chatListContainer.innerHTML = ''; // Clear existing list
+        chatListContainer.innerHTML = '';
 
         rooms.forEach(room => {
-            // Create room item element
             const roomItem = document.createElement('div');
             roomItem.classList.add('p-2', 'border-bottom');
             roomItem.innerHTML = `
@@ -190,7 +208,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         onSnapshot(roomsQuery, (querySnapshot) => {
             const userRooms = [];
             querySnapshot.forEach(doc => {
-                userRooms.push({ id: doc.id, ...doc.data() });
+                userRooms.push({id: doc.id, ...doc.data()});
             });
             renderRooms(userRooms);
         }, (error) => {

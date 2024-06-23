@@ -46,14 +46,7 @@ public class Profile {
     private Boolean gender;
 
     @Transient
-    @Valid
-    @NotNull(message = "Vui lòng upload ảnh")
     private MultipartFile file;
 
-    public void setFile(MultipartFile file) throws Exception {
-        if (file == null || file.isEmpty()) {
-            throw new Exception("Vui lòng upload ảnh");
-        }
-        this.file = file;
-    }
+
 }

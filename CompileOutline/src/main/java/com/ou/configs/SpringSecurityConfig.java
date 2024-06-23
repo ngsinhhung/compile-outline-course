@@ -2,7 +2,6 @@ package com.ou.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.ou.filter.CustomAuthenticationFailureHandler;
 import com.ou.filter.CustomAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -53,20 +52,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http)
             throws Exception {
-        http
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
+        http.formLogin()
+                .loginPage("/login").permitAll()
                 .usernameParameter("username")
-                .passwordParameter("password")
-                .failureUrl("/login?error")
-                .failureHandler(new CustomAuthenticationFailureHandler())
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID");
+                .passwordParameter("password").successHandler( new CustomAuthenticationSuccessHandler());
+
+        http.logout().logoutSuccessUrl("/login");
 
         http.authorizeRequests()
 //                .anyRequest().permitAll()
@@ -79,9 +70,20 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/specification/**").hasRole("LECTURER")
                 .antMatchers("/register").anonymous()
                 .and().csrf().disable();
+
+
 //        http.formLogin().defaultSuccessUrl("/")
 //                .failureUrl("/login?error");
 //        http.logout().logoutSuccessUrl("/login");
+//
+//        http.exceptionHandling()
+//                .accessDeniedPage("/login?accessDenied");
+//        http.authorizeRequests().antMatchers("/").permitAll()
+//                .antMatchers("/**/add")
+//                .access("hasRole('ROLE_ADMIN')");
+//        .antMatchers("/**/pay")
+//                .access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+//        http.csrf().disable();
     }
 
 
