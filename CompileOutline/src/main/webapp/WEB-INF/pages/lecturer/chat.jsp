@@ -2,30 +2,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
+    .chat-total {
+        overflow: hidden;
     }
 
     .chat-list {
-        height: calc(100vh - 250px);
-        overflow-y: auto;
+        height: calc(100vh - 300px);
         border-right: 1px solid #dee2e6;
     }
 
     .chat-messages {
-        overflow-y: auto; /* Cho phép cuộn khi nội dung vượt quá chiều cao */
+        overflow-y: auto;
         padding: 10px;
-        min-height: calc(100vh - 250px);
+        min-height: 300px;
+        max-height: calc(100vh - 300px);
     }
 
     .message {
         margin-bottom: 10px;
-      
     }
 
     .message-content {
-        max-width: 100%; /* Giới hạn chiều rộng của nội dung tin nhắn */
+        max-width: 100%;
         padding: 8px;
         border-radius: 8px;
     }
@@ -33,7 +31,7 @@
     .message-outgoing {
         display: flex;
         flex-direction: row;
-        justify-content: start;
+        justify-content: end;
         background-color: #dcf8c6;
         width: fit-content;
         max-width: 70%;
@@ -45,7 +43,7 @@
         background-color: #f0f0f0;
         display: flex;
         flex-direction: row;
-        justify-content: end;
+        justify-content: start;
         text-align: end;
         width: fit-content;
         max-width: 70%;
@@ -154,6 +152,7 @@
         color: #777;
     }
 
+
 </style>
 
 <section>
@@ -162,12 +161,8 @@
             <div class="col-md-4">
                 <!-- Sidebar/Chat list -->
                 <div class="p-3">
-                    <div class="input-group rounded mb-3">
-                        <input type="search" class="form-control rounded" placeholder="Search"
-                               aria-label="Search" aria-describedby="search-addon"/>
-                        <span class="input-group-text border-0" id="search-addon">
-                            <i class="fas fa-search"></i>
-                        </span>
+                    <div class="input-group border p-2 rounded-md mb-3">
+                        <span>Phòng chat</span>
                     </div>
                     <div class="chat-list">
                         <ul class="list-unstyled mb-0" style="list-style-type: none;">
@@ -196,10 +191,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 chat-total">
                 <!-- Chat Messages -->
                 <div class="chat-messages" id="chat-messages">
-                    <!-- Chat Messages will be dynamically added here -->
+                
                 </div>
                 <!-- Chat Input -->
                 <div class="chat-input">

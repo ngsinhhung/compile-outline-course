@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import {
     getFirestore,
     collection,
@@ -40,9 +40,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         localStorage.setItem("username", username);
     }
 
-    let currentRoomId = null; // To store the ID of the current chat room
+    let currentRoomId = null;
 
-    const renderMessage = (text, sender, timestamp) => {
+    const renderMessage = (text, sender, timestamp, isImage = false) => {
         const messagesContainer = document.getElementById("chat-messages");
         const messageElement = document.createElement("div");
         messageElement.classList.add("message");
@@ -53,10 +53,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             messageElement.classList.add("message-outgoing");
         }
 
+        let messageContent = isImage ?
+            `<img src="${text}" alt="${text}" class="message-image" width="100" height="100">` :
+            `<p>${text}</p>`;
+
         messageElement.innerHTML = `
-            <div class="message-content">
-                <p>${text}</p>
-                <span class="message-time">${sender}, ${formatDate(timestamp)}</span>
+            <div class="message-content" style="display: flex;flex-direction: column; margin: 10px">
+                ${messageContent}
+                <span class="message-time">${formatDate(timestamp)}</span>
             </div>
         `;
 
@@ -69,13 +73,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         return timestamp.toDate().toLocaleTimeString();
     };
 
-    // Function to start a chat with a specific user or room
     const startChatWithUser = async (selectedId, isRoom = false) => {
         try {
             let roomId = selectedId;
 
             if (!isRoom) {
-                // Check if there is an existing room with both users
                 const roomQuery = query(
                     collection(db, 'rooms'),
                     where('members', 'array-contains', username)
@@ -88,10 +90,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                     }
                 });
 
-                // If no existing room found, create a new one
                 if (selectedId !== roomId) {
                     const roomData = {
-                        members: [username, username],
+                        members: [username, selectedId],
                         createdAt: serverTimestamp()
                     };
                     const newRoomRef = await addDoc(collection(db, 'rooms'), roomData);
@@ -101,7 +102,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             currentRoomId = roomId;
 
-            // Set up listener for real-time messages in the current room
             const messagesQuery = query(
                 collection(db, 'messages'),
                 where('roomId', '==', currentRoomId),
@@ -112,8 +112,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 messagesContainer.innerHTML = "";
                 querySnapshot.forEach(doc => {
                     const message = doc.data();
-                    console.log(message)
-                    renderMessage(message.text, message.sender, message.timestamp);
+                    renderMessage(message.text, message.sender, message.timestamp, message.isImage,);
                 });
             });
 
@@ -125,16 +124,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Event listener for the send button
     document.getElementById("send-button").addEventListener("click", async () => {
         const messageInput = document.getElementById("message-input");
+        const fileInput = document.getElementById("file-input");
         const text = messageInput.value.trim();
+        const file = fileInput.files[0];
+        console.log(file)
 
-        if (text && currentRoomId) {
+        if (text && currentRoomId || file && currentRoomId) {
             try {
-                await addDoc(collection(db, 'messages'), {
-                    text: text,
-                    sender: username,
-                    roomId: currentRoomId,
-                    timestamp: serverTimestamp()
-                });
+                if (file) {
+                    const storageRef = ref(storage, "images/" + file.name);
+                    const uploadTask = uploadBytesResumable(storageRef,file)
+                    const snapshot = await  uploadTask;
+                    const imageUrl = await getDownloadURL(snapshot.ref);
+                    await addDoc(collection(db, "messages"), {
+                        text: imageUrl,
+                        sender: username,
+                        roomId: currentRoomId,
+                        timestamp: new Date(),
+                        isImage: true
+                    })
+                } else {
+                    await addDoc(collection(db, 'messages'), {
+                        text: text,
+                        sender: username,
+                        roomId: currentRoomId,
+                        timestamp: new Date(),
+                        isImage: false,
+                    });
+                }
 
                 messageInput.value = "";
             } catch (error) {
@@ -145,13 +162,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
-    // Function to render list of rooms
     const renderRooms = (rooms) => {
         const chatListContainer = document.querySelector('.chat-list');
-        chatListContainer.innerHTML = ''; // Clear existing list
+        chatListContainer.innerHTML = '';
 
         rooms.forEach(room => {
-            // Create room item element
             const roomItem = document.createElement('div');
             roomItem.classList.add('p-2', 'border-bottom');
             roomItem.innerHTML = `
@@ -161,7 +176,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             <img src="https://via.placeholder.com/60" alt="avatar" class="d-flex align-self-center me-3 rounded-circle" width="60">
                         </div>
                         <div class="pt-1">
-                            <p class="fw-bold mb-0">${room.id}</p>
+                            <p class="fw-bold mb-0"> Dang chat ${room.members[0]}</p>
                         </div>
                     </div>
                 </a>
@@ -177,32 +192,29 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     };
 
-    // Function to fetch and render list of rooms initially
+    // Function to fetch and render list of rooms in real-time
     const fetchUserRooms = async () => {
-        try {
-            const username = localStorage.getItem("username");
-            if (!username) {
-                console.log("Username not found in localStorage");
-                return;
-            }
-
-            // Query rooms where current user is a member
-            const roomsQuery = query(
-                collection(db, 'rooms'),
-                where('members', 'array-contains', username)
-            );
-            const roomsSnapshot = await getDocs(roomsQuery);
-            const userRooms = [];
-            roomsSnapshot.forEach(doc => {
-                userRooms.push({ id: doc.id });
-            });
-            renderRooms(userRooms); // Render list of rooms where user is a member
-        } catch (error) {
-            console.error("Error fetching user's rooms: ", error);
+        const username = localStorage.getItem("username");
+        if (!username) {
+            console.log("Username not found in localStorage");
+            return;
         }
+
+        const roomsQuery = query(
+            collection(db, 'rooms'),
+            where('members', 'array-contains', username)
+        );
+
+        onSnapshot(roomsQuery, (querySnapshot) => {
+            const userRooms = [];
+            querySnapshot.forEach(doc => {
+                userRooms.push({id: doc.id, ...doc.data()});
+            });
+            renderRooms(userRooms);
+        }, (error) => {
+            console.error("Error fetching user's rooms: ", error);
+        });
     };
 
-    // Call function to fetch and render user's rooms when DOM is loaded
     fetchUserRooms();
-
 });

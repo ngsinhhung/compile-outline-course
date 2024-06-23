@@ -57,7 +57,7 @@
                         </div>
                     </div>
                 </sec:authorize>
-
+            
             </div>
             <sec:authorize access="hasRole('ADMIN')">
             
@@ -65,18 +65,20 @@
                 <button class="btn d-md-none" onclick="toggleSidebar()">
                     <i class="fas fa-bars menu-icon fs-5 text-white"></i>
                 </button>
-            </sec:authorize>
+                </sec:authorize>
                 <sec:authorize access="isAuthenticated()">
                     <div class="dropdown my-auto ms-3">
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="d-none d-sm-inline fw-bolder">
                                 <c:choose>
-                                    <c:when test="${currentUser.profile.avatar == ''}">
-                                        <img src="https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" alt="" width="30" height="30" class="rounded-circle me-2">
+                                    <c:when test="${currentUser.profile.avatar == null}">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUQHvRu2YQwSej0i9xzdubvVi7i8FGCrEYye688jOh42InYdYk4cByUTJn81a4hm_EAB8&usqp=CAU"
+                                             alt="" width="30" height="30" class="rounded-circle me-2">
                                     </c:when>
                                     <c:otherwise>
-                                        <img src="${currentUser.profile.avatar}" alt="" width="30" height="30" class="rounded-circle me-2">
+                                        <img src="${currentUser.profile.avatar}" alt="" width="30" height="30"
+                                             class="rounded-circle me-2">
                                     </c:otherwise>
                                 </c:choose>
                                 <c:choose>
@@ -91,7 +93,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right p-2 rounded-sm"
                              aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Thông tin hồ sơ</a>
+                            <a class="dropdown-item" href="<c:url value="/information"/> ">Thông tin hồ sơ</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="<c:url value="/logout" />">Đăng xuất</a>
                         </div>

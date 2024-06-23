@@ -45,6 +45,7 @@ public class User implements Serializable {
 
     @OneToOne(mappedBy = "user")
     @JsonIgnore
+    @Valid
     private Profile profile;
 
     @Valid
