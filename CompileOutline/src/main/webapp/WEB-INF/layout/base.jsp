@@ -32,8 +32,8 @@
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<%--  --------  css --------  --%>
+    
+    <%--  --------  css --------  --%>
     
     <link rel="stylesheet" href="<c:url value="/CSS/app.css"/> "/>
     
@@ -42,6 +42,13 @@
     <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/6.0.2/firebase-ui-auth.js"></script>
+    
+    <script src="
+https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.js
+"></script>
+    <link href="
+https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.css
+" rel="stylesheet">
 
 
 </head>
@@ -86,6 +93,7 @@
     const app = initializeApp(firebaseConfig);
     export const db = getStorage(app);
 </script>
+
 <tiles:insertAttribute name="header"/>
 <main class=" d-flex" style="gap:2px; min-height: calc(100vh - 65px);">
     <tiles:insertAttribute name="sidebar"/>

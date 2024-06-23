@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<div id="toast"></div>
 <div class="" style="min-height:calc(100vh - 65px);">
     <div class="d-flex justify-content-between">
         <div class="d-flex align-items-center mb-4">
@@ -21,7 +22,7 @@
             Nộp đề cương
         </button>
     </div>
-
+    
     <div class="header px-2 py-2 mb-4 border-bottom border-gray">
         <p class="text-center fs-5 mb-0">BỘ GIÁO DỤC VÀ ĐÀO TẠO</p>
         <p class="text-center fs-5 mb-0">MINISTRY OF EDUCATION AND TRAINING</p>
@@ -195,34 +196,35 @@
                 <div>
                     <div class="d-flex justify-content-between">
                         <p>5. Điểm đánh giá/Rating:</p>
-                        <button type="button" class="btn btn-primary mb-2"  data-bs-toggle="modal" data-bs-target="#modalRating">
+                        <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal"
+                                data-bs-target="#modalRating">
                             <i class="fas fa-plus me-2"></i>Thêm cột điểm đánh giá
                         </button>
                     </div>
                     <table class="table" id="tableRating">
                         <thead>
-                            <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Bài đánh giá Assessment methods</th>
-                                <th scope="col">Tỷ lệ % Weight %</th> <!-- New column for assessment score -->
-                                <th scope="col"></th> <!-- New column for delete button -->
-                            </tr>
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Bài đánh giá Assessment methods</th>
+                            <th scope="col">Tỷ lệ % Weight %</th> <!-- New column for assessment score -->
+                            <th scope="col"></th> <!-- New column for delete button -->
+                        </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${specification.specificationRatings}" var="rating" varStatus="status">
-                                <tr id="spec-${specification.id}-rate-${rating.rating.id}">
-                                    <td>${status.index + 1}</td>
-                                    <td>${rating.rating.method}</td>
-                                    <td class="percent-cell">${rating.percent}%</td>
-                                    <td>
-                                        <c:url value="/api/specification/${specification.id}/rating/${rating.rating.id}"
-                                               var="urlDeleteRating"/>
-                                        <button onclick="deleteComponent('${urlDeleteRating}', 'spec-${specification.id}-rate-${rating.rating.id}')"
-                                                type="button" class="btn btn-danger"><i
-                                                class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                        <c:forEach items="${specification.specificationRatings}" var="rating" varStatus="status">
+                            <tr id="spec-${specification.id}-rate-${rating.rating.id}">
+                                <td>${status.index + 1}</td>
+                                <td>${rating.rating.method}</td>
+                                <td class="percent-cell">${rating.percent}%</td>
+                                <td>
+                                    <c:url value="/api/specification/${specification.id}/rating/${rating.rating.id}"
+                                           var="urlDeleteRating"/>
+                                    <button onclick="deleteComponent('${urlDeleteRating}', 'spec-${specification.id}-rate-${rating.rating.id}')"
+                                            type="button" class="btn btn-danger"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -234,18 +236,18 @@
 <div class="modal" id="modalRating">
     <div class="modal-dialog">
         <div class="modal-content">
-
+            
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">Thêm đánh giá</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-
+            
             <!-- Modal body -->
             <div class="modal-body">
                 <c:url value="/specification/rating/save" var="action"/>
                 <form:form method="post" modelAttribute="specificationRating" action="${action}">
-                    <form:hidden path="specification" value="${specification.id}" />
+                    <form:hidden path="specification" value="${specification.id}"/>
                     <div class="mb-3">
                         <label for="rating" class="form-label">Chọn bài đánh giá:</label>
                         <form:select path="rating" class="form-select" id="rating">
@@ -257,7 +259,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="percent" class="form-label">Chọn tỉ lệ bài:</label>
-                        <form:input path="percent" type="number" min="0" step="5" max="100" id="percent" class="form-control"/>
+                        <form:input path="percent" type="number" min="0" step="5" max="100" id="percent"
+                                    class="form-control"/>
                     </div>
                     <div class="d-flex  justify-content-end">
                         <button type="submit" class="btn btn-success">Thêm</button>
@@ -267,6 +270,7 @@
         </div>
     </div>
 </div>
+
 <script>
     function deleteComponent(url, elementId) {
         fetch(url, {
@@ -280,45 +284,55 @@
         })
     }
 
-    function validateSpecification(){
+    function toastCustom(heading, message, icon) {
+        $.toast({
+            heading: heading,
+            text: message,
+            showHideTransition: 'fade',
+            icon: icon,
+            position: "top-right",
+
+        })
+    }
+
+    function validateSpecification() {
         let objectives = document.querySelector("#objectivesTable tbody")
-        if(objectives.children.length === 0){
-            console.log("Không có mục tiêu môn học")
+        if (objectives.children.length === 0) {
+            toastCustom("Error", "Không có mục tiêu môn học", "error")
             return false;
         }
         let outcomes = document.querySelector("#outcomesTable tbody")
-        if(outcomes.children.length === 0){
-            console.log("Không có đầu ra môn học")
+        if (outcomes.children.length === 0) {
+            toastCustom("Error", "Không có đầu ra môn học", "error")
             return false;
         }
         let ratingRow = document.querySelector("#tableRating tbody")
-        if (ratingRow.children.length >= 2 && ratingRow.children.length <= 5){
+        if (ratingRow.children.length >= 2 && ratingRow.children.length <= 5) {
             let percentCells = document.querySelectorAll('.percent-cell');
             let total = 0;
             percentCells.forEach(function (cells) {
                 let value = parseFloat(cells.textContent.trim().replace('%', ''));
                 total += value;
             })
-            if(total == 100){
+            if (total == 100) {
+
                 console.log("Đủ 100%")
                 return true;
-            }
-            else{
-                console.log("Tổng tỉ lệ các bài kiểm tra phải là 100%")
+            } else {
+                toastCustom("Error", "Đánh giá môn học buộc phải 100%", "error")
                 return false;
             }
-        }
-        else{
-            console.log("Đề cương phải có tối thiểu 2 cột điểm đánh gía và tối đa 5 cột điểm đánh giá")
+        } else {
+            toastCustom("Warning", "Đề cương phải có tối thiểu 2 cột điểm đánh gía và tối đa 5 cột điểm đánh giá", "warning")
             return false;
         }
 
         return true;
     }
 
-    function submitSpecification(){
-        if(validateSpecification() == true){
-            console.log("đã nộp đề cương")
+    function submitSpecification() {
+        if (validateSpecification() == true) {
+            toastCustom("Success", "Đã nộp đề cương", "success")
         }
     }
 </script>
