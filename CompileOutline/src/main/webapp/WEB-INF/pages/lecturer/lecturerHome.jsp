@@ -109,9 +109,18 @@
                                 <a href="#" class="btn btn-primary d-flex align-items-center">
                                     <i class="fas fa-eye me-1"></i> Xem chi tiết
                                 </a>
-                                <a href="<c:url value="/specification/${s.id}/edit"/>" class="btn btn-success d-flex align-items-center">
-                                    <i class="fas fa-edit me-1"></i> Sửa đề cương
-                                </a>
+                                <c:choose>
+                                    <c:when test="${s.isSubmitted == true}">
+                                        <button type="button" class="btn btn-secondary d-flex align-items-center">
+                                            <i class="fas fa-edit me-1"></i>Sửa đề cương</span>
+                                        </button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="<c:url value="/specification/${s.id}/edit"/>" class="btn btn-success d-flex align-items-center">
+                                            <i class="fas fa-edit me-1"></i> Sửa đề cương
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>

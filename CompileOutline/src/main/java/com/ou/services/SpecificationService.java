@@ -10,4 +10,5 @@ public interface SpecificationService {
     Integer getIdSpecificationLatest();
     Specification getSpecificationById(int specificationId);
     void createOrUpdateSpecification(Specification specification);
+    void submitSpecification(int specificationId);
 }

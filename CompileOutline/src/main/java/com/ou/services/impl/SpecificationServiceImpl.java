@@ -6,6 +6,7 @@ import com.ou.services.SpecificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -40,5 +41,13 @@ public class SpecificationServiceImpl implements SpecificationService {
     @Override
     public void createOrUpdateSpecification(Specification specification) {
         this.specificationRepository.createOrUpdateSpecification(specification);
+    }
+
+    @Override
+    public void submitSpecification(int specificationId) {
+        Specification specification = this.specificationRepository.getSpecificationById(specificationId);
+        specification.setIsSubmitted(true);
+        specification.setCreatedAt(Instant.now());
+        this.createOrUpdateSpecification(specification);
     }
 }

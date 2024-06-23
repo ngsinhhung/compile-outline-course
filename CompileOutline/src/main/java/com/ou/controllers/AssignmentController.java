@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+
 @Controller
 @RequestMapping("/assignment")
 public class AssignmentController {
@@ -22,6 +24,7 @@ public class AssignmentController {
     public String assignmentList(Model model) {
         Specification s = new Specification();
         s.setCredits(0);
+        s.setAssignmentDate(Instant.now());
         model.addAttribute("assignment", s);
         model.addAttribute("assignments", this.specificationService.getAllSpecification());
         return "assignmentList";
