@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.logging.Logger;
 
+
 @Controller
 @ControllerAdvice
 public class HomeController {
@@ -59,15 +60,21 @@ public class HomeController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("user") @Valid User user, BindingResult result) {
+    public String register(@ModelAttribute("user") @Valid User user, BindingResult result,Model model) {
         if (!result.hasErrors()) {
             try {
+
                 this.userService.registerLecturer(user);
                 return "redirect:/login";
             } catch (Exception exception) {
+                model.addAttribute("error", "Có lỗi xảy ra khi xử lý đăng ký. Vui lòng thử lại.");
                 System.err.println(exception.getMessage());
             }
         }
         return "register";
+    }
+    @GetMapping("/information")
+    public String informationPage(){
+        return "information";
     }
 }

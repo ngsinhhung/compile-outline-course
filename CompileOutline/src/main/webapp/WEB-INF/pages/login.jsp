@@ -9,15 +9,23 @@
     </div>
     <div class="mt-4 mx-auto w-100" style="max-width: 400px;">
         <div class="bg-white p-4 shadow rounded">
-            <form id="loginForm" class="space-y-2" method="post" action="${pageContext.request.contextPath}/login" onsubmit="return validateLoginForm()">
+            <form id="loginForm" class="space-y-2" method="post" action="${pageContext.request.contextPath}/login"
+                  onsubmit="return validateLoginForm()">
+                <c:if test="${param.error ne null}">
+                    <div class="alert alert-danger" role="alert">
+                        Lỗi: Tài khoản hoặc mật khẩu sai hoặc tài khoản chưa được mở
+                    </div>
+                </c:if>
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
-                    <input name="username" type="text" id="username" placeholder="Nhập vào tên đăng nhập" class="form-control"/>
+                    <input name="username" type="text" id="username" placeholder="Nhập vào tên đăng nhập"
+                           class="form-control"/>
                     <div id="usernameError" class="text-danger mt-1"></div>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Mật Khẩu</label>
-                    <input name="password" type="password" id="password" placeholder="Nhập vào mật khẩu" class="form-control" />
+                    <input name="password" type="password" id="password" placeholder="Nhập vào mật khẩu"
+                           class="form-control"/>
                     <div id="passwordError" class="text-danger mt-1"></div>
                 </div>
                 <div>
@@ -39,6 +47,8 @@
 </div>
 
 <script>
+
+
     function validateLoginForm() {
         let isValid = true;
         const username = document.getElementById('username').value.trim();

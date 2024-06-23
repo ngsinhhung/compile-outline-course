@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -45,6 +46,14 @@ public class Profile {
     private Boolean gender;
 
     @Transient
+    @Valid
+    @NotNull(message = "Vui lòng upload ảnh")
     private MultipartFile file;
 
+    public void setFile(MultipartFile file) throws Exception {
+        if (file == null || file.isEmpty()) {
+            throw new Exception("Vui lòng upload ảnh");
+        }
+        this.file = file;
+    }
 }

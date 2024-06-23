@@ -102,4 +102,12 @@
         <put-attribute name="title" value="Thêm môm học điều kiện"/>
         <put-attribute name="content" value="/WEB-INF/pages/lecturer/subject_requirement.jsp"/>
     </definition>
+    <definition name="requirement" extends="baseLayout">
+        <put-attribute name="title" value="Thông tin người dùng"/>
+        <put-attribute name="content" value="/WEB-INF/pages/lecturer/subject_requirement.jsp"/>
+    </definition>
+    <definition name="information" extends="baseLayout">
+        <put-attribute name="title" value="Thông tin người dùng"/>
+        <put-attribute name="content" value="/WEB-INF/pages/informationPage.jsp"/>
+    </definition>
 </tiles-definitions>

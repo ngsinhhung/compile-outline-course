@@ -14,18 +14,18 @@
     }
 
     .chat-messages {
-        overflow-y: auto; /* Cho phép cuộn khi nội dung vượt quá chiều cao */
+        overflow-y: auto;
         padding: 10px;
         min-height: calc(100vh - 250px);
     }
 
     .message {
         margin-bottom: 10px;
-      
+
     }
 
     .message-content {
-        max-width: 100%; /* Giới hạn chiều rộng của nội dung tin nhắn */
+        max-width: 100%;
         padding: 8px;
         border-radius: 8px;
     }
@@ -162,12 +162,8 @@
             <div class="col-md-4">
                 <!-- Sidebar/Chat list -->
                 <div class="p-3">
-                    <div class="input-group rounded mb-3">
-                        <input type="search" class="form-control rounded" placeholder="Search"
-                               aria-label="Search" aria-describedby="search-addon"/>
-                        <span class="input-group-text border-0" id="search-addon">
-                            <i class="fas fa-search"></i>
-                        </span>
+                    <div class="input-group border p-2 rounded-md mb-3">
+                        <span>Phòng chat</span>
                     </div>
                     <div class="chat-list">
                         <ul class="list-unstyled mb-0" style="list-style-type: none;">

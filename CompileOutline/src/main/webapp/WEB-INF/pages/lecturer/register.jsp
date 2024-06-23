@@ -18,31 +18,39 @@
     <div class="mt-4 mx-auto w-100" style="max-width: 400px;">
         <div class="bg-white p-4 shadow rounded">
             <c:url value="/register" var="action"/>
-            <form:form class="space-y-2" method="post" action="${action}" modelAttribute="user" enctype="multipart/form-data">
+            <form:form class="space-y-2" method="post" action="${action}" modelAttribute="user"
+                       enctype="multipart/form-data">
                 <div class="mb-3 text-center">
                     <label for="avatar" class="form-label d-block">
                         Avatar
                     </label>
                     <div class="d-flex justify-content-center">
-                        <img id="avatarPreview" src="https://cdn-icons-png.flaticon.com/512/6596/6596121.png" class="rounded-circle" style="height: 80px; width: 80px; object-fit: cover; cursor: pointer;" onclick="document.getElementById('avatar').click();" />
-                        <form:input path="profile.file" id="avatar" name="avatar" type="file" class="form-control d-none" onchange="previewAvatar();" />
+                        <img id="avatarPreview" src="https://cdn-icons-png.flaticon.com/512/6596/6596121.png"
+                             class="rounded-circle"
+                             style="height: 80px; width: 80px; object-fit: cover; cursor: pointer;"
+                             onclick="document.getElementById('avatar').click();" alt=""/>
+                        <form:input path="profile.file" id="avatar" name="avatar" type="file"
+                                    class="form-control d-none" onchange="previewAvatar();"/>
                     </div>
-                    <div id="avatarError" class="text-danger text-center mt-1"></div>
+                    <form:errors path="profile.file" cssClass="text-danger"/>
                 </div>
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
-                    <form:input path="username" type="text" id="username" name="username" placeholder="Nhập vào tên đăng nhập" class="form-control" />
-                    <div id="usernameError" class="text-danger mt-1"></div>
+                    <form:input path="username" type="text" id="username" name="username"
+                                placeholder="Nhập vào tên đăng nhập" class="form-control"/>
+                    <form:errors path="username" cssClass="text-danger"/>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <form:input path="profile.email" type="email" id="email" name="email" placeholder="Nhập vào email" class="form-control" />
-                    <div id="emailError" class="text-danger mt-1"></div>
+                    <form:input path="profile.email" type="email" id="email" name="email" placeholder="Nhập vào email"
+                                class="form-control"/>
+                    <form:errors path="profile.email" cssClass="text-danger"/>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Mật Khẩu</label>
-                    <form:input path="password" type="password" id="password" name="password" placeholder="Nhập vào mật khẩu" class="form-control" />
-                    <div id="passwordError" class="text-danger mt-1"></div>
+                    <form:input path="password" type="password" id="password" name="password"
+                                placeholder="Nhập vào mật khẩu" class="form-control"/>
+                    <form:errors path="password" cssClass="text-danger"/>
                 </div>
                 <div class="mb-3">
                     <label for="faculty" class="form-label">Khoa</label>
@@ -51,6 +59,7 @@
                         <c:forEach items="${faculties}" var="f">
                             <option value="${f.id}">${f.facultyName}</option>
                         </c:forEach>
+                        <form:errors path="lecturer.faculty" cssClass="text-danger"/>
                     </form:select>
                 </div>
                 <div>
@@ -79,7 +88,7 @@
         const file = avatarInput.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 avatarPreview.src = e.target.result;
             };
             reader.readAsDataURL(file);
