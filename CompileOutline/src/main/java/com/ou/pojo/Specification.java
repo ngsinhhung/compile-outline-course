@@ -1,5 +1,6 @@
 package com.ou.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,23 +45,28 @@ public class Specification {
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Lecturer_User_id", nullable = false)
+    @JsonIgnore
     private Lecturer lecturerUser;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Subject_id", nullable = false)
+    @JsonIgnore
     private Subject subject;
 
     @OneToMany(mappedBy = "specification", fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<Objective> objectives = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "specification", fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<Outcome> outcomes = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "specification", fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<SpecificationRating> specificationRatings = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "specification", fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<Feedback> feedbacks = new LinkedHashSet<>();
-
 }

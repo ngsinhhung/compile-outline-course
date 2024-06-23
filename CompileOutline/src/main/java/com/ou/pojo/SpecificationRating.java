@@ -9,6 +9,9 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "specification_rating")
+@NamedQueries({
+        @NamedQuery(name = "SpecificationRating.findBySpecification_IdAndRating_Id", query = "select s from SpecificationRating s where s.specification.id = :specId and s.rating.id = :ratingId")
+})
 public class SpecificationRating {
     @EmbeddedId
     private SpecificationRatingId id;
@@ -19,7 +22,7 @@ public class SpecificationRating {
     private Specification specification;
 
     @MapsId("ratingId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Rating_id", nullable = false)
     private Rating rating;
 

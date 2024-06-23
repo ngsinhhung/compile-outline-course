@@ -10,11 +10,18 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="" style="min-height:calc(100vh - 65px);">
-    <div class="d-flex align-items-center mb-4">
-        <img src="https://png.pngtree.com/png-vector/20221023/ourmid/pngtree-paper-publish-document-media-vector-png-image_34370374.png"
-             style="height: 50px;" alt="icon-specification">
-        <p class="fs-5 fw-bold ms-3 mb-0">Biên soạn đề cương chi tiết</p>
+    <div class="d-flex justify-content-between">
+        <div class="d-flex align-items-center mb-4">
+            <img src="https://png.pngtree.com/png-vector/20221023/ourmid/pngtree-paper-publish-document-media-vector-png-image_34370374.png"
+                 style="height: 50px;" alt="icon-specification">
+            <p class="fs-5 fw-bold ms-3 mb-0">Biên soạn đề cương chi tiết</p>
+        </div>
+        <button onclick="submitSpecification()" class="btn btn-danger my-2">
+            <i class="fa-solid fa-file-arrow-up"></i>
+            Nộp đề cương
+        </button>
     </div>
+
     <div class="header px-2 py-2 mb-4 border-bottom border-gray">
         <p class="text-center fs-5 mb-0">BỘ GIÁO DỤC VÀ ĐÀO TẠO</p>
         <p class="text-center fs-5 mb-0">MINISTRY OF EDUCATION AND TRAINING</p>
@@ -64,16 +71,23 @@
             <div class="course-info mt-4">
                 <h5 class="fw-bold">II. Thông tin về môn học-Course overview</h5>
                 <div>
-                    <p>1.Mô Tả Đề Cương</p>
+                    <div class="d-flex justify-content-between">
+                        <p>1.Mô Tả Đề Cương</p>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Lưu thông tin
+                        </button>
+                    </div>
                     <div class="description mb-2">
                         <form:textarea path="description" class="form-control" rows="5"
                                        placeholder="Nhập mô tả đề cương ở đây..."/>
                     </div>
                 </div>
                 <div>
-                    <p>2. Môn học điều kiện/Requirements:</p>
-                    <a href="<c:url value="/specification/${specification.id}/requirement"/>"
-                       class="btn btn-primary mb-2"><i class="fas fa-plus me-2"></i>Thêm môn học điều kiện</a>
+                    <div class="d-flex justify-content-between">
+                        <p>2. Môn học điều kiện/Requirements:</p>
+                        <a href="<c:url value="/specification/${specification.id}/requirement"/>"
+                           class="btn btn-primary mb-2"><i class="fas fa-plus me-2"></i>Thêm môn học điều kiện</a>
+                    </div>
                     <table class="table" id="courseTable" border="1">
                         <thead>
                         <tr>
@@ -99,8 +113,11 @@
                                             <td>${sR.subjectRequirements.subjectName}</td>
                                             <td>MH${sR.subjectRequirements.id}</td>
                                             <td>
-                                                <c:url value="/api/specification/${specification.subject.id}/${sR.subjectRequirements.id}" var="urlDeleteSubjectRequirement"/>
-                                                <button onclick="deleteComponent('${urlDeleteSubjectRequirement}', 'MH${sR.subjectRequirements.id}')" type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                <c:url value="/api/specification/${specification.subject.id}/${sR.subjectRequirements.id}"
+                                                       var="urlDeleteSubjectRequirement"/>
+                                                <button onclick="deleteComponent('${urlDeleteSubjectRequirement}', 'MH${sR.subjectRequirements.id}')"
+                                                        type="button" class="btn btn-danger"><i
+                                                        class="fas fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     </c:when>
@@ -111,10 +128,12 @@
                     </table>
                 </div>
                 <div>
-                    <p>3. Mục tiêu môn học/Course objectives:</p>
-                    <a href="<c:url value="/specification/${specification.id}/edit/objectives" />"
-                       class="btn btn-primary mb-2"><i class="fas fa-plus me-2"></i>Thêm mục tiêu môn học</a>
-                    <table class="table" id="course-object" border="1">
+                    <div class="d-flex justify-content-between">
+                        <p>3. Mục tiêu môn học/Course objectives:</p>
+                        <a href="<c:url value="/specification/${specification.id}/edit/objectives" />"
+                           class="btn btn-primary mb-2"><i class="fas fa-plus me-2"></i>Thêm mục tiêu môn học</a>
+                    </div>
+                    <table class="table" id="objectivesTable" border="1">
                         <thead>
                         <tr>
                             <th scope="col">Mục tiêu môn học / Course objectives</th>
@@ -128,9 +147,11 @@
                                 <td>${status.index + 1}</td>
                                 <td>${o.description}</td>
                                 <td>
-                                    <a href="<c:url value="/specification/objectives/${o.id}"/> " class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                    <a href="<c:url value="/specification/objectives/${o.id}"/> "
+                                       class="btn btn-primary"><i class="fas fa-edit"></i></a>
                                     <c:url value="/api/specification/objectives/${o.id}" var="urlDeleteObjectives"/>
-                                    <button type="button" class="btn btn-danger" onclick="deleteComponent('${urlDeleteObjectives}', 'objective${o.id}')"><i
+                                    <button type="button" class="btn btn-danger"
+                                            onclick="deleteComponent('${urlDeleteObjectives}', 'objective${o.id}')"><i
                                             class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -139,10 +160,12 @@
                     </table>
                 </div>
                 <div>
-                    <p>4. Chuẩn đầu ra (CĐR) môn học – Course learning outcomes (CLOs)</p>
-                    <a href="<c:url value="/specification/${specification.id}/edit/outcomes" />"
-                       class="btn btn-primary mb-2"><i class="fas fa-plus me-2"></i>Thêm đầu ra môn học</a>
-                    <table class="table table-bordered" id="course-outcome">
+                    <div class="d-flex justify-content-between">
+                        <p>4. Chuẩn đầu ra (CĐR) môn học – Course learning outcomes (CLOs)</p>
+                        <a href="<c:url value="/specification/${specification.id}/edit/outcomes" />"
+                           class="btn btn-primary mb-2"><i class="fas fa-plus me-2"></i>Thêm đầu ra môn học</a>
+                    </div>
+                    <table class="table table-bordered" id="outcomesTable">
                         <thead>
                         <tr>
                             <th scope="col">Mục tiêu môn học/Course objectives
@@ -157,9 +180,11 @@
                                 <td>${status.index + 1}</td>
                                 <td>${o.description}</td>
                                 <td>
-                                    <a href="<c:url value="/specification/outcomes/${o.id}"/> " class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                    <a href="<c:url value="/specification/outcomes/${o.id}"/> " class="btn btn-primary"><i
+                                            class="fas fa-edit"></i></a>
                                     <c:url value="/api/specification/outcomes/${o.id}" var="urlDeleteOutcomes"/>
-                                    <button type="button" class="btn btn-danger" onclick="deleteComponent('${urlDeleteOutcomes}', 'outcomes${o.id}')"><i
+                                    <button type="button" class="btn btn-danger"
+                                            onclick="deleteComponent('${urlDeleteOutcomes}', 'outcomes${o.id}')"><i
                                             class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -168,38 +193,133 @@
                     </table>
                 </div>
                 <div>
-                    <p>5. Điểm đánh giá/Rating:</p>
-                    <button type="button" class="btn btn-primary mb-2"
-                            onclick="openModal('Điểm dánh giá', courseRating, saveCourseObjectRating)">
-                        <i class="fas fa-plus me-2"></i>Thêm mục
-                    </button>
-                    <table class="table" id="otherTable">
+                    <div class="d-flex justify-content-between">
+                        <p>5. Điểm đánh giá/Rating:</p>
+                        <button type="button" class="btn btn-primary mb-2"  data-bs-toggle="modal" data-bs-target="#modalRating">
+                            <i class="fas fa-plus me-2"></i>Thêm cột điểm đánh giá
+                        </button>
+                    </div>
+                    <table class="table" id="tableRating">
                         <thead>
-                        <tr>
-                            <th scope="col">Thành phần đánh giá/Type of assessment</th>
-                            <th scope="col">Bài đánh giá Assessment methods</th>
-                            <th scope="col">Tỷ lệ % Weight %
-                            </th> <!-- New column for assessment score -->
-                            <th scope="col"></th> <!-- New column for delete button -->
-                        </tr>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Bài đánh giá Assessment methods</th>
+                                <th scope="col">Tỷ lệ % Weight %</th> <!-- New column for assessment score -->
+                                <th scope="col"></th> <!-- New column for delete button -->
+                            </tr>
                         </thead>
                         <tbody>
-
+                            <c:forEach items="${specification.specificationRatings}" var="rating" varStatus="status">
+                                <tr id="spec-${specification.id}-rate-${rating.rating.id}">
+                                    <td>${status.index + 1}</td>
+                                    <td>${rating.rating.method}</td>
+                                    <td class="percent-cell">${rating.percent}%</td>
+                                    <td>
+                                        <c:url value="/api/specification/${specification.id}/rating/${rating.rating.id}"
+                                               var="urlDeleteRating"/>
+                                        <button onclick="deleteComponent('${urlDeleteRating}', 'spec-${specification.id}-rate-${rating.rating.id}')"
+                                                type="button" class="btn btn-danger"><i
+                                                class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div>
-
-
-            </div>
-
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save me-2"></i>Lưu thông tin
-                </button>
             </div>
         </form:form>
     </div>
 </div>
+
+<div class="modal" id="modalRating">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm đánh giá</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <c:url value="/specification/rating/save" var="action"/>
+                <form:form method="post" modelAttribute="specificationRating" action="${action}">
+                    <form:hidden path="specification" value="${specification.id}" />
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Chọn bài đánh giá:</label>
+                        <form:select path="rating" class="form-select" id="rating">
+                            <option hidden="hidden" selected>Chọn phương pháp đánh giá</option>
+                            <c:forEach var="r" items="${ratingMethods}">
+                                <option value="${r.id}">${r.method}</option>
+                            </c:forEach>
+                        </form:select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="percent" class="form-label">Chọn tỉ lệ bài:</label>
+                        <form:input path="percent" type="number" min="0" step="5" max="100" id="percent" class="form-control"/>
+                    </div>
+                    <div class="d-flex  justify-content-end">
+                        <button type="submit" class="btn btn-success">Thêm</button>
+                    </div>
+                </form:form>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
+    function deleteComponent(url, elementId) {
+        fetch(url, {
+            method: 'delete'
+        }).then(res => {
+            if (res.status === 204) {
+                let element = document.getElementById(elementId)
+                element.remove()
+                // location.reload();
+            }
+        })
+    }
+
+    function validateSpecification(){
+        let objectives = document.querySelector("#objectivesTable tbody")
+        if(objectives.children.length === 0){
+            console.log("Không có mục tiêu môn học")
+            return false;
+        }
+        let outcomes = document.querySelector("#outcomesTable tbody")
+        if(outcomes.children.length === 0){
+            console.log("Không có đầu ra môn học")
+            return false;
+        }
+        let ratingRow = document.querySelector("#tableRating tbody")
+        if (ratingRow.children.length >= 2 && ratingRow.children.length <= 5){
+            let percentCells = document.querySelectorAll('.percent-cell');
+            let total = 0;
+            percentCells.forEach(function (cells) {
+                let value = parseFloat(cells.textContent.trim().replace('%', ''));
+                total += value;
+            })
+            if(total == 100){
+                console.log("Đủ 100%")
+                return true;
+            }
+            else{
+                console.log("Tổng tỉ lệ các bài kiểm tra phải là 100%")
+                return false;
+            }
+        }
+        else{
+            console.log("Đề cương phải có tối thiểu 2 cột điểm đánh gía và tối đa 5 cột điểm đánh giá")
+            return false;
+        }
+
+        return true;
+    }
+
+    function submitSpecification(){
+        if(validateSpecification() == true){
+            console.log("đã nộp đề cương")
+        }
+    }
 </script>
 <script src="<c:url value="/resources/JS/specification.js" />"></script>

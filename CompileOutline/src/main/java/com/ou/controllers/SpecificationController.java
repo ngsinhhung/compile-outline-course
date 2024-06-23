@@ -16,23 +16,22 @@ import java.util.Map;
 public class SpecificationController {
     @Autowired
     private SpecificationService specificationService;
-
     @Autowired
     private RequirementService requirementService;
-
     @Autowired
     private SubjectService subjectService;
-
     @Autowired
     private SubjectRequirementService subjectRequirementService;
-
     @Autowired
     private ObjectiveService objectiveService;
     @Autowired
     private OutcomeService outcomeService;
-
     @Autowired
     private HomeController homeController;
+    @Autowired
+    private RatingService ratingService;
+    @Autowired
+    private SpecificationRatingService specificationRatingService;
 
     @ModelAttribute
     public void addAttributes(Model model) {
@@ -49,6 +48,8 @@ public class SpecificationController {
     @GetMapping("/{specificationId}/edit")
     public String editSpecification(@PathVariable("specificationId") int specificationId, Model model) {
         model.addAttribute("specification", this.specificationService.getSpecificationById(specificationId));
+        model.addAttribute("ratingMethods", this.ratingService.getRatings());
+        model.addAttribute("specificationRating", new SpecificationRating());
         return "specification";
     }
 
@@ -121,5 +122,12 @@ public class SpecificationController {
     public String editOutcome(@PathVariable("outcomeId") int outcomeId, Model model) {
         model.addAttribute("outcome", this.outcomeService.getOutcomeById(outcomeId));
         return "outcomes";
+    }
+
+    //rating
+    @PostMapping("/rating/save")
+    public String saveRating(@ModelAttribute("specificationRating") SpecificationRating specificationRating){
+        this.specificationRatingService.addSpecificationRating(specificationRating);
+        return String.format("redirect:/specification/%d/edit", specificationRating.getSpecification().getId());
     }
 }

@@ -1,8 +1,10 @@
 package com.ou.controllers;
 
+import com.ou.pojo.Specification;
 import com.ou.pojo.SubjectRequirementId;
 import com.ou.services.ObjectiveService;
 import com.ou.services.OutcomeService;
+import com.ou.services.SpecificationRatingService;
 import com.ou.services.SubjectRequirementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ public class ApiSpecificationController {
     private ObjectiveService objectiveService;
     @Autowired
     private OutcomeService outcomeService;
+    @Autowired
+    private SpecificationRatingService specificationRatingService;
 
     @DeleteMapping(value = "/{subjectId}/{subjectRequirementsId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -54,4 +58,16 @@ public class ApiSpecificationController {
             e.printStackTrace();
         }
     }
+
+    @DeleteMapping(value = "/{specId}/rating/{ratingId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteRating(@PathVariable int specId, @PathVariable int ratingId) {
+        try{
+            this.specificationRatingService.deleteSpecificationRating(specId, ratingId);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }
