@@ -13,7 +13,7 @@
                     <div class="card-header">Ảnh hồ sơ</div>
                     <div class="card-body text-center">
                         <!-- Profile picture image-->
-                        <img id="profileImage" class="img-account-profile rounded-circle mb-2 h-auto" style="width: 300px" src="${profile.avatar}" alt="">
+                        <img id="profileImage" class="img-account-profile rounded-circle mb-2 " width="240px" height="240px"style="object-fit: cover" src="${profile.avatar}" alt="">
                         <!-- Profile picture upload button-->
                         <div class="mb-3">
                             <form:input path="file" id="avatarFileInput" type="file" class="form-control d-none" onchange="displaySelectedImage(event);"/>

@@ -28,7 +28,8 @@
     <c:forEach items="${lecturers}" var="l">
         <tr>
             <td>
-                <img class="img-thumbnail img-fluid h-auto rounded-circle" style="width: 50px" src="${l.user.profile.avatar}"  alt="Profile Picture">
+                <img class="img-thumbnail img-fluid  rounded-circle" style="width: 60px ;height: 60px"
+                     src="${l.user.profile.avatar}" alt="Profile Picture">
             </td>
             <td>${l.user.username}</td>
             <td>${l.user.profile.fullname}</td>
