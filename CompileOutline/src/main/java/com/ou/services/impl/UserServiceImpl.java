@@ -149,6 +149,9 @@ public class UserServiceImpl implements UserService {
         userMap.put("username",user.getUsername());
         userMap.put("email",user.getProfile().getEmail());
         userMap.put("avatar",user.getProfile().getAvatar());
+        userMap.put("fullname",user.getProfile().getFullname());
+        userMap.put("phone",user.getProfile().getPhone());
+
         firebaseService.addUser(userMap);
 
 

@@ -9,13 +9,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div class=" d-flex flex-column justify-content-center py-4" style="margin-left: 0 !important;">
+<div class=" d-flex flex-column justify-content-center">
     <div class="mx-auto w-100" style="max-width: 400px;">
-        <h2 class="mt-4 text-center fw-bold text-dark">
+        <h2 class="text-center fw-bold text-dark">
             Đăng ký giảng viên
         </h2>
     </div>
-    <div class="mt-4 mx-auto w-100" style="max-width: 400px;">
+    <div class="mt-2 mx-auto w-100" style="max-width: 400px;">
         <div class="bg-white p-4 shadow rounded">
             <c:url value="/register" var="action"/>
             <form:form class="space-y-2" method="post" action="${action}" modelAttribute="user"
@@ -35,6 +35,12 @@
                     <form:errors path="profile.file" cssClass="text-danger"/>
                 </div>
                 <div class="mb-3">
+                    <label class="form-label">Họ và Tên</label>
+                    <form:input path="profile.fullname" type="text" id="fullName" name="fullName"
+                                placeholder="Nhập vào họ tên" class="form-control"/>
+                    <form:errors path="profile.fullname" cssClass="text-danger"/>
+                </div>
+                <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <form:input path="username" type="text" id="username" name="username"
                                 placeholder="Nhập vào tên đăng nhập" class="form-control"/>
@@ -45,6 +51,12 @@
                     <form:input path="profile.email" type="email" id="email" name="email" placeholder="Nhập vào email"
                                 class="form-control"/>
                     <form:errors path="profile.email" cssClass="text-danger"/>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Số điện thoại </label>
+                    <form:input path="profile.phone" type="text" id="phone" name="phone"
+                                placeholder="Nhập vào số điện thoại" class="form-control"/>
+                    <form:errors path="profile.phone" cssClass="text-danger"/>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Mật Khẩu</label>

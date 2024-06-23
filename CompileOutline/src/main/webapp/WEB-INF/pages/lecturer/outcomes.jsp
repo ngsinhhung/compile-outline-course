@@ -11,10 +11,10 @@
 <h4 class="title">
     <c:choose>
         <c:when test="${outcome.id > 0}">
-            Chỉnh sửa mục tiêu môn học
+            Chỉnh sửa đầu ra
         </c:when>
         <c:otherwise>
-            Thêm mục tiêu môn học
+            Thêm đầu ra
         </c:otherwise>
     </c:choose>
     ${outcome.specification.subject.subjectName} - Mã môn học: MH${outcome.specification.subject.id}
@@ -22,8 +22,8 @@
 <c:url value="/specification/outcomes" var="action"/>
 <form:form method="post" modelAttribute="outcome" action="${action}">
     <div class="mb-3">
-        <label for="description" class="form-label">Nhập mục tiêu môn học:</label>
-        <form:textarea path="description" class="form-control" rows="5" id="description" placeholder="Mục tiêu môn học..."/>
+        <label for="description" class="form-label">Nhập đẩu ra :</label>
+        <form:textarea path="description" class="form-control" rows="5" id="description" placeholder="Nhập đầu ra ..."/>
     </div>
     <button type="submit" class="btn btn-success float-end">
         <c:choose>
