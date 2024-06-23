@@ -4,6 +4,7 @@
 <c:url value="/assignment/new" var="action"/>
 <form:form id="editAssignmentForm" modelAttribute="assignment" method="post" action="${action}">
     <form:hidden path="id"/>
+    <form:hidden path="credits" />
     <div class="mb-3">
         <label for="subjectSelect" class="form-label">Chọn môn học:</label>
         <c:url value="/api/assignment/getLecturersByFaculty/" var="urlload">

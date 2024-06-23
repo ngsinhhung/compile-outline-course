@@ -2,6 +2,7 @@ package com.ou.repositories.impl;
 
 
 import com.ou.pojo.Specification;
+import com.ou.pojo.Subject;
 import com.ou.repositories.SpecificationRepository;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,13 @@ public class SpecificationRepositoryImpl implements SpecificationRepository {
         Session s = factory.getObject().getCurrentSession();
         Query q = s.createNamedQuery("Specification.findAll");
         return q.getResultList();
+    }
+
+    @Override
+    public List<Subject> getAllSubjectNoAssignment() {
+        Session session = factory.getObject().getCurrentSession();
+        Query query = session.createNamedQuery("Subject.findAllUnassigned");
+        return query.getResultList();
     }
 
     @Override
@@ -62,5 +70,13 @@ public class SpecificationRepositoryImpl implements SpecificationRepository {
         else {
             s.save(specification);
         }
+    }
+
+    @Override
+    public List<Subject> findAllUnassignedSubjectsIncludingCurrent(int currentAssignmentId) {
+        Session session = this.factory.getObject().getCurrentSession();
+        Query query = session.createNamedQuery("Subject.findAllUnassignedIncludingCurrent");
+        query.setParameter("currentSubjectId",currentAssignmentId);
+        return query.getResultList();
     }
 }

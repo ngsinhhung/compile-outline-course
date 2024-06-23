@@ -1,6 +1,7 @@
 package com.ou.services.impl;
 
 import com.ou.pojo.Specification;
+import com.ou.pojo.Subject;
 import com.ou.repositories.SpecificationRepository;
 import com.ou.services.SpecificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,18 @@ public class SpecificationServiceImpl implements SpecificationService {
     }
 
     @Override
+    public List<Subject> getAllSubjectNoAssignment() {
+        return this.specificationRepository.getAllSubjectNoAssignment();
+    }
+
+    @Override
     public List<Specification> getListSpecificationOfLecturerId(int lecturerId) {
         return this.specificationRepository.getListSpecificationOfLecturerId(lecturerId);
     }
 
     @Override
     public Integer getIdSpecificationLatest() {
-        if(!this.specificationRepository.getListSpecificationDesc().isEmpty()){
+        if (!this.specificationRepository.getListSpecificationDesc().isEmpty()) {
             List<Specification> specifications = this.specificationRepository.getListSpecificationDesc();
             return specifications.get(0).getId();
         }
@@ -49,5 +55,10 @@ public class SpecificationServiceImpl implements SpecificationService {
         specification.setIsSubmitted(true);
         specification.setCreatedAt(Instant.now());
         this.createOrUpdateSpecification(specification);
+    }
+
+    @Override
+    public List<Subject> findAllUnassignedSubjectsIncludingCurrent(int currentAssignmentId) {
+        return this.specificationRepository.findAllUnassignedSubjectsIncludingCurrent(currentAssignmentId);
     }
 }
