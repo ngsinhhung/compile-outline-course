@@ -71,4 +71,11 @@ public class Specification {
     @OneToMany(mappedBy = "specification", fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<Feedback> feedbacks = new LinkedHashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "specification_year",
+            joinColumns = @JoinColumn(name = "Specification_id"),
+            inverseJoinColumns = @JoinColumn(name = "Year_id"))
+    private Set<Year> years = new LinkedHashSet<>();
+
 }

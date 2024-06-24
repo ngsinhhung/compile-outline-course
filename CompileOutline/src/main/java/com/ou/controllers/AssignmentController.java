@@ -1,7 +1,11 @@
 package com.ou.controllers;
 
+import com.ou.dto.requets.AssignmentDto;
 import com.ou.pojo.Specification;
 import com.ou.services.SpecificationService;
+import com.ou.services.SpecificationYearService;
+import com.ou.services.SubjectService;
+import com.ou.services.YearService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,28 +17,31 @@ import java.time.Instant;
 @ControllerAdvice
 @RequestMapping("/assignment")
 public class AssignmentController {
-
+    @Autowired
+    private SubjectService subjectService;
     @Autowired
     private SpecificationService specificationService;
+    @Autowired
+    private SpecificationYearService specificationYearService;
 
     @ModelAttribute
     public void getNecessary(Model model){
-        model.addAttribute("subjects", this.specificationService.getAllSubjectNoAssignment());
+        model.addAttribute("subjects", this.subjectService.getSubjects());
     }
 
     @GetMapping("/")
     public String assignmentList(Model model) {
-        Specification s = new Specification();
-        s.setCredits(0);
-        s.setAssignmentDate(Instant.now());
-        model.addAttribute("assignment", s);
+        model.addAttribute("assignmentDto", new AssignmentDto());
         model.addAttribute("assignments", this.specificationService.getAllSpecification());
         return "assignmentList";
     }
 
     @PostMapping("/new")
-    public String newAssignment(@ModelAttribute("assignment") Specification specification) {
-        this.specificationService.createOrUpdateSpecification(specification);
+    public String newAssignment(@ModelAttribute("assignmentDto") AssignmentDto assignmentDto) {
+        Specification spec = assignmentDto.getSpecification();
+        spec.setAssignmentDate(Instant.now());
+        this.specificationService.createOrUpdateSpecification(spec);
+        this.specificationYearService.addSpecificationYear(spec, assignmentDto.getStartYear());
         return "redirect:/assignment/";
     }
 

@@ -8,14 +8,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@ControllerAdvice
 @RequestMapping("/year")
 public class YearController {
     @Autowired
     private YearService yearService;
 
+    @ModelAttribute
+    public void addAttributes(Model model) {
+        model.addAttribute("years", this.yearService.getYears());
+    }
+
     @GetMapping("/")
     public String listYear(Model model) {
-        model.addAttribute("years", yearService.getYears());
         model.addAttribute("year", new Year());
         return "year";
     }

@@ -51,7 +51,8 @@
                     <c:url value="/year/" var="action"/>
                     <form:form method="post" modelAttribute="year" action="${action}">
                         <label for="year">Năm học:</label>
-                        <form:input id="year" type="number" min="0" path="year" class="form-control"/>
+                        <form:hidden path="id"/>
+                        <form:input path="year" id="year" type="number" min="0"  class="form-control"/>
                         <div class="d-flex justify-content-end mt-2">
                             <button type="submit" class="btn btn-success">Thêm</button>
                         </div>

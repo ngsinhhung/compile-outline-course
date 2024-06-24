@@ -74,6 +74,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addFormatter(new SpecificationFormatter());
         registry.addFormatter(new RequirementFormatter());
         registry.addFormatter(new RatingFormatter());
+        registry.addFormatter(new YearFormatter());
     }
 
     @Override
@@ -81,6 +82,4 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/JS/**").addResourceLocations("/resources/JS/");
         registry.addResourceHandler("/CSS/**").addResourceLocations("/resources/CSS/");
     }
-
-
 }
