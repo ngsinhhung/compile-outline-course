@@ -9,28 +9,30 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:url value="/faculty/create" var="action"/>
-<h4 class="title">
-    <c:choose>
-        <c:when test="${faculty.id > 0}">Cập nhật khoa</c:when>
-        <c:otherwise>
-            Thêm mới khoa
-        </c:otherwise>
-    </c:choose>
-</h4>
-<form:form method="post" modelAttribute="faculty" action="${action}">
-    <div class="mb-3">
-        <label for="name" class="form-label">Tên khoa:</label>
-        <form:input id="name" type="text" path="facultyName" class="form-control" />
-        <form:errors path="facultyName" cssClass="text-danger" />
-    </div>
-
-    <form:button  class="btn btn-success float-end">
+<div class="container">
+    <h4 class="title">
         <c:choose>
-            <c:when test="${faculty.id > 0}">Cập nhật</c:when>
+            <c:when test="${faculty.id > 0}">Cập nhật khoa</c:when>
             <c:otherwise>
-                Thêm
+                Thêm mới khoa
             </c:otherwise>
         </c:choose>
-    </form:button>
-    <form:hidden path="id"/>
-</form:form>
+    </h4>
+    <form:form method="post" modelAttribute="faculty" action="${action}">
+        <div class="mb-3">
+            <label for="name" class="form-label">Tên khoa:</label>
+            <form:input id="name" type="text" path="facultyName" class="form-control"/>
+            <form:errors path="facultyName" cssClass="text-danger"/>
+        </div>
+
+        <form:button class="btn btn-success float-end">
+            <c:choose>
+                <c:when test="${faculty.id > 0}">Cập nhật</c:when>
+                <c:otherwise>
+                    Thêm
+                </c:otherwise>
+            </c:choose>
+        </form:button>
+        <form:hidden path="id"/>
+    </form:form>
+</div>

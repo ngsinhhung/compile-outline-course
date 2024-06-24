@@ -8,58 +8,60 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<div class="d-flex justify-content-between mt-4 mb-4">
-    <h1 class="h3">Quản lý tài khoản sinh viên</h1>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createStudentAccount">
-        Tạo tài khoản sinh viên
-    </button>
-</div>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">Ảnh đại điên</th>
-        <th scope="col">Username</th>
-        <th scope="col">Họ và Tên</th>
-        <th scope="col">Khoa</th>
-        <th scope="col">Email</th>
-        <th scope="col">Số điện thoại</th>
-        <th scope="col">Trạng thái</th>
-        <th scope="col"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${students}" var="s">
+<div class="container">
+    <div class="d-flex justify-content-between mt-4 mb-4">
+        <h1 class="h3">Quản lý tài khoản sinh viên</h1>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createStudentAccount">
+            Tạo tài khoản sinh viên
+        </button>
+    </div>
+    <table class="table">
+        <thead>
         <tr>
-            <td>
-                <img class="img-thumbnail img-fluid h-auto rounded-circle" style="width: 50px" src="${s.user.profile.avatar}"  alt="Profile Picture">
-            </td>
-            <td>${s.user.username}</td>
-            <td>${s.user.profile.fullname}</td>
-            <td>${s.faculty.facultyName}</td>
-            <td>${s.user.profile.email}</td>
-            <td>${s.user.profile.phone}</td>
-            <td>
-                <c:choose>
-                    <c:when test="${s.user.isActive == true}">
-                        <span class="badge bg-success text-white p-2">Active</span>
-                    </c:when>
-                    <c:otherwise>
-                        <span class="badge bg-danger text-white p-2">Inactive</span>
-                    </c:otherwise>
-                </c:choose>
-            </td>
-            <td class="action-icons">
-                <a href="<c:url value="/users/${s.user.id}" />">
+            <th scope="col">Ảnh đại điên</th>
+            <th scope="col">Username</th>
+            <th scope="col">Họ và Tên</th>
+            <th scope="col">Khoa</th>
+            <th scope="col">Email</th>
+            <th scope="col">Số điện thoại</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${students}" var="s">
+            <tr>
+                <td>
+                    <img class="img-thumbnail img-fluid h-auto rounded-circle" style="width: 50px"
+                         src="${s.user.profile.avatar}" alt="Profile Picture">
+                </td>
+                <td>${s.user.username}</td>
+                <td>${s.user.profile.fullname}</td>
+                <td>${s.faculty.facultyName}</td>
+                <td>${s.user.profile.email}</td>
+                <td>${s.user.profile.phone}</td>
+                <td>
+                    <c:choose>
+                        <c:when test="${s.user.isActive == true}">
+                            <span class="badge bg-success text-white p-2">Active</span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="badge bg-danger text-white p-2">Inactive</span>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td class="action-icons">
+                    <a href="<c:url value="/users/${s.user.id}" />">
                     <span>
                         <i class='fas fa-edit' style='font-size:24px'></i>
                     </span>
-                </a>
-            </td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
+                    </a>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
 
 <div class="modal" id="createStudentAccount">
     <div class="modal-dialog modal-lg">
@@ -78,13 +80,13 @@
                     <div class="form-floating mb-3 mt-3">
                         <form:input path="user.username" type="text" class="form-control" id="username"/>
                         <label for="username">Username</label>
-                        <form:errors path="user.username" cssClass="text-danger" />
+                        <form:errors path="user.username" cssClass="text-danger"/>
                     </div>
 
                     <div class="form-floating mb-3 mt-3">
                         <form:input path="user.profile.email" type="email" class="form-control" id="email"/>
                         <label for="email">Email</label>
-                        <form:errors path="user.profile.email" cssClass="text-danger" />
+                        <form:errors path="user.profile.email" cssClass="text-danger"/>
                     </div>
                     <div class="form-floating mb-3 mt-3">
                         <form:select path="faculty" class="form-select" id="faculty">
@@ -97,7 +99,7 @@
 
                     <div class="form-floating mt-3 mb-3">
                         <form:input path="user.password" type="password" class="form-control" id="password"/>
-                        <form:errors path="user.password" cssClass="text-danger" />
+                        <form:errors path="user.password" cssClass="text-danger"/>
                         <label for="password">Mật khẩu</label>
                     </div>
                     <div class="d-flex justify-content-end">
