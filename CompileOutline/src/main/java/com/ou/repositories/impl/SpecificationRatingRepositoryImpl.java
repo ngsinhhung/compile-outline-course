@@ -22,18 +22,8 @@ public class SpecificationRatingRepositoryImpl implements SpecificationRatingRep
     }
 
     @Override
-    public SpecificationRating getSpecificationRating(int specId, int ratingId) {
+    public void deleteSpecificationRating(int ratingId) {
         Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createNamedQuery("SpecificationRating.findBySpecification_IdAndRating_Id");
-        q.setParameter("specId", specId);
-        q.setParameter("ratingId", ratingId);
-        return (SpecificationRating) q.getSingleResult();
-    }
-
-    @Override
-    public void deleteSpecificationRating(int specId, int ratingId) {
-        Session s = this.factory.getObject().getCurrentSession();
-        SpecificationRating specRating = this.getSpecificationRating(specId, ratingId);
-        s.delete(specRating);
+        s.delete(s.get(SpecificationRating.class, ratingId));
     }
 }

@@ -265,7 +265,7 @@
                                 <td>${rating.rating.method}</td>
                                 <td class="percent-cell">${rating.percent}%</td>
                                 <td>
-                                    <c:url value="/api/specification/${specification.id}/rating/${rating.rating.id}"
+                                    <c:url value="/api/specification/rating/${rating.id}"
                                            var="urlDeleteRating"/>
                                     <button onclick="deleteComponent('${urlDeleteRating}', 'spec-${specification.id}-rate-${rating.rating.id}')"
                                             type="button" class="btn btn-danger"><i

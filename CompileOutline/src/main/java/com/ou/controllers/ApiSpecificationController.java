@@ -58,11 +58,11 @@ public class ApiSpecificationController {
         }
     }
 
-    @DeleteMapping(value = "/{specId}/rating/{ratingId}")
+    @DeleteMapping(value = "/rating/{ratingId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteRating(@PathVariable int specId, @PathVariable int ratingId) {
+    public void deleteRating(@PathVariable int ratingId) {
         try{
-            this.specificationRatingService.deleteSpecificationRating(specId, ratingId);
+            this.specificationRatingService.deleteSpecificationRating(ratingId);
         }
         catch(Exception e){
             e.printStackTrace();

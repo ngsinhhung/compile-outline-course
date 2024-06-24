@@ -66,7 +66,6 @@ public class Specification {
     private Set<Outcome> outcomes = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "specification", fetch = FetchType.EAGER)
-    @JsonIgnore
     private Set<SpecificationRating> specificationRatings = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "specification", fetch = FetchType.EAGER)

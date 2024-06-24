@@ -4,5 +4,5 @@ import com.ou.pojo.SpecificationRating;
 
 public interface SpecificationRatingService {
     void addSpecificationRating(SpecificationRating specificationRating);
-    void deleteSpecificationRating(int spectId, int ratingId);
+    void deleteSpecificationRating(int ratingId);
 }

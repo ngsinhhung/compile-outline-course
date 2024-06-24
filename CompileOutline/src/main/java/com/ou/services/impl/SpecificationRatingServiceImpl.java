@@ -1,7 +1,6 @@
 package com.ou.services.impl;
 
 import com.ou.pojo.SpecificationRating;
-import com.ou.pojo.SpecificationRatingId;
 import com.ou.repositories.SpecificationRatingRepository;
 import com.ou.services.SpecificationRatingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +12,11 @@ public class SpecificationRatingServiceImpl implements SpecificationRatingServic
     private SpecificationRatingRepository specificationRatingRepository;
     @Override
     public void addSpecificationRating(SpecificationRating specificationRating) {
-        SpecificationRatingId id = new SpecificationRatingId(specificationRating.getSpecification().getId(), specificationRating.getRating().getId());
-        specificationRating.setId(id);
         this.specificationRatingRepository.addSpecificationRating(specificationRating);
     }
 
     @Override
-    public void deleteSpecificationRating(int spectId, int ratingId) {
-        this.specificationRatingRepository.deleteSpecificationRating(spectId, ratingId);
+    public void deleteSpecificationRating(int ratingId) {
+        this.specificationRatingRepository.deleteSpecificationRating(ratingId);
     }
 }
