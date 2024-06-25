@@ -119,7 +119,6 @@ public class SpecificationRepositoryImpl implements SpecificationRepository {
             predicates.add(builder.equal(yearJoin.get("year"), Integer.parseInt(year)));
         }
 
-
         specificationYearCriteriaQuery.select(specificationYearRoot).where(predicates.toArray(Predicate[]::new));
         Query query = s.createQuery(specificationYearCriteriaQuery);
         return query.getResultList();

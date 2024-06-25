@@ -1,10 +1,12 @@
 package com.ou.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.swing.text.View;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.LinkedHashSet;
@@ -29,7 +31,8 @@ public class Specification {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "credits", nullable = false)
+    @Column(name = "credits")
+    @JsonIgnore
     private Integer credits;
 
     @Column(name = "createdAt")
@@ -37,12 +40,15 @@ public class Specification {
 
     @Lob
     @Column(name = "description")
+    @JsonIgnore
     private String description;
 
     @Column(name = "is_submitted")
+    @JsonIgnore
     private Boolean isSubmitted;
 
     @Column(name = "assignment_date")
+    @JsonIgnore
     private Instant assignmentDate;
 
     @NotNull
