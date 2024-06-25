@@ -1,5 +1,6 @@
 package com.ou.services.impl;
 
+import com.ou.dto.response.SpecificationDto;
 import com.ou.pojo.Specification;
 import com.ou.pojo.Subject;
 import com.ou.repositories.SpecificationRepository;
@@ -57,5 +58,24 @@ public class SpecificationServiceImpl implements SpecificationService {
     @Override
     public List<Specification> getSpecifications(Map<String, String> params, Boolean isAdmin) {
         return this.specificationRepository.getSpecifications(params, isAdmin);
+    }
+
+    @Override
+    public SpecificationDto getDetailSpecification(int specificationId) {
+        Specification spec = this.specificationRepository.getSpecificationById(specificationId);
+        SpecificationDto specDto = new SpecificationDto();
+        specDto.setId(spec.getId());
+        specDto.setCredits(spec.getCredits());
+        specDto.setCreatedAt(spec.getCreatedAt());
+        specDto.setDescription(spec.getDescription());
+        specDto.setFullname(spec.getLecturerUser().getUser().getProfile().getFullname());
+        specDto.setEmail(spec.getLecturerUser().getUser().getProfile().getEmail());
+        specDto.setSubject(spec.getSubject());
+        specDto.setSubjectRequirements(spec.getSubject().getSubjectRequirements());
+        specDto.setObjectives(spec.getObjectives());
+        specDto.setOutcomes(spec.getOutcomes());
+        specDto.setSpecificationRatings(spec.getSpecificationRatings());
+        specDto.setYears(spec.getYears());
+        return specDto;
     }
 }

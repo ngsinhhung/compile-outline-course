@@ -1,5 +1,6 @@
 package com.ou.services;
 
+import com.ou.dto.response.SpecificationDto;
 import com.ou.pojo.Specification;
 import com.ou.pojo.Subject;
 
@@ -17,4 +18,5 @@ public interface SpecificationService {
 
     List<Subject>findAllUnassignedSubjectsIncludingCurrent(int currentAssignmentId);
     List<Specification> getSpecifications(Map<String, String> params, Boolean isAdmin);
+    SpecificationDto getDetailSpecification(int specificationId);
 }
