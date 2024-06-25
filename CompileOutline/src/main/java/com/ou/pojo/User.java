@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.persistence.*;
@@ -32,6 +33,8 @@ public class User implements Serializable {
     @NotEmpty(message = "Tên đăng nhập không được để trống")
     @Column(name = "username", nullable = false, length = 45)
     private String username;
+
+
     @NotEmpty(message = "Mật khẩu không được để trống")
     @Column(name = "password", nullable = false, length = 100)
     private String password;

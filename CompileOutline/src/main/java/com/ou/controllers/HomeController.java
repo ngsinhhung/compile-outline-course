@@ -67,7 +67,7 @@ public class HomeController {
                 this.userService.registerLecturer(user);
                 return "redirect:/login";
             } catch (Exception exception) {
-                model.addAttribute("error", "Có lỗi xảy ra khi xử lý đăng ký. Vui lòng thử lại.");
+                model.addAttribute("error", "Vui Long upload anh.");
                 System.err.println(exception.getMessage());
             }
         }

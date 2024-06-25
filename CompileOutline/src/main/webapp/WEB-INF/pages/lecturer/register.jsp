@@ -23,10 +23,10 @@
                              style="height: 80px; width: 80px; object-fit: cover; cursor: pointer;"
                              onclick="document.getElementById('avatar').click();" alt=""/>
                         <form:input path="profile.file" id="avatar" name="avatar" type="file"
-                               class="form-control d-none" onchange="previewAvatar();"/>
+                                    class="form-control d-none" onchange="previewAvatar();"/>
                     </div>
-                    <span id="avatarError" class="text-danger"></span>
-                    <form:errors path="profile.file" cssClass="text-danger"/>
+                    <span id="avatarError" class="text-danger">*Bắt buộc upload ảnh</span>
+                
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Họ và Tên</label>
@@ -72,7 +72,7 @@
                         </c:forEach>
                     </form:select>
                     <span id="facultyError" class="text-danger"></span>
-                    <form:errors path="lecturer.faculty" cssClass="text-danger"/>
+                    <span id="avatarError" class="text-danger">*Bắt buộc chọn khoa</span>
                 </div>
                 <div>
                     <button type="submit" class="btn btn-primary w-100">
@@ -104,78 +104,6 @@
             };
             reader.readAsDataURL(file);
         }
-    }
-
-    function validateForm() {
-        const fullName = document.getElementById('fullName').value.trim();
-        const username = document.getElementById('username').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const password = document.getElementById('password').value.trim();
-        const faculty = document.getElementById('faculty').value;
-
-        let isValid = true;
-
-        // Validate fullName
-        if (fullName === '') {
-            isValid = false;
-            document.getElementById('fullNameError').innerText = 'Vui lòng nhập họ và tên.';
-        } else {
-            document.getElementById('fullNameError').innerText = '';
-        }
-
-        // Validate username
-        if (username === '') {
-            isValid = false;
-            document.getElementById('usernameError').innerText = 'Vui lòng nhập tên đăng nhập.';
-        } else {
-            document.getElementById('usernameError').innerText = '';
-        }
-
-        // Validate email
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (email === '' || !emailRegex.test(email)) {
-            isValid = false;
-            document.getElementById('emailError').innerText = 'Vui lòng nhập email hợp lệ.';
-        } else {
-            document.getElementById('emailError').innerText = '';
-        }
-
-        // Validate phone
-        const phoneRegex = /^[0-9]{10}$/;
-        if (phone === '' || !phoneRegex.test(phone)) {
-            isValid = false;
-            document.getElementById('phoneError').innerText = 'Vui lòng nhập số điện thoại hợp lệ (10 chữ số).';
-        } else {
-            document.getElementById('phoneError').innerText = '';
-        }
-
-        // Validate password
-        if (password === '') {
-            isValid = false;
-            document.getElementById('passwordError').innerText = 'Vui lòng nhập mật khẩu.';
-        } else {
-            document.getElementById('passwordError').innerText = '';
-        }
-
-        // Validate faculty
-        if (faculty === '') {
-            isValid = false;
-            document.getElementById('facultyError').innerText = 'Vui lòng chọn khoa.';
-        } else {
-            document.getElementById('facultyError').innerText = '';
-        }
-
-        // Validate avatar
-        const avatarInput = document.getElementById('avatar');
-        if (avatarInput.files.length === 0) {
-            isValid = false;
-            document.getElementById('avatarError').innerText = 'Vui lòng chọn ảnh đại diện.';
-        } else {
-            document.getElementById('avatarError').innerText = '';
-        }
-
-        return isValid;
     }
 
     function validateFaculty() {

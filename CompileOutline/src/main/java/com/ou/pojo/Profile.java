@@ -26,11 +26,12 @@ public class Profile {
     private User user;
 
     @Column(name = "fullname", length = 45)
+    @NotEmpty(message = "Vui Lòng nhập họ và tên")
     private String fullname;
 
-    @Column(name = "email", nullable = false, length = 45)
     @Email(message = "Địa chỉ Email không hợp lệ")
     @NotEmpty(message = "Vui Lòng nhập email")
+    @Column(name = "email", nullable = false, length = 45)
     private String email;
 
     @Column(name = "avatar", length = 100)
@@ -39,12 +40,14 @@ public class Profile {
     @Column(name = "date_joined")
     private LocalDate dateJoined;
 
+    @NotEmpty(message = "Vui long nhap số điện thoại")
     @Column(name = "phone", length = 15)
     private String phone;
 
     @Column(name = "gender")
     private Boolean gender;
 
+    @NotNull(message = "Vui long chon hinh anh")
     @Transient
     private MultipartFile file;
 

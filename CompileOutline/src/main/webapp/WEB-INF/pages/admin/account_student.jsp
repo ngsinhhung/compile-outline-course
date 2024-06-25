@@ -14,7 +14,9 @@
         Tạo tài khoản sinh viên
     </button>
 </div>
-
+<c:if test="${errorMessage != null}">
+    <div class="alert alert-danger">${errorMessage}</div>
+</c:if>
 <table class="table">
     <thead>
     <tr>
@@ -32,7 +34,8 @@
     <c:forEach items="${students}" var="s">
         <tr>
             <td>
-                <img class="img-thumbnail img-fluid h-auto rounded-circle" style="width: 50px" src="${s.user.profile.avatar}"  alt="Profile Picture">
+                <img class="img-thumbnail img-fluid h-auto rounded-circle" style="width: 50px"
+                     src="${s.user.profile.avatar}" alt="Profile Picture">
             </td>
             <td>${s.user.username}</td>
             <td>${s.user.profile.fullname}</td>
@@ -64,13 +67,13 @@
 <div class="modal" id="createStudentAccount">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-
+            
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">Đăng kí tài khoản sinh viên</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-
+            
             <!-- Modal body -->
             <div class="modal-body">
                 <c:url value="/users/student" var="action"/>
@@ -78,13 +81,13 @@
                     <div class="form-floating mb-3 mt-3">
                         <form:input path="user.username" type="text" class="form-control" id="username"/>
                         <label for="username">Username</label>
-                        <form:errors path="user.username" cssClass="text-danger" />
+                        <form:errors path="user.username" id="formUsername" cssClass="text-danger"/>
                     </div>
-
+                    
                     <div class="form-floating mb-3 mt-3">
                         <form:input path="user.profile.email" type="email" class="form-control" id="email"/>
                         <label for="email">Email</label>
-                        <form:errors path="user.profile.email" cssClass="text-danger" />
+                        <form:errors path="user.profile.email" id="formEmail" cssClass="text-danger"/>
                     </div>
                     <div class="form-floating mb-3 mt-3">
                         <form:select path="faculty" class="form-select" id="faculty">
@@ -93,11 +96,12 @@
                                 <option value="${f.id}">${f.facultyName}</option>
                             </c:forEach>
                         </form:select>
+                        <form:errors path="faculty" id="formFaculty" cssClass="text-danger"/>
                     </div>
-
+                    
                     <div class="form-floating mt-3 mb-3">
                         <form:input path="user.password" type="password" class="form-control" id="password"/>
-                        <form:errors path="user.password" cssClass="text-danger" />
+                        <form:errors path="user.password" id="formPassword" cssClass="text-danger"/>
                         <label for="password">Mật khẩu</label>
                     </div>
                     <div class="d-flex justify-content-end">
@@ -105,12 +109,10 @@
                     </div>
                 </form:form>
             </div>
-
-
+        
+        
         </div>
     </div>
 </div>
-<script>
 
-</script>
 <script src="<c:url value="/resources/JS/manageAccount.js" />"></script>
