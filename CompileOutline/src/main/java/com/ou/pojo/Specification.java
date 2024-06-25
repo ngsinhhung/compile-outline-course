@@ -54,7 +54,6 @@ public class Specification {
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Subject_id", nullable = false)
-    @JsonIgnore
     private Subject subject;
 
     @OneToMany(mappedBy = "specification", fetch = FetchType.EAGER)
@@ -66,6 +65,7 @@ public class Specification {
     private Set<Outcome> outcomes = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "specification", fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<SpecificationRating> specificationRatings = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "specification", fetch = FetchType.EAGER)
@@ -73,6 +73,7 @@ public class Specification {
     private Set<Feedback> feedbacks = new LinkedHashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
     @JoinTable(name = "specification_year",
             joinColumns = @JoinColumn(name = "Specification_id"),
             inverseJoinColumns = @JoinColumn(name = "Year_id"))

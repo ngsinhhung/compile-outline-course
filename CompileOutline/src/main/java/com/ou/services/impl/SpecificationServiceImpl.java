@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SpecificationServiceImpl implements SpecificationService {
@@ -28,15 +29,6 @@ public class SpecificationServiceImpl implements SpecificationService {
     @Override
     public List<Specification> getListSpecificationOfLecturerId(int lecturerId) {
         return this.specificationRepository.getListSpecificationOfLecturerId(lecturerId);
-    }
-
-    @Override
-    public Integer getIdSpecificationLatest() {
-        if (!this.specificationRepository.getListSpecificationDesc().isEmpty()) {
-            List<Specification> specifications = this.specificationRepository.getListSpecificationDesc();
-            return specifications.get(0).getId();
-        }
-        return 1;
     }
 
     @Override
@@ -66,5 +58,10 @@ public class SpecificationServiceImpl implements SpecificationService {
     public Specification findBySubjectAndYear(Subject subject, int year) {
         List<Specification> specifications = specificationRepository.findBySubjectAndYear(subject, year);
         return specifications.isEmpty() ? null :  specifications.get(0);
+    }
+
+    @Override
+    public List<Specification> getSpecifications(Map<String, String> params, Boolean isAdmin) {
+        return this.specificationRepository.getSpecifications(params, isAdmin);
     }
 }

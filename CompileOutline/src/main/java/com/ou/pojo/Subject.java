@@ -1,5 +1,6 @@
 package com.ou.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +22,7 @@ public class Subject {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Integer id;
 
     @Column(name = "subject_name", length = 50)
@@ -30,9 +32,11 @@ public class Subject {
     @NotNull(message = "Khoa không được để trống")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Faculty_id", nullable = false)
+    @JsonIgnore
     private Faculty faculty;
 
     @OneToMany(mappedBy = "subject", fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<SubjectRequirement> subjectRequirements = new LinkedHashSet<>();
 
 }
