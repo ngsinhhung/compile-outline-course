@@ -4,24 +4,24 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "specification_rating")
-@NamedQueries({
-        @NamedQuery(name = "SpecificationRating.findBySpecification_IdAndRating_Id", query = "select s from SpecificationRating s where s.specification.id = :specId and s.rating.id = :ratingId")
-})
 public class SpecificationRating {
-    @EmbeddedId
-    private SpecificationRatingId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
-    @MapsId("specificationId")
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "Specification_id", nullable = false)
     private Specification specification;
 
-    @MapsId("ratingId")
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Rating_id", nullable = false)
     private Rating rating;

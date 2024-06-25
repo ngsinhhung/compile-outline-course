@@ -7,33 +7,41 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addAssignmentModalLabel">Thêm Phân Công Mới</h5>
+                        <h5 class="modal-title" id="addAssignmentModalLabel">Phân công giảng viên biên soạn</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <c:url value="/assignment/new" var="action"/>
-                        <form:form id="addAssignmentForm" modelAttribute="assignment" method="post" action="${action}" onsubmit="return validateForm()">
-                            <form:hidden path="credits"/>
+                        <form:form id="addAssignmentForm" modelAttribute="assignmentDto" method="post" action="${action}" onsubmit="return validateForm()">
                             <div class="mb-3">
                                 <label for="subjectSelect" class="form-label">Chọn môn học:</label>
                                 <c:url value="/api/assignment/getLecturersByFaculty" var="urlload">
                                     <c:param name="facultyId" value="${facultyId}" />
                                 </c:url>
-                                <form:select path="subject" class="form-select" id="subjectSelect" name="subjectId" onchange="loadLecturers('${urlload}')">
+                                <form:select path="specification.subject" class="form-select" id="subjectSelect" name="subjectId" onchange="loadLecturers('${urlload}')">
                                     <option hidden="hidden" selected disabled >Môn học</option>
                                     <c:forEach var="subject" items="${subjects}">
                                         <option value="${subject.id}" data-faculty-id="${subject.faculty.id}">Môn học: ${subject.subjectName} - Khoa: ${subject.faculty.facultyName}</option>
                                     </c:forEach>
                                 </form:select>
                                 <div class="text-danger" id="subjectError"></div>
-                                <form:errors path="subject.id" cssClass="text-danger" />
+                                <form:errors path="specification.subject.id" cssClass="text-danger" />
                             </div>
                             <div class="mb-3">
                                 <label for="lecturerSelect" class="form-label">Chọn giảng viên:</label>
-                                <form:select path="lecturerUser" class="form-select" id="lecturerSelect" name="lecturerId">
+                                <form:select path="specification.lecturerUser" class="form-select" id="lecturerSelect" name="lecturerId">
                                     <option hidden="hidden" selected disabled>Giảng viên</option>
                                     <c:forEach var="lecturer" items="${lecturers}">
                                         <option value="${lecturer.id}">${lecturer.user.profile.fullname}</option>
+                                    </c:forEach>
+                                </form:select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="startYear" class="form-label">Chọn khóa học bắt đầu áp dụng</label>
+                                <form:select path="startYear" class="form-select" id="startYear" name="startYear">
+                                    <option hidden="hidden" selected disabled>Chọn khóa</option>
+                                    <c:forEach var="y" items="${years}" varStatus="status">
+                                        <option value="${y.id}">${y.year}</option>
                                     </c:forEach>
                                 </form:select>
                             </div>
@@ -58,6 +66,7 @@
                     <th scope="col">Tên Môn Học</th>
                     <th scope="col">Khoa</th>
                     <th scope="col">Giáo Viên Phân Công</th>
+                    <th scope="col">Khóa áp dụng</th>
                     <th scope="col">Trạng thái</th>
                     <th scope="col"></th>
                 </tr>
@@ -69,6 +78,14 @@
                         <td>${s.subject.subjectName}</td>
                         <td>${s.subject.faculty.facultyName}</td>
                         <td>${s.lecturerUser.user.profile.fullname}</td>
+                        <td>
+                            <c:forEach items="${s.years}" var="y" varStatus="status">
+                                <c:if test="${!status.first}">
+                                    <span class="text-danger fw-bold mb-0"> - </span>
+                                </c:if>
+                                <span class="text-danger fw-bold mb-0">${y.year}</span>
+                            </c:forEach>
+                        </td>
                         <td>
                             <c:choose>
                                 <c:when test="${s.isSubmitted == true}">
@@ -121,7 +138,7 @@
             })
             .catch(error => console.error('Error loading lecturers:', error));
     }
-
+    //
     function validateForm() {
         const subjectSelect = document.getElementById('subjectSelect');
         const lecturerSelect = document.getElementById('lecturerSelect');

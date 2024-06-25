@@ -36,6 +36,16 @@
         <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
         <put-attribute name="content" value="/WEB-INF/pages/admin/create_or_update_faculty.jsp"/>
     </definition>
+    <definition name="year" extends="baseLayout">
+        <put-attribute name="title" value="Quản trị khoá học"/>
+        <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/pages/admin/year.jsp"/>
+    </definition>
+    <definition name="editYear" extends="baseLayout">
+        <put-attribute name="title" value="Quản trị khoá học"/>
+        <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/pages/admin/edit_year.jsp"/>
+    </definition>
     <definition name="admin_account" extends="baseLayout">
         <put-attribute name="title" value="Quản trị tài khoản"/>
         <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>

@@ -95,8 +95,15 @@
                         class="fw-bold mb-0">MH${specification.subject.id}</span></p>
             </div>
             <div class="department-info mb-2 d-flex align-items-center">
-                <p class="mb-0 me-2">Khoa phụ trách:</p>
-                <p class="fw-bold mb-0">${specification.subject.faculty.facultyName}</p>
+                <p class="mb-0 me-2">Khoa phụ trách: <span
+                        class="fw-bold mb-0">${specification.subject.faculty.facultyName}</span></p>
+                <p class="mb-0 me-2"> - Khóa học áp dụng:</p>
+                <c:forEach items="${specification.years}" var="y" varStatus="status">
+                    <c:if test="${!status.first}">
+                        <span class="text-danger fw-bold mb-0"> - </span>
+                    </c:if>
+                    <span class="text-danger fw-bold mb-0">${y.year}</span>
+                </c:forEach>
             </div>
             <div class="instructor-info mb-2 d-flex align-items-center">
                 <p class="mb-0 me-2">Giáo viên biên soạn:</p>
@@ -116,7 +123,7 @@
                 </div>
             </div>
             <div class="course-info mt-4">
-                <h5 class="fw-bold">II. Thông tin về môn học-Course overview</h5>
+                <h5 class="fw-bold">II. Thông tin về môn học - Course overview</h5>
                 <div>
                     <div class="d-flex justify-content-between">
                         <p>1.Mô Tả Đề Cương</p>
@@ -265,7 +272,7 @@
                                 <td>${rating.rating.method}</td>
                                 <td class="percent-cell">${rating.percent}%</td>
                                 <td>
-                                    <c:url value="/api/specification/${specification.id}/rating/${rating.rating.id}"
+                                    <c:url value="/api/specification/rating/${rating.id}"
                                            var="urlDeleteRating"/>
                                     <button onclick="deleteComponent('${urlDeleteRating}', 'spec-${specification.id}-rate-${rating.rating.id}')"
                                             type="button" class="btn btn-danger"><i

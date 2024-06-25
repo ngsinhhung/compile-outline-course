@@ -134,6 +134,12 @@
                             <span class="">Môn học</span>
                         </a>
                     </li>
+                    <li class="w-100">
+                        <a href="<c:url value="/year/"/>" class="nav-link p-2 mb-3">
+                            <i class="fas fa-university"></i>
+                            <span class="">Khóa học</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item w-100 my-1">

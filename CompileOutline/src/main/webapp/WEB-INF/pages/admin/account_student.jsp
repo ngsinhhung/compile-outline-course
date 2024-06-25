@@ -57,12 +57,13 @@
                     <span>
                         <i class='fas fa-edit' style='font-size:24px'></i>
                     </span>
-                </a>
-            </td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
+                    </a>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
 
 <div class="modal" id="createStudentAccount">
     <div class="modal-dialog modal-lg">

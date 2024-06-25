@@ -1,6 +1,7 @@
 package com.ou.pojo;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
@@ -12,6 +13,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Embeddable
+@NoArgsConstructor
 public class SpecificationYearId implements Serializable {
     private static final long serialVersionUID = -7952768420144059266L;
     @Column(name = "Specification_id", nullable = false)
@@ -19,6 +21,11 @@ public class SpecificationYearId implements Serializable {
 
     @Column(name = "Year_id", nullable = false)
     private Integer yearId;
+
+    public SpecificationYearId(Integer specificationId, Integer yearId) {
+        this.specificationId = specificationId;
+        this.yearId = yearId;
+    }
 
     @Override
     public boolean equals(Object o) {
