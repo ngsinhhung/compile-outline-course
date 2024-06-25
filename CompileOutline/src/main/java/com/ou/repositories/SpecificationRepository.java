@@ -10,10 +10,13 @@ public interface SpecificationRepository {
     List<Subject> getAllSubjectNoAssignment();
     List<Specification> getListSpecificationDesc();
     List<Specification> getListSpecificationOfLecturerId(int lecturerId);
-//    List<Specification> getSpecificationByLecturer(int lecturerId);
     Specification getSpecificationById(int specificationId);
     void createOrUpdateSpecification(Specification specification);
 
     List<Subject>findAllUnassignedSubjectsIncludingCurrent(int currentAssignmentId);
+
+    List<Specification> findBySubjectAndYear (Subject subject , int year);
+
+
 
 }

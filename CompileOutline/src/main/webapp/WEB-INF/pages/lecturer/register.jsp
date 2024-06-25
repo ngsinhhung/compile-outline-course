@@ -71,7 +71,7 @@
                             <option value="${f.id}">${f.facultyName}</option>
                         </c:forEach>
                     </form:select>
-                    <span id="facultyError" class="text-danger"></span>
+                    <form:errors path="lecturer.faculty" cssClass="text-danger" />
                     <span id="avatarError" class="text-danger">*Bắt buộc chọn khoa</span>
                 </div>
                 <div>

@@ -79,4 +79,16 @@ public class SpecificationRepositoryImpl implements SpecificationRepository {
         query.setParameter("currentSubjectId",currentAssignmentId);
         return query.getResultList();
     }
+
+    @Override
+    public List<Specification> findBySubjectAndYear(Subject subject, int year) {
+        Session session = this.factory.getObject().getCurrentSession();
+        Query query = session.createQuery("select s from Specification s join s.years y where s.subject = :subject and y.id = :year");
+        query.setParameter("subject", subject);
+        query.setParameter("year", year);
+        System.out.println(subject);
+        System.out.println(year);
+        System.out.println(query.getResultList());
+        return query.getResultList();
+    }
 }

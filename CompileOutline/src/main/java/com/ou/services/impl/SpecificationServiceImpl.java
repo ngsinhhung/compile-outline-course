@@ -61,4 +61,10 @@ public class SpecificationServiceImpl implements SpecificationService {
     public List<Subject> findAllUnassignedSubjectsIncludingCurrent(int currentAssignmentId) {
         return this.specificationRepository.findAllUnassignedSubjectsIncludingCurrent(currentAssignmentId);
     }
+
+    @Override
+    public Specification findBySubjectAndYear(Subject subject, int year) {
+        List<Specification> specifications = specificationRepository.findBySubjectAndYear(subject, year);
+        return specifications.isEmpty() ? null :  specifications.get(0);
+    }
 }
