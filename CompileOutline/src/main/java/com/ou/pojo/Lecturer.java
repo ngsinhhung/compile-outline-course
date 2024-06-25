@@ -31,6 +31,7 @@ public class Lecturer {
     @NotNull(message = "Khoa không được để trống")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Faculty_id", nullable = false)
+
     private Faculty faculty;
 
 }
