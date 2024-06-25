@@ -18,5 +18,5 @@ public interface SpecificationService {
     List<Subject>findAllUnassignedSubjectsIncludingCurrent(int currentAssignmentId);
 
     Specification findBySubjectAndYear (Subject subject , int year);
-    List<Specification> getSpecifications(Map<String, String> params, Boolean isAdmin);
+    List<Map<String, Object>> getSpecifications(Map<String, String> params, Boolean isAdmin);
 }

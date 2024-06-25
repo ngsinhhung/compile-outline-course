@@ -79,9 +79,10 @@ public class ApiSpecificationController {
     }
 
 
-    @GetMapping(value = "/")
-    public ResponseEntity<List<Specification>> getAllSpecifications(@RequestParam Map<String, String> params){
-        return new ResponseEntity<>(this.specificationService.getSpecifications(params, false), HttpStatus.OK);
+    @GetMapping("/")
+    public ResponseEntity<List<Map<String, Object>>> getAllSpecifications(@RequestParam Map<String, String> params) {
+        List<Map<String, Object>> specifications = this.specificationService.getSpecifications(params, false);
+        return ResponseEntity.ok().body(specifications);
     }
 
     @GetMapping(value = "/{specId}")

@@ -43,13 +43,15 @@
                         <input type="text" id="digit-6" name="digit-6" data-previous="digit-5"/>
                     </div>
                     <div class="mb-2 digit-group d-flex justify-content-center">
-                        <button class="btn-success btn w-50" id="checkOtp">Xác nhận OTP</button>
+                        
+                        <button class="btn-success btn w-50" id="checkOtp">Xác nhận</button>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-primary" onclick="confirmSubmit()">Nộp</button>
+                <c:url value="/api/specification/${specification.id}/submit/" var="url"/>
+                <button onclick="submitBai('${url}')">Nop Bai</button>
             </div>
         </div>
     </div>
@@ -342,6 +344,8 @@
     firebase.initializeApp(firebaseConfig);
     var coderesult = ""
     var dataStudent = null
+    localStorage.setItem("specification", "${specification.id}")
+
     //OTP VERIFY
     $('.digit-group').find('input').each(function () {
         $(this).attr('maxlength', 1);
@@ -427,7 +431,7 @@
                     opt += input.value;
                 });
                 coderesult.confirm(opt).then(function () {
-                    toastCustom("Success", "Nộp bài thành công", "success");
+                    dataStudent = true;
                 }).catch(function (error) {
                     console.error("Error occurred:", error);
                     toastCustom("Error", "OTP nhâp sai nha.", "error");
@@ -498,6 +502,19 @@
     function submitSpecification() {
         if (validateSpecification() === true) {
             $('#submitModal').modal('show');
+        }
+    }
+
+    function submitBai(url) {
+        console.log(url)
+        if (dataStudent) {
+            fetch(url, {
+                method: 'POST',
+            }).then(res => {
+                return;
+            }).then(data => {
+                console.log("Thanh cong")
+            })
         }
     }
 

@@ -61,7 +61,7 @@ public class SpecificationServiceImpl implements SpecificationService {
     }
 
     @Override
-    public List<Specification> getSpecifications(Map<String, String> params, Boolean isAdmin) {
+    public List<Map<String, Object>> getSpecifications(Map<String, String> params, Boolean isAdmin) {
         return this.specificationRepository.getSpecifications(params, isAdmin);
     }
 }

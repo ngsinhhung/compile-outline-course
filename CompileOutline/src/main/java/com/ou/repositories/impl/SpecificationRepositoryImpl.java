@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,7 @@ public class SpecificationRepositoryImpl implements SpecificationRepository {
         q.setParameter("id", lecturerId);
         return q.getResultList();
     }
+
 //    @Override
 //    public List<Specification> getSpecificationByLecturer(int lecturerId) {
 //        Session s = factory.getObject().getCurrentSession();
@@ -87,33 +89,41 @@ public class SpecificationRepositoryImpl implements SpecificationRepository {
         return query.getResultList();
     }
 
-    @Override
-    public List<Specification> getSpecifications(Map<String, String> params, Boolean isAdmin) {
+    public List<Map<String, Object>> getSpecifications(Map<String, String> params, Boolean isAdmin) {
         Session session = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = session.getCriteriaBuilder();
         CriteriaQuery<Object[]> q = b.createQuery(Object[].class);
         List<Predicate> predicates = new ArrayList<>();
 
-        Root rS = q.from(Specification.class);
-        Root rRY = q.from(SpecificationYear.class);
-        q.select(rS).distinct(true);
+        Root<Specification> rS = q.from(Specification.class);
 
         Join<Specification, Subject> specSubjectJoin = rS.join("subject", JoinType.INNER);
-
-        Join<Specification, Year> specYearSpecJoin = rS.join("years", JoinType.INNER);
-
+        Join<Specification, Year> specYearJoin = rS.join("years", JoinType.INNER);
         Join<Specification, Lecturer> specLecture = rS.join("lecturerUser", JoinType.INNER);
+        Join<Lecturer, User> lecturerUserJoin = specLecture.join("user", JoinType.INNER);
+        Join<User, Profile> lecturerProfileJoin = lecturerUserJoin.join("profile", JoinType.INNER);
 
-        if (isAdmin == false) {
+        q.multiselect(
+                rS.get("id"),
+                rS.get("credits"),
+                specSubjectJoin.get("subjectName"),
+                specYearJoin.get("id"),
+                specYearJoin.get("year"),
+                lecturerProfileJoin.get("fullname")
+        ).distinct(true);
+
+        if (!isAdmin) {
             predicates.add(b.equal(rS.get("isSubmitted"), true));
         }
+
         String subjectName = params.get("subjectName");
         if (subjectName != null && !subjectName.isEmpty()) {
             predicates.add(b.like(specSubjectJoin.get("subjectName"), String.format("%%%s%%", subjectName)));
         }
+
         String year = params.get("year");
         if (year != null && !year.isEmpty()) {
-            predicates.add(b.equal(specYearSpecJoin.get("year"), Integer.parseInt(year)));
+            predicates.add(b.equal(specYearJoin.get("year"), Integer.parseInt(year)));
         }
 
         String credits = params.get("credits");
@@ -123,12 +133,45 @@ public class SpecificationRepositoryImpl implements SpecificationRepository {
 
         String lecturerName = params.get("lectureName");
         if (lecturerName != null && !lecturerName.isEmpty()) {
-            predicates.add(b.like(specLecture.get("user").get("profile").get("fullname"), String.format("%%%s%%", lecturerName)));
+            predicates.add(b.like(lecturerProfileJoin.get("fullname"), String.format("%%%s%%", lecturerName)));
         }
 
-        q.where(predicates.toArray(Predicate[]::new));
-        Query query = session.createQuery(q);
-        return query.getResultList();
+        q.where(predicates.toArray(new Predicate[0]));
+
+        List<Object[]> resultList = session.createQuery(q).getResultList();
+
+        List<Map<String, Object>> specifications = new ArrayList<>();
+        Map<Integer, Map<String, Object>> specMap = new HashMap<>();
+
+        for (Object[] result : resultList) {
+            Integer specId = (Integer) result[0];
+
+            if (!specMap.containsKey(specId)) {
+                Map<String, Object> specDetails = new HashMap<>();
+                specDetails.put("id", result[0]);
+                specDetails.put("credits", result[1]);
+                specDetails.put("subject", result[2]);
+                specDetails.put("years", new ArrayList<>());
+                specDetails.put("lecturerName", result[5]);
+
+                specifications.add(specDetails);
+                specMap.put(specId, specDetails);
+            }
+
+            Map<String, Object> specDetails = specMap.get(specId);
+            List<Map<String, Object>> years = (List<Map<String, Object>>) specDetails.get("years");
+
+            Map<String, Object> yearInfo = new HashMap<>();
+            yearInfo.put("id", result[3]);
+            yearInfo.put("year", result[4]);
+
+            years.add(yearInfo);
+        }
+
+        return specifications;
+
+
     }
+
 
 }
