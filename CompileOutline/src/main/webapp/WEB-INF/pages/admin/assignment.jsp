@@ -3,7 +3,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="py-4">
     <div class="container">
-        <div class="modal fade" id="addAssignmentModal" tabindex="-1" aria-labelledby="addAssignmentModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addAssignmentModal" tabindex="-1" aria-labelledby="addAssignmentModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -12,24 +13,28 @@
                     </div>
                     <div class="modal-body">
                         <c:url value="/assignment/new" var="action"/>
-                        <form:form id="addAssignmentForm" modelAttribute="assignmentDto" method="post" action="${action}" onsubmit="return validateForm()">
+                        <form:form id="addAssignmentForm" modelAttribute="assignmentDto" method="post"
+                                   action="${action}" onsubmit="return validateForm()">
                             <div class="mb-3">
                                 <label for="subjectSelect" class="form-label">Chọn môn học:</label>
                                 <c:url value="/api/assignment/getLecturersByFaculty" var="urlload">
-                                    <c:param name="facultyId" value="${facultyId}" />
+                                    <c:param name="facultyId" value="${facultyId}"/>
                                 </c:url>
-                                <form:select path="specification.subject" class="form-select" id="subjectSelect" name="subjectId" onchange="loadLecturers('${urlload}')">
-                                    <option hidden="hidden" selected disabled >Môn học</option>
+                                <form:select path="specification.subject" class="form-select" id="subjectSelect"
+                                             name="subjectId" onchange="loadLecturers('${urlload}')">
+                                    <option hidden="hidden" selected disabled>Môn học</option>
                                     <c:forEach var="subject" items="${subjects}">
-                                        <option value="${subject.id}" data-faculty-id="${subject.faculty.id}">Môn học: ${subject.subjectName} - Khoa: ${subject.faculty.facultyName}</option>
+                                        <option value="${subject.id}" data-faculty-id="${subject.faculty.id}">Môn
+                                            học: ${subject.subjectName} - Khoa: ${subject.faculty.facultyName}</option>
                                     </c:forEach>
                                 </form:select>
                                 <div class="text-danger" id="subjectError"></div>
-                                <form:errors path="specification.subject.id" cssClass="text-danger" />
+                                <form:errors path="specification.subject.id" cssClass="text-danger"/>
                             </div>
                             <div class="mb-3">
                                 <label for="lecturerSelect" class="form-label">Chọn giảng viên:</label>
-                                <form:select path="specification.lecturerUser" class="form-select" id="lecturerSelect" name="lecturerId">
+                                <form:select path="specification.lecturerUser" class="form-select" id="lecturerSelect"
+                                             name="lecturerId">
                                     <option hidden="hidden" selected disabled>Giảng viên</option>
                                     <c:forEach var="lecturer" items="${lecturers}">
                                         <option value="${lecturer.id}">${lecturer.user.profile.fullname}</option>
@@ -51,11 +56,15 @@
                 </div>
             </div>
         </div>
+        <div class="alert alert-danger d-lg-none" id="alter" role="alert">
+            <p id="errorText" class=""></p>
+        </div>
         
         <div class="mt-4">
             <div class="d-flex justify-content-between">
                 <h2 class="h4">Danh Sách Phân Công</h2>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAssignmentModal">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#addAssignmentModal">
                     Thêm Phân Công
                 </button>
             </div>
@@ -100,8 +109,7 @@
                             <a href="<c:url value='/assignment/${s.id}' />" class="btn btn-primary">
                                 <i class="fas fa-edit"></i> Sửa
                             </a>
-                            <c:url value="/api/${assignment.id}/delete/" var="url"/>
-                            <button onclick="deleteAssignment('${url}', ${assignment.id})" class="btn btn-danger">Xoá</button>
+                        
                         </td>
                     </tr>
                 </c:forEach>
@@ -112,6 +120,17 @@
 </div>
 
 <script>
+
+    //get Params
+    const params = new URLSearchParams(document.location.search);
+    let e = params.get("errorMessgae")
+    console.log(e)
+    if (e) {
+        document.getElementById("alter").classList.remove("d-lg-none")
+        document.getElementById("errorText").innerHTML = e
+
+    }
+
     function loadLecturers(urlload) {
         const subjectSelect = document.getElementById('subjectSelect');
         const facultyId = subjectSelect.options[subjectSelect.selectedIndex].getAttribute('data-faculty-id');
@@ -138,6 +157,7 @@
             })
             .catch(error => console.error('Error loading lecturers:', error));
     }
+
     //
     function validateForm() {
         const subjectSelect = document.getElementById('subjectSelect');

@@ -83,15 +83,18 @@ public class UserController {
 
     @PostMapping("/student")
     public String newStudent(@ModelAttribute(value = "student") @Valid Student student , BindingResult result,Model model) {
-        if(!result.hasErrors()){
-            try {
-                this.userService.addNewStudent(student);
-                return "redirect:/users/student";
-            }catch (Exception exception){
-                model.addAttribute("errorMessage","Vui Lòng điền đẩy đủ trường để thêm học sinh");
-                System.err.println(exception.getMessage());
-            }
+        if (result.hasErrors()) {
+            model.addAttribute("errorMessage", "Vui Lòng điền đầy đủ trường để thêm học sinh");
+            return "redirect:/users/student";
         }
-        return "redirect:/users/student";
+        try {
+            this.userService.addNewStudent(student);
+            return "redirect:/users/student";
+        } catch (Exception exception) {
+            System.err.println(exception.getMessage());
+            model.addAttribute("errorMessage", "Đã xảy ra lỗi trong khi thêm học sinh. Vui lòng thử lại.");
+            return "student_account";
+        }
+
     }
 }

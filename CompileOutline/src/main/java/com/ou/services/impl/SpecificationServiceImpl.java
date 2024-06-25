@@ -56,6 +56,12 @@ public class SpecificationServiceImpl implements SpecificationService {
     }
 
     @Override
+    public Specification findBySubjectAndYear(Subject subject, int year) {
+        List<Specification> specifications = specificationRepository.findBySubjectAndYear(subject, year);
+        return specifications.isEmpty() ? null :  specifications.get(0);
+    }
+
+    @Override
     public List<Specification> getSpecifications(Map<String, String> params, Boolean isAdmin) {
         return this.specificationRepository.getSpecifications(params, isAdmin);
     }

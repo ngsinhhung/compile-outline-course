@@ -25,7 +25,7 @@
                         <form:input path="profile.file" id="avatar" name="avatar" type="file"
                                     class="form-control d-none" onchange="previewAvatar();"/>
                     </div>
-                    <span id="avatarError" class="text-danger">*Bắt buộc upload ảnh</span>
+                    <span id="" class="text-danger">*Bắt buộc upload ảnh</span>
                 
                 </div>
                 <div class="mb-3">
@@ -71,13 +71,13 @@
                             <option value="${f.id}">${f.facultyName}</option>
                         </c:forEach>
                     </form:select>
-                    <span id="facultyError" class="text-danger"></span>
+                    <form:errors path="lecturer.faculty" cssClass="text-danger" />
                     <span id="avatarError" class="text-danger">*Bắt buộc chọn khoa</span>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-primary w-100">
+                    <form:button  class="btn btn-primary w-100">
                         Đăng kí
-                    </button>
+                    </form:button>
                 </div>
             </form:form>
             <div class="mt-4 text-center">

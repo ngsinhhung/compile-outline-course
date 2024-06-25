@@ -28,9 +28,10 @@ public class Lecturer {
     @JoinColumn(name = "User_id", nullable = false)
     private User user;
 
-    @NotEmpty(message = "Khoa không được để trống")
+    @NotNull(message = "Khoa không được để trống")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Faculty_id", nullable = false)
+
     private Faculty faculty;
 
 }

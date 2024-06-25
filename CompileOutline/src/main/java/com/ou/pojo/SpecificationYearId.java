@@ -16,11 +16,15 @@ import java.util.Objects;
 @NoArgsConstructor
 public class SpecificationYearId implements Serializable {
     private static final long serialVersionUID = -7952768420144059266L;
+
+
     @Column(name = "Specification_id", nullable = false)
     private Integer specificationId;
 
     @Column(name = "Year_id", nullable = false)
     private Integer yearId;
+
+
 
     public SpecificationYearId(Integer specificationId, Integer yearId) {
         this.specificationId = specificationId;
