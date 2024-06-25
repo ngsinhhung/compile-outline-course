@@ -1,5 +1,6 @@
 package com.ou.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +22,7 @@ public class Outcome {
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Specification_id", nullable = false)
+    @JsonIgnore
     private Specification specification;
 
 }

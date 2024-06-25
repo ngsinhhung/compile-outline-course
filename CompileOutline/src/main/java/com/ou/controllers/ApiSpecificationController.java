@@ -83,4 +83,9 @@ public class ApiSpecificationController {
     public ResponseEntity<List<Specification>> getAllSpecifications(@RequestParam Map<String, String> params){
         return new ResponseEntity<>(this.specificationService.getSpecifications(params, false), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/{specId}")
+    public ResponseEntity<Specification> getSpecification(@PathVariable int specId) {
+        return null;
+    }
 }
