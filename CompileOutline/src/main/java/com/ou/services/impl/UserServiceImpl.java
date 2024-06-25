@@ -8,7 +8,6 @@ import com.ou.dto.requets.UpdateRequireRequest;
 import com.ou.pojo.*;
 import com.ou.repositories.*;
 import com.ou.services.UserService;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

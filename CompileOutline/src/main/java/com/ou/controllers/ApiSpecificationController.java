@@ -9,6 +9,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/specification")
 @CrossOrigin
@@ -73,5 +76,11 @@ public class ApiSpecificationController {
     public ResponseEntity<Specification> submitSpecification(@PathVariable("specId") int specId){
         this.specificationService.submitSpecification(specId);
         return new ResponseEntity<>(this.specificationService.getSpecificationById(specId), HttpStatus.OK);
+    }
+
+
+    @GetMapping(value = "/")
+    public ResponseEntity<List<Specification>> getAllSpecifications(@RequestParam Map<String, String> params){
+        return new ResponseEntity<>(this.specificationService.getSpecifications(params, false), HttpStatus.OK);
     }
 }
