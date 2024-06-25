@@ -5,7 +5,6 @@ import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -42,12 +41,13 @@ public class Profile {
 
     @NotEmpty(message = "Vui long nhap số điện thoại")
     @Column(name = "phone", length = 15)
+    @NotNull(message = "Vui long nhập số điện thoại")
     private String phone;
 
     @Column(name = "gender")
     private Boolean gender;
 
-    @NotNull(message = "Vui long chon hinh anh")
+
     @Transient
     private MultipartFile file;
 

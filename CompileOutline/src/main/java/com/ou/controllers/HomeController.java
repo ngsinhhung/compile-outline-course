@@ -24,12 +24,12 @@ public class HomeController {
 
     @ModelAttribute
     public void currentUser(Model model) {
-        if(this.getCurrentUser() != null){
+        if (this.getCurrentUser() != null) {
             model.addAttribute("currentUser", this.getCurrentUser());
         }
     }
 
-    public User getCurrentUser(){
+    public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             Object principal = authentication.getPrincipal();
@@ -60,21 +60,22 @@ public class HomeController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("user") @Valid User user, BindingResult result,Model model) {
-        if (!result.hasErrors()) {
-            try {
-
-                this.userService.registerLecturer(user);
-                return "redirect:/login";
-            } catch (Exception exception) {
-                model.addAttribute("error", "Vui Long upload anh.");
-                System.err.println(exception.getMessage());
-            }
+    public String register(@ModelAttribute("user") @Valid User user, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "register";
+        }
+        try {
+            this.userService.registerLecturer(user);
+            return "redirect:/login";
+        } catch (Exception exception) {
+            model.addAttribute("error", "Vui Long upload anh.");
+            System.err.println(exception.getMessage());
         }
         return "register";
     }
+
     @GetMapping("/information")
-    public String informationPage(){
+    public String informationPage() {
         return "information";
     }
 }

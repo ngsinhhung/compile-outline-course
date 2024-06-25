@@ -32,6 +32,7 @@ public class User implements Serializable {
 
     @NotEmpty(message = "Tên đăng nhập không được để trống")
     @Column(name = "username", nullable = false, length = 45)
+    @NotNull(message = "Tên đăng nhập không được để trống")
     private String username;
 
 
