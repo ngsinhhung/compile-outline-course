@@ -9,58 +9,171 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f7f8fa;
+        color: #333;
+    }
+
+    .container {
+
+        max-width: 1200px;
+        padding: 20px;
+    }
+
     .card {
         border: none;
         border-radius: 10px;
-        height: 150px;
         background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
     }
 
     .card-body {
         text-align: center;
-        font-size: 20px;
-        height: 150px;
+        padding: 20px;
+        font-size: 18px;
+    }
+
+    .card-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .text-danger {
+        color: #dc3545;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .rounded-sm {
+        border-radius: 5px;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+        padding: 10px 20px;
+        color: #fff;
+        font-size: 16px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+    .form-floating {
+        margin-bottom: 20px;
+    }
+
+    .form-control, .form-select {
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .form-label {
+        font-size: 14px;
+        color: #6c757d;
+    }
+
+    .stats-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .stats-container > div {
+        flex: 1;
+        min-width: 300px;
+        margin: 10px;
+    }
+
+    .form-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 40px;
+    }
+
+    .form-container > div {
+        flex: 1;
+        min-width: 300px;
+        margin: 10px;
+    }
+
+    .chart-container {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+        .stats-container, .form-container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stats-container > div, .form-container > div {
+            min-width: 100%;
+        }
+
+        .chart-container {
+            max-width: 100%;
+        }
     }
 </style>
 <div class="container">
-    <p class="text-danger">Cập nhật đến ${updateTime}</p>
-    <div class=" card shadow-sm rounded-sm">
+    <div class="alert alert-primary" role="alert">
+        <p class=" text-center fw-bold fs-5">Thông báo cập nhật lúc ${updateTime}</p>
+    </div>
+    <div class="card shadow-sm rounded-sm">
         <div class="card-body">
             <h1 class="card-title">
                 Chào mừng trở lại, <sec:authentication property="principal.username"/>
-                👋</h1>
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="card shadow" style="background-color: #f3f4f6;">
-                        <div class="card-body rounded-sm">
-                            <h5 class="card-title font-weight-bold text-dark">Tổng học sinh</h5>
-                            <p class="card-text h3 text-dark">${countStudent}</p>
-                        </div>
+                👋
+            </h1>
+            <div class="stats-container">
+                <div class="card shadow" style="background-color: #f3f4f6;">
+                    <div class="card-body rounded-sm">
+                        <h5 class="card-title font-weight-bold text-dark">Tổng học sinh</h5>
+                        <p class="card-text h3 text-dark">${countStudent}</p>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card shadow bg-success text-white">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold">Tổng các môn học</h5>
-                            <p class="card-text h3">${countSubject}</p>
-                        </div>
+                <div class="card shadow bg-success text-white">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">Tổng các môn học</h5>
+                        <p class="card-text h3">${countSubject}</p>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card shadow bg-warning text-white">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold">Đề cương Đã Nộp</h5>
-                            <p class="card-text h3">${countSpecSubmitted}</p>
-                        </div>
+                <div class="card shadow bg-warning text-white">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">Đề cương Đã Nộp</h5>
+                        <p class="card-text h3">${countSpecSubmitted}</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="row d-flex align-items-center" style="margin-top: 80px">
-    <div class="col">
+<div class="form-container">
+    <div>
+        <div class="chart-container">
+            <canvas id="statsSpecSubmit"></canvas>
+        </div>
         <form>
             <div class="form-floating mb-3 mt-3">
                 <input type="text" value="${param.year}" class="form-control" id="year" placeholder="Năm" name="year">
@@ -77,11 +190,12 @@
                 <button class="btn btn-success">Lọc</button>
             </div>
         </form>
-        <div>
-            <canvas id="statsSpecSubmit"></canvas>
-        </div>
+    
     </div>
-    <div class="col">
+    <div>
+        <div class="chart-container">
+            <canvas id="statsEmotionFeedbackBySpec"></canvas>
+        </div>
         <form>
             <div class="form-floating mb-3 mt-3">
                 <select id="spec" class="form-select" name="specId">
@@ -95,9 +209,7 @@
                 <button class="btn btn-success">Lọc</button>
             </div>
         </form>
-        <div class="w-50 h-auto">
-            <canvas id="statsEmotionFeedbackBySpec"></canvas>
-        </div>
+    
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
