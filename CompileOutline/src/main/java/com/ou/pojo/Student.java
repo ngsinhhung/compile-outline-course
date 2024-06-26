@@ -13,7 +13,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "student")
 @NamedQueries({
         @NamedQuery(name = "Student.findById", query = "select s from Student s where s.id = :id"),
-        @NamedQuery(name = "Student.findAll", query = "select s from Student s")
+        @NamedQuery(name = "Student.findAll", query = "select s from Student s"),
+        @NamedQuery(name = "Student.count", query = "select count(s) from Student s")
 })
 
 public class Student {

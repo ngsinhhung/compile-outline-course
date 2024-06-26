@@ -44,11 +44,12 @@ public class FeedbackServiceImpl implements FeedbackService {
         f.setContent(feedback.getContent());
         f.setClassify(feedback.getClassify());
         f.setSpecId(feedback.getSpecification().getId());
-
+        f.setStarts(feedback.getStarts());
         FeedbackDto.ProfileDto p = f.new ProfileDto(
                 feedback.getStudentUser().getUser().getUsername(),
                 feedback.getStudentUser().getUser().getProfile().getFullname(),
                 feedback.getStudentUser().getUser().getProfile().getAvatar()
+
         );
         f.setProfile(p);
         return f;
@@ -68,8 +69,14 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     @Async
     public FeedbackDto saveFeedback(User u, int specId, Feedback feedback) throws IOException, InterruptedException {
-        ApiSentiment text = ApiClient.sendPostRequest("http://127.0.0.1:5000/api/classification_text",String.format("{\"text\":\"%s\"}",feedback.getContent()));
-        feedback.setClassify(text.getResult());
+        try {
+            ApiSentiment text = ApiClient.sendPostRequest("http://127.0.0.1:5000/api/classification_text", String.format("{\"text\":\"%s\"}", feedback.getContent()));
+            feedback.setClassify(text.getResult());
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            feedback.setClassify("unknow");
+        }
         feedback.setStudentUser(this.studentRepository.getStudentById(u.getId()));
         feedback.setSpecification(this.specificationRepository.getSpecificationById(specId));
         feedback.setCreateAt(Instant.now());

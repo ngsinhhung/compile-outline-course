@@ -85,4 +85,9 @@ public class SpecificationServiceImpl implements SpecificationService {
         specDto.setYears(spec.getYears());
         return specDto;
     }
+
+    @Override
+    public List<Specification> findSpecSubmitted() {
+        return this.specificationRepository.findSpecSubmitted();
+    }
 }

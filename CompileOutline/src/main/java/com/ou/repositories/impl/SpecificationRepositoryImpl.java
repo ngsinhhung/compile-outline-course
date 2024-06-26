@@ -44,7 +44,6 @@ public class SpecificationRepositoryImpl implements SpecificationRepository {
         q.setParameter("id", lecturerId);
         return q.getResultList();
     }
-
 //    @Override
 //    public List<Specification> getSpecificationByLecturer(int lecturerId) {
 //        Session s = factory.getObject().getCurrentSession();
@@ -87,6 +86,13 @@ public class SpecificationRepositoryImpl implements SpecificationRepository {
         System.out.println(year);
         System.out.println(query.getResultList());
         return query.getResultList();
+    }
+
+    @Override
+    public List<Specification> findSpecSubmitted() {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createNamedQuery("Specification.findByIsSubmittedTrue");
+        return q.getResultList();
     }
 
     public List<Map<String, Object>> getSpecifications(Map<String, String> params, Boolean isAdmin) {

@@ -21,4 +21,5 @@ public interface SpecificationService {
     List<Subject>findAllUnassignedSubjectsIncludingCurrent(int currentAssignmentId);
     List<Map<String, Object>> getSpecifications(Map<String, String> params, Boolean isAdmin);
     SpecificationDto getDetailSpecification(int specificationId);
+    List<Specification> findSpecSubmitted();
 }
