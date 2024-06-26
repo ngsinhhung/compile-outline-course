@@ -20,7 +20,7 @@ public interface UserService extends UserDetailsService {
     boolean authUser(String username,String password);
 
     boolean userExistByName(String username);
-
+    User getCurrentUser();
     void updateRequired(UpdateRequireRequest updateRequireRequest) throws Exception;
 
     void updateRequired(User user) throws Exception;

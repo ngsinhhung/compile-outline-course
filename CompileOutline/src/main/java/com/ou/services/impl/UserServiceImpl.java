@@ -188,10 +188,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateRequired(UpdateRequireRequest updateRequireRequest) throws Exception {
+    public User getCurrentUser() {
         var context = SecurityContextHolder.getContext();
         String username = context.getAuthentication().getName();
         User user = userRepository.getUserByUsername(username);
+        return user;
+    }
+
+
+    @Override
+    public void updateRequired(UpdateRequireRequest updateRequireRequest) throws Exception {
+        User user = this.getCurrentUser();
         String avatarUrl = null;
         if (user == null) {
             throw new Exception("Authorize");
