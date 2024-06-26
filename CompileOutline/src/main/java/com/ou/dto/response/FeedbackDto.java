@@ -23,6 +23,7 @@ public class FeedbackDto implements Serializable {
     private String content;
     private ProfileDto profile;
     private Integer specId;
+    private Float starts;
     private String classify;
 
     @Data

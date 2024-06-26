@@ -34,8 +34,7 @@ public class ApiFeedbackController {
         User currentUser = userService.getCurrentUser();
         if (currentUser != null) {
             return new ResponseEntity<>(this.feedbackService.getFeedbacksBySpecId(specId), HttpStatus.OK);
-        }
-        else{
+        } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
@@ -44,14 +43,12 @@ public class ApiFeedbackController {
     public ResponseEntity<Object> addFeedback(@PathVariable("spectId") Integer specId, @RequestBody Feedback feedback) throws IOException, InterruptedException {
         User currentUser = userService.getCurrentUser();
         if (currentUser != null) {
-            if(this.specificationService.getSpecificationById(specId) != null){
-                return new ResponseEntity<>(this.feedbackService.saveFeedback(currentUser, specId, feedback),HttpStatus.CREATED);
-            }
-            else {
+            if (this.specificationService.getSpecificationById(specId) != null) {
+                return new ResponseEntity<>(this.feedbackService.saveFeedback(currentUser, specId, feedback), HttpStatus.CREATED);
+            } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-        }
-        else{
+        } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
@@ -60,17 +57,12 @@ public class ApiFeedbackController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Object> deleteFeedback(@PathVariable("feedbackId") Integer feedbackId) {
         User currentUser = userService.getCurrentUser();
+        System.out.println(currentUser);
         if (currentUser != null) {
-            Feedback f = this.feedbackService.getFeedbackById(feedbackId);
-            if(f.getStudentUser().getUser().equals(currentUser)) {
-                this.feedbackService.deleteFeedback(feedbackId);
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            else {
-                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-            }
-        }
-        else{
+            this.feedbackService.deleteFeedback(feedbackId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }

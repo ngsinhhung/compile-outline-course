@@ -44,11 +44,12 @@ public class FeedbackServiceImpl implements FeedbackService {
         f.setContent(feedback.getContent());
         f.setClassify(feedback.getClassify());
         f.setSpecId(feedback.getSpecification().getId());
-
+        f.setStarts(feedback.getStarts());
         FeedbackDto.ProfileDto p = f.new ProfileDto(
                 feedback.getStudentUser().getUser().getUsername(),
                 feedback.getStudentUser().getUser().getProfile().getFullname(),
                 feedback.getStudentUser().getUser().getProfile().getAvatar()
+
         );
         f.setProfile(p);
         return f;
