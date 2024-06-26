@@ -16,7 +16,9 @@ public interface SpecificationService {
     void createOrUpdateSpecification(Specification specification);
     void submitSpecification(int specificationId);
 
+
+    Specification findBySubjectAndYear(Subject subject, int year);
     List<Subject>findAllUnassignedSubjectsIncludingCurrent(int currentAssignmentId);
-    List<Specification> getSpecifications(Map<String, String> params, Boolean isAdmin);
+    List<Map<String, Object>> getSpecifications(Map<String, String> params, Boolean isAdmin);
     SpecificationDto getDetailSpecification(int specificationId);
 }
