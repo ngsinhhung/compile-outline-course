@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <div class="modal fade" id="submitModal" tabindex="-1" role="dialog"
      aria-labelledby="submitModalLabel"
      aria-hidden="true">
@@ -49,15 +50,27 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Hủy</button>
                 <c:url value="/api/specification/${specification.id}/submit/" var="url"/>
-                <button onclick="submitBai('${url}')">Nop Bai</button>
+                <button class="btn btn-success" onclick="submitBai('${url}')">Nop Bai</button>
             </div>
         </div>
     </div>
 </div>
 
 <div class="" style="min-height:calc(100vh - 65px);">
+    <div class="alert alert-danger d-lg-none" id="alter" role="alert">
+        <p id="errorTextErrRequiment" class=""></p>
+    </div>
+    <div class="alert alert-danger d-lg-none" id="errorObjectives" role="alert">
+        <p id="errorObjective" class=""></p>
+    </div>
+    
+    <div class="alert alert-danger d-lg-none" id="alterRatting" role="alert">
+        <p id="textErrorRatting" class=""></p>
+    </div>
+    
+    
     <div class="d-flex justify-content-between">
         <div class="d-flex align-items-center mb-4">
             <img src="https://png.pngtree.com/png-vector/20221023/ourmid/pngtree-paper-publish-document-media-vector-png-image_34370374.png"
@@ -88,7 +101,7 @@
             <form:hidden path="id"/>
             <form:hidden path="lecturerUser"/>
             <form:hidden path="subject"/>
-            <form:hidden path="years" />
+            <form:hidden path="years"/>
             <h5 class="fw-bold mt-4">I. Thông tin tổng quát - General information</h5>
             <p>1. Thông tin/Information </p>
             <div class="name-subject mb-2 d-flex align-items-center">
@@ -123,7 +136,9 @@
                     <form:input path="credits" type="number" min="1" max="5" step="0.5"
                                 class="form-control form-control-sm" id="credits" style="width: 70px;"
                                 placeholder="1"/>
+                    <form:errors path="credits" cssClass="text-danger"/>
                 </div>
+                <p class="text-danger" id="errorText"></p>
             </div>
             <div class="course-info mt-4">
                 <h5 class="fw-bold">II. Thông tin về môn học - Course overview</h5>
@@ -137,7 +152,9 @@
                     <div class="description mb-2">
                         <form:textarea path="description" class="form-control" rows="5"
                                        placeholder="Nhập mô tả đề cương ở đây..."/>
+                        <form:errors path="description" cssClass="text-danger"/>
                     </div>
+                    <p class="text-danger" id="errorText2"></p>
                 </div>
                 <div>
                     <div class="d-flex justify-content-between">
@@ -295,13 +312,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             
-            <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">Thêm đánh giá</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             
-            <!-- Modal body -->
             <div class="modal-body">
                 <c:url value="/specification/rating/save" var="action"/>
                 <form:form method="post" modelAttribute="specificationRating" action="${action}">
@@ -314,16 +329,18 @@
                                 <option value="${r.id}">${r.method}</option>
                             </c:forEach>
                         </form:select>
+                        <form:errors path="rating" cssClass="text-danger"/>
                     </div>
                     <div class="mb-3">
                         <label for="percent" class="form-label">Chọn tỉ lệ bài:</label>
                         <form:input path="percent" type="number" min="0" step="5" max="100" id="percent"
                                     class="form-control"/>
+                        <form:errors path="percent" cssClass="text-danger"/>
                     </div>
                     <div class="d-flex  justify-content-end">
-                        <button type="submit" class="btn btn-success">Thêm</button>
+                        <form:button type="submit" class="btn btn-success">Thêm</form:button>
                     </div>
-                    
+                
                 </form:form>
             </div>
         </div>
@@ -334,6 +351,50 @@
 </div>
 
 <script>
+
+    const params = new URLSearchParams(document.location.search);
+    let e = params.get("errorMessgae")
+    if (e) {
+        document.getElementById("errorText").innerHTML = e
+        document.getElementById("errorText2").innerHTML = e
+
+    }
+
+
+    const paramsOutCome = new URLSearchParams(document.location.search);
+    let errorMessgaeOutComeText = paramsOutCome.get("errorMessgaeOutCome")
+
+
+    console.log(errorMessgaeOutComeText)
+    if (errorMessgaeOutComeText) {
+        alert(errorMessgaeOutComeText)
+
+    }
+
+    const paramsRequirement = new URLSearchParams(document.location.search);
+    let requirement = paramsRequirement.get("errorRequirement")
+    if (requirement) {
+        document.getElementById("alter").classList.remove("d-lg-none")
+        document.getElementById("errorTextErrRequiment").innerHTML = requirement
+
+    }
+    const params1 = new URLSearchParams(document.location.search);
+    let objective = paramsRequirement.get("errorMessageObject")
+    if (objective) {
+        document.getElementById("errorObjectives").classList.remove("d-lg-none")
+        document.getElementById("errorObjective").innerHTML = objective
+
+    }
+
+    const params2 = new URLSearchParams(document.location.search);
+    let ratting = paramsRequirement.get("errorRatting")
+    if (ratting) {
+        document.getElementById("alterRatting").classList.remove("d-lg-none")
+        document.getElementById("textErrorRatting").innerHTML = ratting
+
+    }
+
+
     const firebaseConfig = {
         apiKey: "AIzaSyBRjcxoBo2ezaS89SwsrFAuEJ-4pd0sU6k",
         authDomain: "chatrealtime-cb6a0.firebaseapp.com",
@@ -516,6 +577,7 @@
                 return;
             }).then(data => {
                 console.log("Thanh cong")
+                toastCustom("Success", "Nộp bài thành công", "success")
             })
         }
     }

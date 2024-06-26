@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -18,6 +19,7 @@ public class Objective {
 
     @Lob
     @Column(name = "description")
+    @NotNull(message = "Nhập mục tiêu môn học")
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

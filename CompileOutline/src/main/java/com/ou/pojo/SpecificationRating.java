@@ -18,18 +18,17 @@ public class SpecificationRating {
     @JsonIgnore
     private Integer id;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "Specification_id", nullable = false)
     @JsonIgnore
     private Specification specification;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Rating_id", nullable = false)
     private Rating rating;
 
     @Column(name = "percent")
+    @NotNull(message = "Vui lòng nhập tỉ trọng")
     private Integer percent;
 
 }

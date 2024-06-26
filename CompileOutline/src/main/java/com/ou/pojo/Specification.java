@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.swing.text.View;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.LinkedHashSet;
@@ -33,6 +35,7 @@ public class Specification {
     private Integer id;
 
     @Column(name = "credits")
+    @NotNull(message = "Vui lòng nhập tín chỉ")
     private Integer credits;
 
     @Column(name = "createdAt")
@@ -40,6 +43,7 @@ public class Specification {
 
     @Lob
     @Column(name = "description")
+    @NotEmpty(message = "Vui lòng mô tả")
     @JsonIgnore
     private String description;
 
@@ -51,31 +55,32 @@ public class Specification {
     @JsonIgnore
     private Instant assignmentDate;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Lecturer_User_id", nullable = false)
     private Lecturer lecturerUser;
 
 
 
-    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Subject_id", nullable = false)
     private Subject subject;
 
 
     @OneToMany(mappedBy = "specification", fetch = FetchType.EAGER)
+    @Valid
     @JsonIgnore
     private Set<Objective> objectives = new LinkedHashSet<>();
 
 
     @OneToMany(mappedBy = "specification", fetch = FetchType.EAGER)
+    @Valid
     @JsonIgnore
     private Set<Outcome> outcomes = new LinkedHashSet<>();
 
 
     @OneToMany(mappedBy = "specification", fetch = FetchType.EAGER)
     @JsonIgnore
+    @Valid
     private Set<SpecificationRating> specificationRatings = new LinkedHashSet<>();
 
 

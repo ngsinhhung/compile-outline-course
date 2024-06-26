@@ -32,8 +32,9 @@
         <label for="description" class="form-label">Nhập mục tiêu môn học:</label>
         <form:textarea path="description" class="form-control" rows="5" id="description"
                        placeholder="Mục tiêu môn học..."/>
+        <form:errors path="description" cssClass="text-danger"/>
     </div>
-    <button type="submit" class="btn btn-success float-end">
+    <form:button class="btn btn-success float-end">
         <c:choose>
             <c:when test="${objectives.id > 0}">
                 Sửa
@@ -42,7 +43,7 @@
                 Thêm
             </c:otherwise>
         </c:choose>
-    </button>
+    </form:button>
     <form:hidden path="id"/>
     <form:hidden path="specification"/>
 </form:form>

@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -25,11 +28,14 @@ public class SubjectRequirement {
     @JsonIgnore
     private Subject subject;
 
+    @Valid
     @MapsId("subjectRequirementsId")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Subject_requirements_id", nullable = false)
     private Subject subjectRequirements;
 
+
+    @Valid
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Requirements_id", nullable = false)
     private Requirement requirements;

@@ -6,6 +6,11 @@
     body {
         background-color: #f8f9fa;
         color: #343a40;
+        font-family: Arial, sans-serif;
+    }
+
+    .container-fluid {
+        padding-top: 4rem;
     }
 
     .card {
@@ -16,19 +21,21 @@
     }
 
     .card-title {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
         color: #007bff;
         font-weight: bold;
+        margin-bottom: 0.5rem;
     }
 
     .card-subtitle {
-        font-size: 0.875rem;
+        font-size: 1rem;
         color: #6c757d;
     }
 
     .btn {
         border-radius: 10px;
         font-weight: bold;
+        text-transform: uppercase;
     }
 
     .btn-primary {
@@ -51,48 +58,54 @@
         border-color: #218838;
     }
 
-    .page-link:hover {
+    .page-link {
         color: #007bff;
         text-decoration: none;
-        background-color: #f8f9fa;
+        background-color: transparent;
+        border: none;
+    }
+
+    .page-link:hover {
+        color: #0056b3;
+        text-decoration: none;
+        background-color: transparent;
         border-color: #dee2e6;
     }
 
-    .page-link:focus {
-        box-shadow: none;
+    .pagination {
+        justify-content: center;
     }
 
 </style>
 
 <div class="container-fluid mt-5 py-4">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <h6 class="text-center fs-5 mb-4">Soạn đề cương chi tiết</h6>
-                <div class="card shadow">
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label for="selectSubject" class="form-label"><i class="fas fa-bookmark text-danger"></i>
-                                Chọn môn học *</label>
-                            <form action="${pageContext.request.contextPath}/specification/edit" method="get">
-                                <select class="form-select" id="selectSubject" name="assigmentId" aria-label="Chọn môn học">
-                                    <c:forEach var="s" items="${specification}">
-                                        <option value="${s.id}">Môn Học: ${s.subject.subjectName} - Khoa: ${s.subject.faculty.facultyName}</option>
-                                    </c:forEach>
-                                </select>
-                                <div class="d-grid mt-3">
-                                    <button type="submit" class="btn btn-success">Biên soạn đề cương</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <%--        <div class="row justify-content-center">--%>
+        <%--            <div class="col-md-8">--%>
+        <%--                <h6 class="text-center fs-5 mb-4">Soạn đề cương chi tiết</h6>--%>
+        <%--                <div class="card shadow">--%>
+        <%--                    <div class="card-body">--%>
+        <%--                        <div class="mb-3">--%>
+        <%--                            <label for="selectSubject" class="form-label"><i class="fas fa-bookmark text-danger"></i>--%>
+        <%--                                Chọn môn học *</label>--%>
+        <%--                            <form action="${pageContext.request.contextPath}/specification/edit" method="get">--%>
+        <%--                                <select class="form-select" id="selectSubject" name="assigmentId" aria-label="Chọn môn học">--%>
+        <%--                                    <c:forEach var="s" items="${specification}">--%>
+        <%--                                        <option value="${s.id}">Môn Học: ${s.subject.subjectName} - Khoa: ${s.subject.faculty.facultyName}</option>--%>
+        <%--                                    </c:forEach>--%>
+        <%--                                </select>--%>
+        <%--                                <div class="d-grid mt-3">--%>
+        <%--                                    <button type="submit" class="btn btn-success">Biên soạn đề cương</button>--%>
+        <%--                                </div>--%>
+        <%--                            </form>--%>
+        <%--                        </div>--%>
+        <%--                    </div>--%>
+        <%--                </div>--%>
+        <%--            </div>--%>
+        <%--        </div>--%>
     </div>
-    
     <div class="container mt-4">
-        <h2 class="mb-4 text-center">Đề Cương của bạn</h2>
+        <h2 class="mb-4 text-center">Đề Cương của bạn được phân công</h2>
         <div class="row">
             <c:forEach items="${specification}" var="s">
                 <div class="col-md-4">
@@ -102,7 +115,7 @@
                             <div class="card-text">
                                 <p class="mb-2"><strong>Mã học:</strong> MH${s.subject.id}</p>
                                 <p class="mb-2"><strong>Khoa:</strong> ${s.subject.faculty.facultyName}</p>
-
+                            
                             </div>
                             <div class="d-flex justify-content-between mt-3">
                                     <%--                            <c:url value="/specification/${s.id}"/>--%>
@@ -116,7 +129,8 @@
                                         </button>
                                     </c:when>
                                     <c:otherwise>
-                                        <a href="<c:url value="/specification/${s.id}/edit"/>" class="btn btn-success d-flex align-items-center">
+                                        <a href="<c:url value="/specification/${s.id}/edit"/>"
+                                           class="btn btn-success d-flex align-items-center">
                                             <i class="fas fa-edit me-1"></i> Sửa đề cương
                                         </a>
                                     </c:otherwise>

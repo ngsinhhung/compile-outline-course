@@ -6,9 +6,11 @@ import com.ou.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
@@ -54,15 +56,23 @@ public class SpecificationController {
     }
 
     @PostMapping("/update")
-    public String updateSpecification(@ModelAttribute("specification") Specification specification) {
-        this.specificationService.createOrUpdateSpecification(specification);
-        return String.format("redirect:/specification/%d/edit", specification.getId());
+    public String updateSpecification(@ModelAttribute("specification") @Valid Specification specification, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("errorMessgae", "Vui lòng nhập đủ tín chỉ và mô tả đề cương");
+            return String.format("redirect:/specification/%d/edit", specification.getId());
+        }
+        try {
+            this.specificationService.createOrUpdateSpecification(specification);
+            return String.format("redirect:/specification/%d/edit", specification.getId());
+        } catch (Exception exception) {
+            System.err.println(exception.getMessage());
+        }
+        return "specification";
     }
 
     //requirement
     @GetMapping("/{specificationId}/requirement")
-    public String requirement(@PathVariable("specificationId") int specificationId, RedirectAttributes redirectAttributes, Model model) {
-        redirectAttributes.addFlashAttribute("specId", specificationId);
+    public String requirement(@PathVariable("specificationId") int specificationId, Model model) {
         Specification spec = this.specificationService.getSpecificationById(specificationId);
         SubjectRequirement subjectRequirement = new SubjectRequirement();
         subjectRequirement.setSubject(spec.getSubject());
@@ -80,7 +90,7 @@ public class SpecificationController {
         return String.format("redirect:/specification/%d/edit", specId);
     }
 
-    //objective
+
     @GetMapping("/{specificationId}/edit/objectives")
     public String editObjectives(@PathVariable("specificationId") int specificationId, Model model) {
         Specification specification = this.specificationService.getSpecificationById(specificationId);
@@ -91,9 +101,20 @@ public class SpecificationController {
     }
 
     @PostMapping("/objectives")
-    public String editObjectives(@ModelAttribute("objectives") Objective objective) {
-        this.objectiveService.addOrUpdateObjective(objective);
-        return String.format("redirect:/specification/%d/edit", objective.getSpecification().getId());
+    public String editObjectives(@ModelAttribute("objectives") @Valid Objective objective, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("errorMessageObject", "Thêm thất bại");
+            return String.format("redirect:/specification/%d/edit", objective.getSpecification().getId());
+        }
+        try {
+            this.objectiveService.addOrUpdateObjective(objective);
+            return String.format("redirect:/specification/%d/edit", objective.getSpecification().getId());
+        } catch (Exception exception) {
+            System.err.println(exception.getMessage());
+
+        }
+        return "objectives";
+
     }
 
     @GetMapping("/objectives/{objectiveId}")
@@ -113,9 +134,18 @@ public class SpecificationController {
     }
 
     @PostMapping("/outcomes")
-    public String editOutcomes(@ModelAttribute("outcomes") Outcome outcome) {
-        this.outcomeService.addOrUpdateOutcome(outcome);
-        return String.format("redirect:/specification/%d/edit", outcome.getSpecification().getId());
+    public String editOutcomes(@ModelAttribute("outcomes") @Valid Outcome outcome, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("errorMessgaeOutCome", "Thêm thất bại đẩu ra thất bại Thử lại");
+            return String.format("redirect:/specification/%d/edit", outcome.getSpecification().getId());
+        }
+        try {
+            this.outcomeService.addOrUpdateOutcome(outcome);
+            return String.format("redirect:/specification/%d/edit", outcome.getSpecification().getId());
+        } catch (Exception exception) {
+            System.err.println(exception.getMessage());
+        }
+        return "outcomes";
     }
 
     @GetMapping("/outcomes/{outcomeId}")
@@ -124,10 +154,20 @@ public class SpecificationController {
         return "outcomes";
     }
 
-    //rating
+    //
     @PostMapping("/rating/save")
-    public String saveRating(@ModelAttribute("specificationRating") SpecificationRating specificationRating){
-        this.specificationRatingService.addSpecificationRating(specificationRating);
-        return String.format("redirect:/specification/%d/edit", specificationRating.getSpecification().getId());
+    public String saveRating(@ModelAttribute("specificationRating") @Valid SpecificationRating specificationRating, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("errorRatting", "Thêm thất bại vui lòng kiểm tra");
+            return String.format("redirect:/specification/%d/edit", specificationRating.getSpecification().getId());
+        }
+        try {
+            this.specificationRatingService.addSpecificationRating(specificationRating);
+            return String.format("redirect:/specification/%d/edit", specificationRating.getSpecification().getId());
+        } catch (Exception e) {
+            System.out.printf(e.getMessage());
+        }
+        return "specification";
+
     }
 }

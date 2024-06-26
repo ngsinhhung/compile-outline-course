@@ -42,7 +42,7 @@ public class AssignmentController {
     @PostMapping("/new")
     public String newAssignment(@ModelAttribute("assignmentDto") @Valid AssignmentDto assignmentDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("errorMessgae", "Đề cương đã được áp dụng cho năm học đó đề cương đó");
+            model.addAttribute("errorMessgae", "Lỗi thêm !!!Kiểm tra các trường hoặc đề cương đã được áp dụng cho năm học đó đề cương đó");
             return "redirect:/assignment/";
         }
         Specification existingSpec = null;
@@ -53,7 +53,6 @@ public class AssignmentController {
             existingSpec = specificationService.findBySubjectAndYear(spec.getSubject(), startYear.getId());
         }
         if (existingSpec != null) {
-            model.addAttribute("errorMessgae", "Năm bạn đang chọn đang được áp dụng cho đề cương đó");
             return "assignmentList";
         }
         spec.setAssignmentDate(Instant.now());

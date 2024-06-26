@@ -24,6 +24,7 @@
     <div class="mb-3">
         <label for="description" class="form-label">Nhập đẩu ra :</label>
         <form:textarea path="description" class="form-control" rows="5" id="description" placeholder="Nhập đầu ra ..."/>
+        <form:errors path="description" cssClass="text-danger"/>
     </div>
     <button type="submit" class="btn btn-success float-end">
         <c:choose>
