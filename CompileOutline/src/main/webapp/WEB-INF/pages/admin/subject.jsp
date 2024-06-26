@@ -28,7 +28,7 @@
                 <td>${s.faculty.facultyName}</td>
                 <td>
                     <a type="button" href="<c:url value="/subject/${s.id}"/>" class="btn btn-info btn-sm">Chỉnh sửa</a>
-                    <button class="btn btn-danger btn-sm">Xóa</button>
+                    
                 </td>
             </tr>
         </c:forEach>

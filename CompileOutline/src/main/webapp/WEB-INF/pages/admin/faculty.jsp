@@ -28,7 +28,6 @@
                 <td>${f.facultyName}</td>
                 <td class="d-flex justify-content-end">
                     <a type="button" href="<c:url value="/faculty/${f.id}"/>" class="btn btn-info btn-sm">Chỉnh sửa</a>
-                    <button class="btn btn-danger btn-sm ms-2">Xóa</button>
                 </td>
             </tr>
         </c:forEach>
