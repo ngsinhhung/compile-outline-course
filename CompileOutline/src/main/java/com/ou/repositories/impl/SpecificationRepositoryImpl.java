@@ -88,6 +88,13 @@ public class SpecificationRepositoryImpl implements SpecificationRepository {
     }
 
     @Override
+    public List<Specification> findSpecSubmitted() {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createNamedQuery("Specification.findByIsSubmittedTrue");
+        return q.getResultList();
+    }
+
+    @Override
     public List<Specification> getSpecifications(Map<String, String> params, Boolean isAdmin) {
         Session session = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = session.getCriteriaBuilder();

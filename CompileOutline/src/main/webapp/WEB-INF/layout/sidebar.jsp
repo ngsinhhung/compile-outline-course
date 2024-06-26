@@ -96,20 +96,22 @@
     <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 ">
         <div class="name-app">
             <h5 class="fw-bold" style="font-size: 16px">
-                <i class="fas fa-book" style="font-size: 16px"></i>
-                Admin Dashboard
+                <a href="<c:url value="/" />" class="nav-link px-0 align-middle">
+                    <i class="fas fa-book" style="font-size: 16px"></i>
+                    <span class="ms-1 ">Admin Dashboard</span>
+                </a>
             </h5>
         </div>
         <div class="sidebar-header  w-100 mb-3">
             <i class="fas fa-times close-icon" style="color: black" onclick="toggleSidebar()"></i>
         </div>
         <ul class="nav nav-pills " id="menu">
-            <li class="nav-item w-100 my-1">
-                <a href="#" class="nav-link align-middle px-0">
-                    <i class="fas fa-th-large"></i>
-                    <span class="ms-1 ">Quản lý đề cương</span>
-                </a>
-            </li>
+<%--            <li class="nav-item w-100 my-1">--%>
+<%--                <a href="#" class="nav-link align-middle px-0">--%>
+<%--                    <i class="fas fa-th-large"></i>--%>
+<%--                    <span class="ms-1 ">Quản lý đề cương</span>--%>
+<%--                </a>--%>
+<%--            </li>--%>
             <li class="nav-item w-100 my-1">
                 <a href="<c:url value="/assignment/" />" class="nav-link px-0 align-middle">
                     <i class="fas fa-tasks"></i>

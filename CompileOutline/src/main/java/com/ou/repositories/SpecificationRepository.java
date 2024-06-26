@@ -17,7 +17,6 @@ public interface SpecificationRepository {
     List<Specification> getSpecifications(Map<String, String> params, Boolean isAdmin);
 
     List<Specification> findBySubjectAndYear (Subject subject , int year);
-
-
+    List<Specification> findSpecSubmitted();
 
 }

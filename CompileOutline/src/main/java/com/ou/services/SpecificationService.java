@@ -21,4 +21,5 @@ public interface SpecificationService {
     Specification findBySubjectAndYear (Subject subject , int year);
     List<Specification> getSpecifications(Map<String, String> params, Boolean isAdmin);
     SpecificationDto getDetailSpecification(int specificationId);
+    List<Specification> findSpecSubmitted();
 }

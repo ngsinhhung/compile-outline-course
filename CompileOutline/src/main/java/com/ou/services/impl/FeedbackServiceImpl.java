@@ -69,8 +69,14 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     @Async
     public FeedbackDto saveFeedback(User u, int specId, Feedback feedback) throws IOException, InterruptedException {
-        ApiSentiment text = ApiClient.sendPostRequest("http://127.0.0.1:5000/api/classification_text",String.format("{\"text\":\"%s\"}",feedback.getContent()));
-        feedback.setClassify(text.getResult());
+        try {
+            ApiSentiment text = ApiClient.sendPostRequest("http://127.0.0.1:5000/api/classification_text", String.format("{\"text\":\"%s\"}", feedback.getContent()));
+            feedback.setClassify(text.getResult());
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            feedback.setClassify("unknow");
+        }
         feedback.setStudentUser(this.studentRepository.getStudentById(u.getId()));
         feedback.setSpecification(this.specificationRepository.getSpecificationById(specId));
         feedback.setCreateAt(Instant.now());
