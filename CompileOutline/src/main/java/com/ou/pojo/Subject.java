@@ -16,7 +16,8 @@ import java.util.Set;
 @Entity
 @Table(name = "subject")
 @NamedQueries({
-        @NamedQuery(name = "Subject.findAll", query = "select s from Subject s")
+        @NamedQuery(name = "Subject.findAll", query = "select s from Subject s"),
+        @NamedQuery(name = "Subject.count", query = "select count(s) from Subject s")
 })
 public class Subject {
     @Id

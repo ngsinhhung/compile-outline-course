@@ -1,6 +1,7 @@
 package com.ou.controllers;
 
 import com.ou.pojo.User;
+import com.ou.services.StatsService;
 import com.ou.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.logging.Logger;
 
 
@@ -21,6 +28,8 @@ import java.util.logging.Logger;
 public class HomeController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private StatsService statsService;
 
     @ModelAttribute
     public void currentUser(Model model) {
@@ -44,7 +53,18 @@ public class HomeController {
     }
 
     @RequestMapping("/")
-    public String index() {
+    public String index(@RequestParam Map<String, String> params, Model model) {
+        Instant now = Instant.now();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(now, ZoneId.systemDefault());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formattedDateTime = localDateTime.format(formatter);
+        model.addAttribute("updateTime", formattedDateTime);
+        model.addAttribute("countStudent", this.statsService.countStudent());
+        model.addAttribute("countSubject", this.statsService.countSubject());
+        model.addAttribute("countSpecSubmitted", this.statsService.countSubmitSpecification());
+        String year = params.getOrDefault("year", String.valueOf(LocalDate.now().getYear()));
+        String period = params.getOrDefault("period", "MONTH");
+        model.addAttribute("statsSpecSubmit", this.statsService.statsSpecSubmit(Integer.parseInt(year), period));
         return "home";
     }
 
