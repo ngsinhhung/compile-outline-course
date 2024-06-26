@@ -1,5 +1,6 @@
 package com.ou.controllers;
 
+import com.ou.dto.response.SpecificationDto;
 import com.ou.pojo.Specification;
 import com.ou.pojo.SubjectRequirementId;
 import com.ou.services.*;
@@ -86,7 +87,7 @@ public class ApiSpecificationController {
     }
 
     @GetMapping(value = "/{specId}")
-    public ResponseEntity<Specification> getSpecification(@PathVariable int specId) {
-        return null;
+    public ResponseEntity<SpecificationDto> getDetailSpecification(@PathVariable int specId) {
+        return new ResponseEntity<>(this.specificationService.getDetailSpecification(specId), HttpStatus.OK);
     }
 }
