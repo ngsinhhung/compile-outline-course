@@ -81,12 +81,14 @@ public class ApiSpecificationController {
 
 
     @GetMapping("/")
+    @CrossOrigin
     public ResponseEntity<List<Map<String, Object>>> getAllSpecifications(@RequestParam Map<String, String> params) {
         List<Map<String, Object>> specifications = this.specificationService.getSpecifications(params, false);
         return ResponseEntity.ok().body(specifications);
     }
 
     @GetMapping(value = "/{specId}")
+    @CrossOrigin
     public ResponseEntity<SpecificationDto> getDetailSpecification(@PathVariable int specId) {
         return new ResponseEntity<>(this.specificationService.getDetailSpecification(specId), HttpStatus.OK);
     }

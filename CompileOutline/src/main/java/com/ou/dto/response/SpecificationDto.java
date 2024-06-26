@@ -25,6 +25,7 @@ public class SpecificationDto implements Serializable {
     private String fullname;
     private String email;
     private Subject subject;
+    private String faculty;
     private Set<SubjectRequirement> subjectRequirements;
     private Set<Objective> objectives;
     private Set<Outcome> outcomes;

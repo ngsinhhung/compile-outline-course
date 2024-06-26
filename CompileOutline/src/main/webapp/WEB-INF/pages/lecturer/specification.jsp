@@ -88,6 +88,7 @@
             <form:hidden path="id"/>
             <form:hidden path="lecturerUser"/>
             <form:hidden path="subject"/>
+            <form:hidden path="years" />
             <h5 class="fw-bold mt-4">I. Thông tin tổng quát - General information</h5>
             <p>1. Thông tin/Information </p>
             <div class="name-subject mb-2 d-flex align-items-center">
@@ -322,6 +323,7 @@
                     <div class="d-flex  justify-content-end">
                         <button type="submit" class="btn btn-success">Thêm</button>
                     </div>
+                    
                 </form:form>
             </div>
         </div>

@@ -62,7 +62,7 @@ public class SpecificationRepositoryImpl implements SpecificationRepository {
     @Override
     public void createOrUpdateSpecification(Specification specification) {
         Session s = factory.getObject().getCurrentSession();
-        if (specification.getId() != null) {
+        if (specification.getId() != null && specification.getId() > 0) {
             s.update(specification);
         } else {
             s.save(specification);

@@ -77,6 +77,7 @@ public class SpecificationServiceImpl implements SpecificationService {
         specDto.setFullname(spec.getLecturerUser().getUser().getProfile().getFullname());
         specDto.setEmail(spec.getLecturerUser().getUser().getProfile().getEmail());
         specDto.setSubject(spec.getSubject());
+        specDto.setFaculty(spec.getSubject().getFaculty().getFacultyName());
         specDto.setSubjectRequirements(spec.getSubject().getSubjectRequirements());
         specDto.setObjectives(spec.getObjectives());
         specDto.setOutcomes(spec.getOutcomes());
