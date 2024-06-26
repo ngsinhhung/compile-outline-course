@@ -1,6 +1,7 @@
 package com.ou.controllers;
 
 import com.ou.pojo.User;
+import com.ou.services.SpecificationService;
 import com.ou.services.StatsService;
 import com.ou.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -30,6 +32,8 @@ public class HomeController {
     private UserService userService;
     @Autowired
     private StatsService statsService;
+    @Autowired
+    private SpecificationService specificationService;
 
     @ModelAttribute
     public void currentUser(Model model) {
@@ -62,10 +66,15 @@ public class HomeController {
         model.addAttribute("countStudent", this.statsService.countStudent());
         model.addAttribute("countSubject", this.statsService.countSubject());
         model.addAttribute("countSpecSubmitted", this.statsService.countSubmitSpecification());
+
         String year = params.getOrDefault("year", String.valueOf(LocalDate.now().getYear()));
         String period = params.getOrDefault("period", "MONTH");
         model.addAttribute("statsSpecSubmit", this.statsService.statsSpecSubmit(Integer.parseInt(year), period));
-        return "home";
+
+        model.addAttribute("specSubmitted", this.specificationService.findSpecSubmitted());
+        String specId = params.getOrDefault("specId", "1");
+        model.addAttribute("statsFeedback", this.statsService.statsFeedback(Integer.parseInt(specId)));
+            return "home";
     }
 
     @RequestMapping("/login")

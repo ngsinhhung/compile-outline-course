@@ -7,4 +7,5 @@ public interface StatsService {
     Long countSubject();
     Long countSubmitSpecification();
     List<Object[]> statsSpecSubmit(int year, String period);
+    List<Object[]> statsFeedback(int specId);
 }

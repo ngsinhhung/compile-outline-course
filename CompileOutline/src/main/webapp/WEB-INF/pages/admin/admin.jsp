@@ -69,7 +69,7 @@
             <div class="form-floating mb-3 mt-3">
                 <select class="form-select" id="period" name="period">
                     <option value="MONTH" selected>Theo tháng</option>
-                    <option value="QUARTER" >Theo quý</option>
+                    <option value="QUARTER">Theo quý</option>
                 </select>
                 <label for="period" class="form-label">Chọn thời gian</label>
             </div>
@@ -82,7 +82,22 @@
         </div>
     </div>
     <div class="col">
-        <canvas id="statsEmotionFeedbackBySpec"></canvas>
+        <form>
+            <div class="form-floating mb-3 mt-3">
+                <select id="spec" class="form-select" name="specId">
+                    <c:forEach items="${specSubmitted}" var="s">
+                        <option value="${s.id}">${s.subject.subjectName}</option>
+                    </c:forEach>
+                </select>
+                <label for="spec" class="form-label">Chọn thời gian</label>
+            </div>
+            <div class="form-floating mb-3 mt-3">
+                <button class="btn btn-success">Lọc</button>
+            </div>
+        </form>
+        <div class="w-50 h-auto">
+            <canvas id="statsEmotionFeedbackBySpec"></canvas>
+        </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -95,7 +110,51 @@
                 datasets: [{
                     label: title,
                     data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                    ],
                     borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    function drawPieChart(ctx, labels, data, title) {
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: title,
+                    data: data,
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)'
+                    ],
+                    hoverOffset: 4
                 }]
             },
             options: {
@@ -111,20 +170,29 @@
     let labels1 = []
     let data1 = []
     <c:forEach items="${statsSpecSubmit}" var="s">
-        labels1.push("${s[0]}")
-        data1.push(${s[1]})
+    labels1.push("${s[0]}")
+    data1.push(${s[1]})
     </c:forEach>
+
     console.log(labels1)
     console.log(data1)
 
+    let labels2 = []
+    let data2 = []
 
+    <c:forEach items="${statsFeedback}" var="s">
+    labels2.push("${s[0]}")
+    data2.push(${s[1]})
+    </c:forEach>
 
-    window.onload = function (){
+    console.log(labels2)
+    console.log(data2)
+
+    window.onload = function () {
         let ctx1 = document.getElementById('statsSpecSubmit');
         drawChart(ctx1, labels1, data1, 'Thống kê số lượng đề cương nộp theo tháng');
 
-        let ctx2 = document.getElementById('myChart2');
-
-
+        let ctx2 = document.getElementById('statsEmotionFeedbackBySpec');
+        drawPieChart(ctx2, labels2, data2, 'Thống kê');
     }
 </script>

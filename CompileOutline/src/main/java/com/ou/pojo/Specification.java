@@ -22,7 +22,8 @@ import java.util.Set;
         @NamedQuery(name = "Specification.findByLecturerUser_Id", query = "select s from Specification s where s.lecturerUser.id = :id"),
         @NamedQuery(name = "Subject.findAllUnassigned", query = "select s from Subject s where s.id NOT IN (select a.subject.id FROM Specification a)"),
         @NamedQuery(name = "Subject.findAllUnassignedIncludingCurrent", query = "SELECT s FROM Subject s WHERE s.id NOT IN (SELECT a.subject.id FROM Specification a) OR s.id = :currentSubjectId"),
-        @NamedQuery(name = "Specification.countByIsSubmittedTrue", query = "select count(s) from Specification s where s.isSubmitted = true")
+        @NamedQuery(name = "Specification.countByIsSubmittedTrue", query = "select count(s) from Specification s where s.isSubmitted = true"),
+        @NamedQuery(name = "Specification.findByIsSubmittedTrue", query = "select s from Specification s where s.isSubmitted = true")
 })
 
 public class Specification {

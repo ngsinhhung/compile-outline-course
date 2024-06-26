@@ -30,4 +30,9 @@ public class StatsServiceImpl implements StatsService {
     public List<Object[]> statsSpecSubmit(int year, String period) {
         return this.statsRepository.statsSpecSubmit(year, period);
     }
+
+    @Override
+    public List<Object[]> statsFeedback(int specId) {
+        return this.statsRepository.statsFeedback(specId);
+    }
 }
